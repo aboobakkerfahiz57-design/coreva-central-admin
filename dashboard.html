@@ -1,501 +1,245 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COREVA | Central Business Dashboard</title>
+<title>COREVA | Central Business Operating System</title>
 <link rel="icon" href="coreva-logo.png">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root{
- --bg:#090a0c;--panel:#111316;--panel2:#17191d;--line:#292b30;
- --gold:#d8b875;--gold2:#f1d99e;--text:#f4f2ed;--muted:#92949b;
- --green:#54c49a;--red:#ed7777;--radius:18px;
-}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 80% 0%,#292014 0,transparent 28%),var(--bg);
- color:var(--text);font-family:Inter,Arial,sans-serif}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.app{display:flex;min-height:100vh}
-.sidebar{width:245px;background:#0c0d0f;border-right:1px solid var(--line);
- padding:25px 16px;position:fixed;inset:0 auto 0 0;z-index:5;overflow:auto}
-.brand{display:flex;align-items:center;gap:12px;padding:5px 10px 30px}
-.brand img{width:125px;max-height:48px;object-fit:contain}
-.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:5px}
-.nav-label{font-size:10px;letter-spacing:2px;color:#686b72;padding:15px 12px 8px}
-.nav button{width:100%;border:0;background:transparent;color:#aeb0b5;text-align:left;
- padding:12px;border-radius:11px;margin:3px 0;display:flex;gap:13px;align-items:center}
-.nav button:hover,.nav button.active{background:linear-gradient(90deg,#332918,#1c1a16);
- color:var(--gold2);border:1px solid #51432b}
-.nav .ico{width:20px;text-align:center;font-size:16px}
-.sidebar-foot{border-top:1px solid var(--line);margin-top:30px;padding:18px 10px;color:var(--muted);font-size:11px;line-height:1.7}
-.main{margin-left:245px;width:calc(100% - 245px);padding:26px 34px 60px}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--line);padding-bottom:20px}
-.topbar h2{font-size:20px;font-weight:500;margin:0}
-.top-actions{display:flex;align-items:center;gap:10px}
-.pill{border:1px solid var(--line);border-radius:30px;padding:9px 14px;background:#151619;color:#ddd}
-.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#f2d99f,#8e6931);
- color:#17130c;display:grid;place-items:center;font-weight:bold}
-.welcome{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:30px 0 24px}
-.welcome h1{font-size:clamp(24px,3vw,36px);margin:0 0 9px;font-weight:500}
-.welcome h1 span{color:var(--gold2)}
-.muted{color:var(--muted);font-size:13px}
-.gold{color:var(--gold2)}
-.grid{display:grid;gap:16px}
-.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
-.card{background:linear-gradient(145deg,#17191c,#101113);border:1px solid var(--line);
- border-radius:var(--radius);padding:20px;box-shadow:0 12px 35px #0005}
-.stat-title{color:var(--muted);font-size:11px;letter-spacing:1.3px;text-transform:uppercase}
-.stat-value{font-size:30px;margin:14px 0 7px;font-weight:600}
-.stat-foot{font-size:11px;color:var(--muted)}
-.section{display:none}.section.active{display:block}
-.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 17px}
-.section-head h2{font-size:20px;font-weight:500;margin:0}
-.btn{border:1px solid #6d5835;background:linear-gradient(135deg,#dfc184,#9e7b40);
- color:#17130b;border-radius:10px;padding:11px 16px;font-weight:700}
-.btn.secondary{background:#1b1d20;color:#e6e2d9;border:1px solid var(--line)}
-.btn.danger{background:#381c1d;color:#ffb5b5;border-color:#613233}
-.btn.small{padding:7px 10px;font-size:12px}
-.charts{grid-template-columns:1.5fr 1fr;margin-top:16px}
-.chart-wrap{height:260px}
-.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
-table{width:100%;border-collapse:collapse;min-width:650px}
-th,td{padding:14px 15px;text-align:left;border-bottom:1px solid var(--line);font-size:12px}
-th{color:var(--muted);font-weight:500;background:#141619}
-td{color:#e4e1db}
-tr:last-child td{border-bottom:0}
-.tag{display:inline-block;padding:5px 9px;border-radius:30px;font-size:10px;background:#24211a;color:var(--gold2)}
-.tag.green{background:#14271f;color:#7bd6b0}
-.tag.red{background:#301a1b;color:#ffaaaa}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
-.field{display:flex;flex-direction:column;gap:7px;margin-bottom:13px}
-.field label{font-size:11px;color:var(--muted)}
-.field input,.field select,.field textarea{width:100%;background:#0d0f11;color:white;border:1px solid var(--line);
- border-radius:9px;padding:12px;outline:none}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
-.full{grid-column:1/-1}
-.actions{display:flex;gap:9px;flex-wrap:wrap}
-.panel-grid{grid-template-columns:1fr 1fr}
-.invoice-total{margin-left:auto;max-width:320px;margin-top:20px}
-.invoice-total div{display:flex;justify-content:space-between;padding:8px 0;color:#bbb}
-.invoice-total .grand{font-size:20px;color:var(--gold2);border-top:1px solid var(--line);padding-top:14px}
-#invoiceLines input{min-width:70px}
-.empty{text-align:center;padding:35px;color:var(--muted)}
-.notice{padding:13px 15px;border:1px solid #57462b;background:#211c13;border-radius:12px;
- color:#e6d2a7;font-size:12px;line-height:1.6;margin:18px 0}
-.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:20;padding:18px}
-.modal.show{display:grid}
-.modal-box{width:min(680px,100%);max-height:90vh;overflow:auto;background:#141619;
- border:1px solid #55462c;border-radius:18px;padding:24px}
-.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.close{background:none;border:0;color:white;font-size:24px}
-.mobile-menu{display:none}
-@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
-@media(max-width:700px){
- .sidebar{transform:translateX(-100%);transition:.25s}.sidebar.open{transform:translateX(0)}
- .main{margin:0;width:100%;padding:18px}
- .mobile-menu{display:inline-block}.welcome{align-items:flex-start;flex-direction:column}
- .stats{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}
-}
-@media(max-width:420px){.stats{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
-@media print{
- body{background:white;color:#111}.sidebar,.topbar,.welcome,.no-print{display:none!important}
- .main{margin:0;width:100%;padding:0}.section{display:none!important}
- #billing.section{display:block!important}.card{background:white;color:#111;border:0;box-shadow:none}
- table,th,td{color:#111;border-color:#ddd}.invoice-paper{display:block!important}
-}
+:root{--bg:#090a0c;--panel:#111316;--panel2:#181a1e;--line:#2b2e33;--gold:#d8b875;--gold2:#f1d99e;--text:#f4f2ed;--muted:#92949b;--green:#54c49a;--red:#ed7777;--blue:#83aee8;--radius:16px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0%,#292014 0,transparent 28%),var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}.sidebar{width:250px;background:#0c0d0f;border-right:1px solid var(--line);padding:22px 15px;position:fixed;inset:0 auto 0 0;z-index:10;overflow:auto}.brand{display:flex;align-items:center;gap:12px;padding:5px 10px 25px}.brand img{width:120px;max-height:48px;object-fit:contain}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:5px}.nav-label{font-size:10px;letter-spacing:2px;color:#686b72;padding:15px 12px 7px}.nav button{width:100%;border:1px solid transparent;background:transparent;color:#aeb0b5;text-align:left;padding:11px 12px;border-radius:10px;margin:2px 0;display:flex;gap:12px;align-items:center}.nav button:hover,.nav button.active{background:linear-gradient(90deg,#332918,#1c1a16);color:var(--gold2);border-color:#51432b}.nav .ico{width:20px;text-align:center}.sidebar-foot{border-top:1px solid var(--line);margin-top:25px;padding:16px 10px;color:var(--muted);font-size:10px;line-height:1.7}
+.main{margin-left:250px;width:calc(100% - 250px);padding:22px 30px 60px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:17px}.topbar h2{font-size:19px;font-weight:500;margin:0}.top-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.pill{border:1px solid var(--line);border-radius:30px;padding:8px 12px;background:#151619;color:#ddd;font-size:12px}.avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f2d99f,#8e6931);color:#17130c;display:grid;place-items:center;font-weight:bold}.welcome{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:25px 0 20px}.welcome h1{font-size:clamp(23px,3vw,34px);margin:5px 0 7px;font-weight:500}.welcome h1 span{color:var(--gold2)}.muted{color:var(--muted);font-size:12px}.gold{color:var(--gold2)}
+.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:linear-gradient(145deg,#17191c,#101113);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 12px 35px #0004}.stat-title{color:var(--muted);font-size:10px;letter-spacing:1.2px;text-transform:uppercase}.stat-value{font-size:28px;margin:12px 0 6px;font-weight:600}.stat-foot{font-size:10px;color:var(--muted)}.section{display:none}.section.active{display:block}.section-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:22px 0 14px}.section-head h2{font-size:18px;font-weight:500;margin:0}.btn{border:1px solid #6d5835;background:linear-gradient(135deg,#dfc184,#9e7b40);color:#17130b;border-radius:9px;padding:10px 14px;font-weight:700;font-size:12px}.btn.secondary{background:#1b1d20;color:#e6e2d9;border-color:var(--line)}.btn.danger{background:#381c1d;color:#ffb5b5;border-color:#613233}.btn.small{padding:6px 9px;font-size:11px}.btn:disabled{opacity:.45;cursor:not-allowed}.charts{grid-template-columns:1.4fr 1fr;margin-top:14px}.chart-wrap{height:240px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:680px}th,td{padding:12px;text-align:left;border-bottom:1px solid var(--line);font-size:11px;vertical-align:top}th{color:var(--muted);font-weight:500;background:#141619}td{color:#e4e1db}tr:last-child td{border-bottom:0}.tag{display:inline-block;padding:4px 8px;border-radius:30px;font-size:10px;background:#24211a;color:var(--gold2);white-space:nowrap}.tag.green{background:#14271f;color:#7bd6b0}.tag.red{background:#301a1b;color:#ffaaaa}.tag.blue{background:#172438;color:#a9c9f4}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}.field label{font-size:10px;color:var(--muted)}.field input,.field select,.field textarea{width:100%;background:#0d0f11;color:white;border:1px solid var(--line);border-radius:8px;padding:10px;outline:none}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}.full{grid-column:1/-1}.actions{display:flex;gap:8px;flex-wrap:wrap}.panel-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.invoice-total{margin-left:auto;max-width:300px;margin-top:18px}.invoice-total div{display:flex;justify-content:space-between;padding:7px 0;color:#bbb;font-size:12px}.invoice-total .grand{font-size:19px;color:var(--gold2);border-top:1px solid var(--line);padding-top:12px}.empty{text-align:center;padding:28px;color:var(--muted);font-size:12px}.notice{padding:12px 14px;border:1px solid #57462b;background:#211c13;border-radius:11px;color:#e6d2a7;font-size:11px;line-height:1.6;margin:14px 0}.modal{position:fixed;inset:0;background:#000c;display:none;place-items:center;z-index:30;padding:15px}.modal.show{display:grid}.modal-box{width:min(760px,100%);max-height:92vh;overflow:auto;background:#141619;border:1px solid #55462c;border-radius:16px;padding:20px}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modal-head h2{font-size:18px;margin:0}.close{background:none;border:0;color:white;font-size:24px}.mobile-menu{display:none}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.search{min-width:190px;background:#0d0f11;color:white;border:1px solid var(--line);padding:9px 11px;border-radius:8px}.timeline{border-left:1px solid #665334;margin:10px 0 5px 7px;padding-left:18px}.event{position:relative;padding:0 0 15px}.event:before{content:"";position:absolute;left:-23px;top:3px;width:8px;height:8px;border-radius:50%;background:var(--gold)}.event b{font-size:12px}.event p{font-size:11px;color:var(--muted);margin:4px 0}.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}.hide{display:none!important}.subhead{color:var(--gold2);font-size:12px;letter-spacing:1px;margin:15px 0 10px}.kpi{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.kpi:last-child{border:0}
+@media(max-width:1050px){.stats{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}@media(max-width:720px){.sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:translateX(0)}.main{margin:0;width:100%;padding:15px}.mobile-menu{display:inline-block}.welcome{align-items:flex-start;flex-direction:column}.panel-grid,.two-col{grid-template-columns:1fr}.topbar{align-items:flex-start}.top-actions{justify-content:flex-end}}@media(max-width:430px){.stats{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+@media print{body{background:white;color:#111}.sidebar,.topbar,.welcome,.no-print{display:none!important}.main{margin:0;width:100%;padding:0}.section{display:none!important}#billing.section{display:block!important}.card{background:white;color:#111;border:0;box-shadow:none}table,th,td{color:#111;border-color:#ddd}.invoice-paper{display:block!important}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
- <div class="brand">
-  <img src="coreva-logo.png" alt="COREVA">
-  <div><small>BUSINESS SOLUTIONS</small></div>
- </div>
- <div class="nav">
+ <div class="brand"><img src="coreva-logo.png" alt="COREVA logo"><div><small>BUSINESS SOLUTIONS</small></div></div>
+ <nav class="nav">
   <div class="nav-label">WORKSPACE</div>
-  <button class="active" data-page="dashboard"><span class="ico">◫</span> Dashboard</button>
+  <button class="active" data-page="dashboard"><span class="ico">◫</span> Overview</button>
   <button data-page="inquiries"><span class="ico">✉</span> Website Inquiries</button>
-  <button data-page="customers"><span class="ico">♙</span> Customers</button>
-  <button data-page="tasks"><span class="ico">✓</span> Follow-ups & Tasks</button>
-  <div class="nav-label">BUSINESS</div>
-  <button data-page="billing"><span class="ico">▤</span> Billing & Invoices</button>
-  <button data-page="staff"><span class="ico">♧</span> Staff Management</button>
-  <button data-page="services"><span class="ico">▦</span> Departments</button>
-  <div class="nav-label">ADMINISTRATION</div>
-  <button data-page="reports" class="admin-only"><span class="ico">▥</span> Revenue & Reports</button>
-  <button data-page="settings" class="admin-only"><span class="ico">⚙</span> Settings</button>
- </div>
- <div class="sidebar-foot">COREVA BUSINESS SOLUTIONS<br>PROPERTY • DIGITAL • FINANCE<br>CONSTRUCTION • INTERIORS<br><br>Central Management System</div>
+  <button data-page="customers"><span class="ico">♙</span> Customers / CRM</button>
+  <button data-page="tasks"><span class="ico">✓</span> Tasks & Follow-ups</button>
+  <button data-page="activity"><span class="ico">◷</span> Work Activity</button>
+  <div class="nav-label">OPERATIONS</div>
+  <button data-page="billing" class="role-counter"><span class="ico">▤</span> Counters & Billing</button>
+  <button data-page="staff" class="role-founder"><span class="ico">♧</span> Staff & Managers</button>
+  <button data-page="departments" class="role-founder"><span class="ico">▦</span> Departments</button>
+  <button data-page="approvals"><span class="ico">✓</span> Manager Approvals</button>
+  <div class="nav-label role-founder">ADMINISTRATION</div>
+  <button data-page="reports" class="role-founder"><span class="ico">▥</span> Reports & Performance</button>
+  <button data-page="audit" class="role-founder"><span class="ico">≡</span> Audit Log</button>
+  <button data-page="settings" class="role-founder"><span class="ico">⚙</span> Settings & Backup</button>
+ </nav>
+ <div class="sidebar-foot">COREVA BUSINESS SOLUTIONS<br>PROPERTY • DIGITAL • FINANCE<br>BUSINESS SUPPORT • CONSTRUCTION<br>INTERIORS • COUNTERS & BILLING<br><br>Central Management System</div>
 </aside>
-
 <main class="main">
- <header class="topbar">
-  <div style="display:flex;align-items:center;gap:12px">
-   <button class="btn secondary mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-   <h2 id="pageTitle">Dashboard</h2>
-  </div>
-  <div class="top-actions">
-   <span class="pill" id="roleLabel">Founder / Admin</span>
-   <button class="pill" onclick="switchPreviewRole()">Preview role</button>
-   <div class="avatar">F</div>
-  </div>
- </header>
+<header class="topbar">
+ <div style="display:flex;align-items:center;gap:10px"><button class="btn secondary mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button><h2 id="pageTitle">Overview</h2></div>
+ <div class="top-actions"><span class="pill" id="roleLabel">Founder / CEO</span><select class="pill" id="roleSwitch" onchange="switchRole(this.value)" aria-label="Preview role"><option value="founder">Founder preview</option><option value="manager">Manager preview</option><option value="staff">Staff preview</option><option value="counter">Counter preview</option></select><div class="avatar" id="avatar">F</div></div>
+</header>
+<div class="welcome"><div><div class="muted gold">COREVA CENTRAL MANAGEMENT</div><h1 id="welcomeTitle">Welcome, <span>Founder</span></h1><div class="muted" id="welcomeSubtitle">Founder & CEO · COREVA Business Solutions</div></div><div class="muted" id="today"></div></div>
 
- <div class="welcome">
-  <div>
-   <div class="muted gold">COREVA CENTRAL MANAGEMENT</div>
-   <h1 id="welcomeTitle">Welcome, <span>Mr. Abubakar Faiz</span></h1>
-   <div class="muted" id="welcomeSubtitle">Founder & CEO · COREVA Business Solutions</div>
-  </div>
-  <div class="muted" id="today"></div>
+<section class="section active" id="dashboard">
+ <div class="grid stats">
+  <div class="card"><div class="stat-title">Total inquiries</div><div class="stat-value" id="statLeads">0</div><div class="stat-foot">All recorded inquiries</div></div>
+  <div class="card"><div class="stat-title">Customers</div><div class="stat-value" id="statCustomers">0</div><div class="stat-foot">Customer records</div></div>
+  <div class="card"><div class="stat-title">Open tasks</div><div class="stat-value" id="statTasks">0</div><div class="stat-foot">Pending / in progress</div></div>
+  <div class="card"><div class="stat-title">Invoices</div><div class="stat-value" id="statInvoices">0</div><div class="stat-foot">Saved billing records</div></div>
+  <div class="card role-founder"><div class="stat-title">Invoice value</div><div class="stat-value" id="statRevenue">₹0</div><div class="stat-foot">Local prototype total</div></div>
+  <div class="card"><div class="stat-title">My assigned work</div><div class="stat-value" id="statAssigned">0</div><div class="stat-foot">Tasks assigned to this preview role</div></div>
+  <div class="card"><div class="stat-title">Awaiting approval</div><div class="stat-value" id="statApprovals">0</div><div class="stat-foot">Submitted work updates</div></div>
+  <div class="card"><div class="stat-title">Overdue follow-ups</div><div class="stat-value" id="statOverdue">0</div><div class="stat-foot">Tasks past due date</div></div>
  </div>
+ <div class="grid charts"><div class="card"><div class="section-head"><h2>Inquiry Activity</h2><span class="tag">Current year</span></div><div class="chart-wrap"><canvas id="overviewChart"></canvas></div></div><div class="card"><div class="section-head"><h2>Department Workload</h2></div><div class="chart-wrap"><canvas id="departmentChart"></canvas></div></div></div>
+ <div class="section-head"><h2>Recent Inquiries</h2><button class="btn secondary small" onclick="showPage('inquiries')">View all</button></div><div class="card" id="recentLeads"></div>
+ <div class="section-head"><h2>Recent Work Activity</h2><button class="btn secondary small" onclick="showPage('activity')">View activity</button></div><div class="card" id="recentActivity"></div>
+</section>
 
- <section class="section active" id="dashboard">
-  <div class="grid stats">
-   <div class="card"><div class="stat-title">Total inquiries</div><div class="stat-value" id="statLeads">0</div><div class="stat-foot">All recorded inquiries</div></div>
-   <div class="card"><div class="stat-title">Customers</div><div class="stat-value" id="statCustomers">0</div><div class="stat-foot">Customer records</div></div>
-   <div class="card"><div class="stat-title">Invoices created</div><div class="stat-value" id="statInvoices">0</div><div class="stat-foot">Billing records</div></div>
-   <div class="card admin-only"><div class="stat-title">Invoice value</div><div class="stat-value" id="statRevenue">₹0</div><div class="stat-foot">Recorded invoice totals</div></div>
-  </div>
-  <div class="grid charts">
-   <div class="card"><div class="section-head"><h2>Business Overview</h2><span class="tag">Activity</span></div><div class="chart-wrap"><canvas id="overviewChart"></canvas></div></div>
-   <div class="card"><div class="section-head"><h2>Department Overview</h2></div><div class="chart-wrap"><canvas id="departmentChart"></canvas></div></div>
-  </div>
-  <div class="section-head"><h2>Recent Inquiries</h2><button class="btn secondary small" onclick="showPage('inquiries')">View all</button></div>
-  <div class="card"><div id="recentLeads"></div></div>
- </section>
+<section class="section" id="inquiries">
+ <div class="section-head"><h2>Website Inquiries</h2><button class="btn" onclick="openModal('leadModal')">+ Add Inquiry</button></div>
+ <div class="notice">Website form submissions will automatically arrive here after the public website is connected to Supabase. Until then, records entered here are stored only in this browser.</div>
+ <div class="toolbar"><input class="search" id="leadSearch" placeholder="Search name, phone or requirement" oninput="renderLeads()"><select class="search" id="leadFilter" onchange="renderLeads()"><option value="">All statuses</option><option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal Sent</option><option>Converted</option><option>Lost</option></select></div>
+ <div class="card" style="margin-top:12px" id="leadTable"></div>
+</section>
 
- <section class="section" id="inquiries">
-  <div class="section-head"><h2>Website Inquiries</h2><button class="btn" onclick="openModal('leadModal')">+ Add Inquiry</button></div>
-  <div class="notice">New inquiries submitted through the public website can be routed here after we connect the website contact form to the secure database.</div>
-  <div class="card"><div id="leadTable"></div></div>
- </section>
+<section class="section" id="customers">
+ <div class="section-head"><h2>Customer Management / CRM</h2><button class="btn" onclick="openModal('customerModal')">+ Add Customer</button></div>
+ <div class="notice">Open a customer profile to view contact information, services, inquiries, assigned team, transfers, tasks, invoices and the recorded activity timeline.</div>
+ <div class="toolbar"><input class="search" id="customerSearch" placeholder="Search customer name, phone, email" oninput="renderCustomers()"><button class="btn secondary small" onclick="exportCSV('customers')">Export CSV</button></div>
+ <div class="card" style="margin-top:12px" id="customerTable"></div>
+ <div id="customerProfile" class="card hide" style="margin-top:14px"></div>
+</section>
 
- <section class="section" id="customers">
-  <div class="section-head"><h2>Customer Management</h2><button class="btn" onclick="openModal('customerModal')">+ Add Customer</button></div>
-  <div class="card"><div id="customerTable"></div></div>
- </section>
+<section class="section" id="tasks">
+ <div class="section-head"><h2>Tasks & Follow-ups</h2><button class="btn" onclick="openModal('taskModal')">+ Create Task</button></div>
+ <div class="toolbar"><input class="search" id="taskSearch" placeholder="Search tasks" oninput="renderTasks()"><select class="search" id="taskStatusFilter" onchange="renderTasks()"><option value="">All task statuses</option><option>Pending</option><option>In Progress</option><option>Submitted</option><option>Completed</option><option>On Hold</option></select></div>
+ <div class="card" style="margin-top:12px" id="taskTable"></div>
+</section>
 
- <section class="section" id="tasks">
-  <div class="section-head"><h2>Follow-ups & Tasks</h2><button class="btn" onclick="openModal('taskModal')">+ Add Task</button></div>
-  <div class="card"><div id="taskTable"></div></div>
- </section>
+<section class="section" id="activity">
+ <div class="section-head"><h2>Work Updates & Activity Timeline</h2><button class="btn" onclick="openModal('updateModal')">+ Submit Work Update</button></div>
+ <div class="notice">Staff can submit progress, completed work, blockers and supporting notes. Managers can review submitted updates. In this offline preview, approval actions are simulated locally.</div>
+ <div class="card" id="activityList"></div>
+</section>
 
- <section class="section" id="billing">
-  <div class="section-head"><h2>Billing & Invoices</h2><button class="btn" onclick="newInvoice()">+ Create Invoice</button></div>
-  <div class="notice">Create itemised bills, calculate totals, save invoice records and print or save the invoice as PDF.</div>
-  <div class="card">
-   <div id="invoiceEditor">
-    <div class="section-head"><h2 class="gold">New COREVA Invoice</h2><span class="tag">Invoice</span></div>
-    <div class="form-grid">
-     <div class="field"><label>Invoice number</label><input id="invNumber" readonly></div>
-     <div class="field"><label>Invoice date</label><input id="invDate" type="date"></div>
-     <div class="field"><label>Customer / Company name</label><input id="invCustomer" placeholder="Customer name"></div>
-     <div class="field"><label>Phone number</label><input id="invPhone" placeholder="+91"></div>
-     <div class="field full"><label>Customer address</label><textarea id="invAddress" rows="2" placeholder="Billing address"></textarea></div>
-    </div>
-    <div class="section-head"><h2>Invoice Items</h2><button class="btn secondary small" onclick="addInvoiceLine()">+ Add item</button></div>
-    <div class="table-wrap"><table><thead><tr><th>Description</th><th>Qty</th><th>Rate (₹)</th><th>Amount (₹)</th><th></th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
-    <div class="form-grid" style="margin-top:18px">
-     <div class="field"><label>GST / Tax (%)</label><input id="invTax" type="number" min="0" value="0" oninput="calculateInvoice()"></div>
-     <div class="field"><label>Discount (₹)</label><input id="invDiscount" type="number" min="0" value="0" oninput="calculateInvoice()"></div>
-     <div class="field full"><label>Notes / Payment terms</label><textarea id="invNotes" rows="2" placeholder="Payment details, due date, terms..."></textarea></div>
-    </div>
-    <div class="invoice-total">
-     <div><span>Subtotal</span><b id="invSubtotal">₹0.00</b></div>
-     <div><span>Tax</span><b id="invTaxAmount">₹0.00</b></div>
-     <div><span>Discount</span><b id="invDiscountAmount">₹0.00</b></div>
-     <div class="grand"><span>Total</span><b id="invGrand">₹0.00</b></div>
-    </div>
-    <div class="actions no-print" style="margin-top:25px">
-     <button class="btn" onclick="saveInvoice()">Save Invoice</button>
-     <button class="btn secondary" onclick="printInvoice()">Print / Save PDF</button>
-     <button class="btn secondary" onclick="newInvoice()">Clear</button>
-    </div>
-   </div>
-  </div>
-  <div class="section-head"><h2>Saved Invoices</h2></div>
-  <div class="card"><div id="invoiceTable"></div></div>
- </section>
-
- <section class="section" id="staff">
-  <div class="section-head"><h2>Staff Management</h2><button class="btn" onclick="openModal('staffModal')">+ Create Staff</button></div>
-  <div class="notice">Assign each staff member to a department and role. In this preview, staff records are stored only in this browser. Real individual logins and secure access controls will be enabled through Supabase.</div>
-  <div class="card"><div id="staffTable"></div></div>
- </section>
-
- <section class="section" id="services">
-  <div class="section-head"><h2>COREVA Departments</h2></div>
-  <div class="grid panel-grid" id="departmentCards"></div>
- </section>
-
- <section class="section admin-only" id="reports">
-  <div class="section-head"><h2>Revenue & Reports</h2></div>
-  <div class="grid stats">
-   <div class="card"><div class="stat-title">Total invoiced</div><div class="stat-value" id="reportTotal">₹0</div></div>
-   <div class="card"><div class="stat-title">Invoice count</div><div class="stat-value" id="reportCount">0</div></div>
-  </div>
-  <div class="card" style="margin-top:16px"><h2>Invoice Records</h2><div id="reportTable"></div></div>
- </section>
-
- <section class="section admin-only" id="settings">
-  <div class="section-head"><h2>Company Settings</h2></div>
-  <div class="card">
+<section class="section" id="billing">
+ <div class="section-head"><h2>Counters & Billing</h2><button class="btn" onclick="newInvoice()">+ New Invoice</button></div>
+ <div class="notice">Counter workspace: find an existing customer, confirm their service, create an itemised invoice, record payment status and print or save as PDF. Sequential invoice numbers are browser-local until Supabase provides a shared sequence.</div>
+ <div class="card">
+  <div id="invoiceEditor">
+   <div class="section-head"><h2 class="gold">COREVA TAX / SERVICE INVOICE</h2><span class="tag">Billing</span></div>
    <div class="form-grid">
-    <div class="field"><label>Company name</label><input value="COREVA Business Solutions" id="companyName"></div>
-    <div class="field"><label>Company email</label><input id="companyEmail" placeholder="Your official email"></div>
-    <div class="field"><label>Company phone</label><input id="companyPhone" placeholder="+91"></div>
-    <div class="field"><label>Company address</label><input id="companyAddress" placeholder="Business address"></div>
+    <div class="field"><label>Invoice number</label><input id="invNumber" readonly></div><div class="field"><label>Invoice date</label><input id="invDate" type="date"></div>
+    <div class="field"><label>Find existing customer</label><select id="invCustomerSelect" onchange="selectInvoiceCustomer()"><option value="">Select customer (optional)</option></select></div>
+    <div class="field"><label>Customer / Company name</label><input id="invCustomer" placeholder="Customer name"></div>
+    <div class="field"><label>Phone number</label><input id="invPhone" placeholder="+91"></div><div class="field"><label>Email</label><input id="invEmail" placeholder="Email address"></div>
+    <div class="field full"><label>Billing address</label><textarea id="invAddress" rows="2" placeholder="Billing address"></textarea></div>
    </div>
-   <p class="muted">Company details appear on invoice printouts. Add your verified details before issuing real invoices.</p>
-   <button class="btn" onclick="saveCompany()">Save Company Details</button>
+   <div class="section-head"><h2>Invoice Items / Services</h2><button class="btn secondary small" onclick="addInvoiceLine()">+ Add item</button></div>
+   <div class="table-wrap"><table><thead><tr><th>Description / Service</th><th>Qty</th><th>Rate (₹)</th><th>Amount (₹)</th><th></th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
+   <div class="form-grid" style="margin-top:15px">
+    <div class="field"><label>Tax / GST (%)</label><input id="invTax" type="number" min="0" value="0" oninput="calculateInvoice()"></div>
+    <div class="field"><label>Discount (₹)</label><input id="invDiscount" type="number" min="0" value="0" oninput="calculateInvoice()"></div>
+    <div class="field"><label>Payment status</label><select id="invPayment"><option>Unpaid</option><option>Partially Paid</option><option>Paid</option></select></div>
+    <div class="field"><label>Payment method</label><select id="invMethod"><option>Not recorded</option><option>Cash</option><option>UPI</option><option>Bank Transfer</option><option>Card</option></select></div>
+    <div class="field full"><label>Notes / Payment terms</label><textarea id="invNotes" rows="2"></textarea></div>
+   </div>
+   <div class="invoice-total"><div><span>Subtotal</span><b id="invSubtotal">₹0.00</b></div><div><span>Tax</span><b id="invTaxAmount">₹0.00</b></div><div><span>Discount</span><b id="invDiscountAmount">₹0.00</b></div><div class="grand"><span>Total</span><b id="invGrand">₹0.00</b></div></div>
+   <div class="actions no-print" style="margin-top:20px"><button class="btn" onclick="saveInvoice()">Save Invoice</button><button class="btn secondary" onclick="printInvoice()">Print / Save PDF</button><button class="btn secondary" onclick="newInvoice()">Clear</button></div>
   </div>
- </section>
+ </div>
+ <div class="section-head"><h2>Saved Invoices</h2></div><div class="card" id="invoiceTable"></div>
+</section>
+
+<section class="section" id="staff">
+ <div class="section-head"><h2>Staff & Manager Management</h2><button class="btn" onclick="openModal('staffModal')">+ Add Team Member</button></div>
+ <div class="notice">This module records staff profiles and role assignments. Real login accounts, passwords and secure permissions are created only after Supabase Auth is connected. Do not treat preview roles as secure access control.</div>
+ <div class="card" id="staffTable"></div>
+</section>
+
+<section class="section" id="departments">
+ <div class="section-head"><h2>COREVA Departments</h2></div><div class="grid panel-grid" id="departmentCards"></div>
+</section>
+
+<section class="section" id="approvals">
+ <div class="section-head"><h2>Manager Review & Approvals</h2></div><div class="notice">Review staff-submitted work updates. Approval is a local prototype action; production approvals will be enforced by Supabase permissions.</div><div class="card" id="approvalList"></div>
+</section>
+
+<section class="section" id="reports">
+ <div class="section-head"><h2>Reports & Performance</h2><button class="btn secondary small" onclick="exportCSV('invoices')">Export invoices CSV</button></div>
+ <div class="grid stats"><div class="card"><div class="stat-title">Total invoiced</div><div class="stat-value" id="reportTotal">₹0</div></div><div class="card"><div class="stat-title">Paid amount</div><div class="stat-value" id="reportPaid">₹0</div></div><div class="card"><div class="stat-title">Unpaid amount</div><div class="stat-value" id="reportUnpaid">₹0</div></div><div class="card"><div class="stat-title">Completed tasks</div><div class="stat-value" id="reportCompleted">0</div></div></div>
+ <div class="two-col" style="margin-top:14px"><div class="card"><h3 class="subhead">Department workload</h3><div id="departmentReport"></div></div><div class="card"><h3 class="subhead">Staff performance / workload</h3><div id="staffReport"></div></div></div>
+ <div class="section-head"><h2>Invoice Records</h2></div><div class="card" id="reportTable"></div>
+</section>
+
+<section class="section" id="audit">
+ <div class="section-head"><h2>Audit Log</h2><button class="btn secondary small" onclick="exportCSV('audit')">Export audit CSV</button></div><div class="notice">Records actions performed in this browser prototype. Browser storage can be edited or cleared; use Supabase audit records for reliable production history.</div><div class="card" id="auditList"></div>
+</section>
+
+<section class="section" id="settings">
+ <div class="section-head"><h2>Company Settings & Data</h2></div>
+ <div class="card"><h3 class="subhead">Company information</h3><div class="form-grid"><div class="field"><label>Company name</label><input id="companyName" value="COREVA Business Solutions"></div><div class="field"><label>Official email</label><input id="companyEmail"></div><div class="field"><label>Phone</label><input id="companyPhone"></div><div class="field"><label>Address</label><input id="companyAddress"></div></div><button class="btn" onclick="saveCompany()">Save company details</button></div>
+ <div class="card" style="margin-top:14px"><h3 class="subhead">Data backup / restore</h3><p class="muted">Export all locally stored prototype records as JSON. This is not a secure cloud backup.</p><div class="actions"><button class="btn secondary" onclick="backupData()">Download JSON Backup</button><label class="btn secondary" for="restoreFile">Restore JSON</label><input class="hide" type="file" id="restoreFile" accept="application/json" onchange="restoreData(event)"><button class="btn danger" onclick="resetData()">Clear local prototype data</button></div></div>
+ <div class="notice"><b>Supabase connection pending:</b> secure authentication, database storage, RLS access policies, automatic website form sync, email notifications and cross-device updates are not active in this standalone file.</div>
+</section>
 </main>
 </div>
 
-<!-- Add inquiry -->
-<div class="modal" id="leadModal"><div class="modal-box">
- <div class="modal-head"><h2>Add Inquiry</h2><button class="close" onclick="closeModal('leadModal')">×</button></div>
- <div class="form-grid">
-  <div class="field"><label>Customer name</label><input id="leadName"></div>
-  <div class="field"><label>Phone</label><input id="leadPhone"></div>
-  <div class="field"><label>Department</label><select id="leadDept"></select></div>
-  <div class="field"><label>Assign staff</label><select id="leadAssign"></select></div>
-  <div class="field full"><label>Requirement</label><textarea id="leadDetails" rows="3"></textarea></div>
- </div>
- <button class="btn" onclick="addLead()">Save Inquiry</button>
-</div></div>
+<!-- MODALS -->
+<div class="modal" id="leadModal"><div class="modal-box"><div class="modal-head"><h2>Add Website Inquiry</h2><button class="close" onclick="closeModal('leadModal')">×</button></div><div class="form-grid">
+<div class="field"><label>Customer name</label><input id="leadName"></div><div class="field"><label>Phone</label><input id="leadPhone"></div><div class="field"><label>Email</label><input id="leadEmail"></div><div class="field"><label>Department</label><select id="leadDept"></select></div><div class="field"><label>Assign staff</label><select id="leadAssign"></select></div><div class="field"><label>Source</label><select id="leadSource"><option>Website</option><option>WhatsApp</option><option>Phone Call</option><option>Walk-in</option><option>Referral</option><option>Social Media</option></select></div><div class="field full"><label>Requirement / Notes</label><textarea id="leadDetails" rows="3"></textarea></div></div><button class="btn" onclick="addLead()">Save Inquiry</button></div></div>
 
-<!-- Add customer -->
-<div class="modal" id="customerModal"><div class="modal-box">
- <div class="modal-head"><h2>Add Customer</h2><button class="close" onclick="closeModal('customerModal')">×</button></div>
- <div class="form-grid">
-  <div class="field"><label>Name</label><input id="custName"></div>
-  <div class="field"><label>Phone</label><input id="custPhone"></div>
-  <div class="field"><label>Email</label><input id="custEmail"></div>
-  <div class="field"><label>Department</label><select id="custDept"></select></div>
- </div>
- <button class="btn" onclick="addCustomer()">Save Customer</button>
-</div></div>
+<div class="modal" id="customerModal"><div class="modal-box"><div class="modal-head"><h2>Add Customer</h2><button class="close" onclick="closeModal('customerModal')">×</button></div><div class="form-grid">
+<div class="field"><label>Full name / Company</label><input id="custName"></div><div class="field"><label>Phone</label><input id="custPhone"></div><div class="field"><label>Email</label><input id="custEmail"></div><div class="field"><label>Department</label><select id="custDept"></select></div><div class="field full"><label>Address</label><textarea id="custAddress"></textarea></div><div class="field full"><label>Services / Requirement</label><textarea id="custServices"></textarea></div></div><button class="btn" onclick="addCustomer()">Save Customer</button></div></div>
 
-<!-- Add task -->
-<div class="modal" id="taskModal"><div class="modal-box">
- <div class="modal-head"><h2>Add Follow-up Task</h2><button class="close" onclick="closeModal('taskModal')">×</button></div>
- <div class="form-grid">
-  <div class="field"><label>Task</label><input id="taskName"></div>
-  <div class="field"><label>Due date</label><input id="taskDate" type="date"></div>
-  <div class="field"><label>Assign staff</label><select id="taskAssign"></select></div>
-  <div class="field"><label>Department</label><select id="taskDept"></select></div>
- </div>
- <button class="btn" onclick="addTask()">Save Task</button>
-</div></div>
+<div class="modal" id="taskModal"><div class="modal-box"><div class="modal-head"><h2>Create Task / Follow-up</h2><button class="close" onclick="closeModal('taskModal')">×</button></div><div class="form-grid">
+<div class="field full"><label>Task title</label><input id="taskName"></div><div class="field"><label>Customer</label><select id="taskCustomer"></select></div><div class="field"><label>Due date</label><input id="taskDate" type="date"></div><div class="field"><label>Department</label><select id="taskDept"></select></div><div class="field"><label>Assign staff</label><select id="taskAssign"></select></div><div class="field"><label>Priority</label><select id="taskPriority"><option>Normal</option><option>High</option><option>Urgent</option><option>Low</option></select></div><div class="field"><label>Type</label><select id="taskType"><option>Follow-up</option><option>Customer Work</option><option>Internal Task</option><option>Call</option><option>Meeting</option></select></div><div class="field full"><label>Description</label><textarea id="taskDetails"></textarea></div></div><button class="btn" onclick="addTask()">Save Task</button></div></div>
 
-<!-- Add staff -->
-<div class="modal" id="staffModal"><div class="modal-box">
- <div class="modal-head"><h2>Create Staff Record</h2><button class="close" onclick="closeModal('staffModal')">×</button></div>
- <div class="form-grid">
-  <div class="field"><label>Staff full name</label><input id="staffName"></div>
-  <div class="field"><label>Email / Login ID</label><input id="staffEmail"></div>
-  <div class="field"><label>Department</label><select id="staffDept"></select></div>
-  <div class="field"><label>Role</label><select id="staffRole"><option>Department Manager</option><option>Staff</option><option>Sales Executive</option><option>Support Executive</option></select></div>
- </div>
- <p class="muted">Do not enter a real password here. Secure account creation will be handled by the authentication system.</p>
- <button class="btn" onclick="addStaff()">Save Staff Record</button>
-</div></div>
+<div class="modal" id="staffModal"><div class="modal-box"><div class="modal-head"><h2>Add Staff / Manager</h2><button class="close" onclick="closeModal('staffModal')">×</button></div><div class="form-grid">
+<div class="field"><label>Full name</label><input id="staffName"></div><div class="field"><label>Email / Login ID</label><input id="staffEmail"></div><div class="field"><label>Phone</label><input id="staffPhone"></div><div class="field"><label>Department</label><select id="staffDept"></select></div><div class="field"><label>Role</label><select id="staffRole"><option>Department Manager</option><option>Sales Executive</option><option>Support Executive</option><option>Staff</option><option>Counter Executive</option></select></div><div class="field"><label>Status</label><select id="staffStatus"><option>Active</option><option>Inactive</option></select></div></div><p class="muted">This creates a staff profile only. Do not enter a password here. Secure account provisioning is a Supabase stage.</p><button class="btn" onclick="addStaff()">Save Team Member</button></div></div>
+
+<div class="modal" id="updateModal"><div class="modal-box"><div class="modal-head"><h2>Submit Work Update</h2><button class="close" onclick="closeModal('updateModal')">×</button></div><div class="form-grid">
+<div class="field"><label>Customer (optional)</label><select id="updateCustomer"></select></div><div class="field"><label>Task (optional)</label><select id="updateTask"></select></div><div class="field"><label>Department</label><select id="updateDept"></select></div><div class="field"><label>Submitted by</label><select id="updateStaff"></select></div><div class="field"><label>Work status</label><select id="updateStatus"><option>In Progress</option><option>Completed</option><option>Blocked</option><option>Need Approval</option></select></div><div class="field"><label>Next follow-up date</label><input id="updateDate" type="date"></div><div class="field full"><label>Work completed / update notes</label><textarea id="updateNotes" rows="4"></textarea></div></div><button class="btn" onclick="submitUpdate()">Submit Update</button></div></div>
+
+<div class="modal" id="transferModal"><div class="modal-box"><div class="modal-head"><h2>Transfer Customer / Reassign</h2><button class="close" onclick="closeModal('transferModal')">×</button></div><input type="hidden" id="transferCustomerId"><div class="form-grid"><div class="field"><label>New department</label><select id="transferDept"></select></div><div class="field"><label>New assigned staff</label><select id="transferStaff"></select></div><div class="field full"><label>Reason for transfer</label><textarea id="transferReason"></textarea></div></div><button class="btn" onclick="saveTransfer()">Save Transfer</button></div></div>
+
+<div class="modal" id="statusModal"><div class="modal-box"><div class="modal-head"><h2>Update Inquiry Status</h2><button class="close" onclick="closeModal('statusModal')">×</button></div><input type="hidden" id="statusLeadId"><div class="field"><label>Status</label><select id="newLeadStatus"><option>New</option><option>Contacted</option><option>Qualified</option><option>Proposal Sent</option><option>Converted</option><option>Lost</option></select></div><div class="field"><label>Update note</label><textarea id="leadStatusNote"></textarea></div><button class="btn" onclick="saveLeadStatus()">Save Status</button></div></div>
 
 <script>
-const departments=[
- "Property Management","Digital Management","Finance Management",
- "Business Support","Construction Management","Interior Design"
-];
-const read=(key)=>JSON.parse(localStorage.getItem("coreva_"+key)||"[]");
-const write=(key,value)=>localStorage.setItem("coreva_"+key,JSON.stringify(value));
-let leads=read("leads"),customers=read("customers"),tasks=read("tasks"),
- staff=read("staff"),invoices=read("invoices"),currentRole="admin";
-
+"use strict";
+const DEPARTMENTS=["Property Management","Digital Management","Finance Management","Business Support","Construction Management","Interior Design Management","Counters & Billing"];
+const KEYS=["leads","customers","tasks","staff","invoices","activities","audit","transfers"];
+const read=k=>{try{return JSON.parse(localStorage.getItem("coreva_"+k)||"[]")}catch(e){return[]}};
+const write=(k,v)=>localStorage.setItem("coreva_"+k,JSON.stringify(v));
 const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const today=new Date().toISOString().slice(0,10);
-document.getElementById("today").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
-function fillSelect(id,values){document.getElementById(id).innerHTML=values.map(x=>`<option>${safe(x)}</option>`).join("")}
-["leadDept","custDept","taskDept","staffDept"].forEach(id=>fillSelect(id,departments));
-function fillStaffSelect(id){document.getElementById(id).innerHTML='<option value="">Unassigned</option>'+staff.map(s=>`<option value="${safe(s.name)}">${safe(s.name)}</option>`).join("")}
-["leadAssign","taskAssign"].forEach(fillStaffSelect);
-
-document.querySelectorAll(".nav button[data-page]").forEach(btn=>btn.addEventListener("click",()=>showPage(btn.dataset.page)));
-function showPage(page){
- if(currentRole!=="admin"&&["reports","settings"].includes(page)){alert("This section is restricted to the Founder / Admin.");return}
- document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
- document.getElementById(page).classList.add("active");
- document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- document.getElementById("pageTitle").textContent=document.querySelector(`[data-page="${page}"]`).textContent.trim();
- document.getElementById("sidebar").classList.remove("open");
- renderAll();
-}
-function switchPreviewRole(){
- if(currentRole==="admin"){
-  currentRole="staff";
-  document.getElementById("roleLabel").textContent="Staff Preview";
-  document.getElementById("welcomeTitle").innerHTML='Welcome to <span>COREVA</span>';
-  document.getElementById("welcomeSubtitle").textContent="Staff workspace preview · Restricted access";
-  document.querySelectorAll(".admin-only").forEach(e=>e.style.display="none");
-  showPage("inquiries");
- }else{
-  currentRole="admin";
-  document.getElementById("roleLabel").textContent="Founder / Admin";
-  document.getElementById("welcomeTitle").innerHTML='Welcome, <span>Mr. Abubakar Faiz</span>';
-  document.getElementById("welcomeSubtitle").textContent="Founder & CEO · COREVA Business Solutions";
-  document.querySelectorAll(".admin-only").forEach(e=>e.style.display="");
-  showPage("dashboard");
- }
-}
-function openModal(id){document.getElementById(id).classList.add("show")}
-function closeModal(id){document.getElementById(id).classList.remove("show")}
-
-function addLead(){
- const name=leadName.value.trim();if(!name)return alert("Enter customer name");
- leads.unshift({id:Date.now(),name,phone:leadPhone.value,dept:leadDept.value,assigned:leadAssign.value,details:leadDetails.value,status:"New",date:today});
- write("leads",leads);["leadName","leadPhone","leadDetails"].forEach(id=>document.getElementById(id).value="");
- closeModal("leadModal");renderAll();
-}
-function addCustomer(){
- const name=custName.value.trim();if(!name)return alert("Enter customer name");
- customers.unshift({id:Date.now(),name,phone:custPhone.value,email:custEmail.value,dept:custDept.value});
- write("customers",customers);closeModal("customerModal");renderAll();
-}
-function addTask(){
- const name=taskName.value.trim();if(!name)return alert("Enter task");
- tasks.unshift({id:Date.now(),name,date:taskDate.value,assigned:taskAssign.value,dept:taskDept.value,status:"Pending"});
- write("tasks",tasks);closeModal("taskModal");renderAll();
-}
-function addStaff(){
- const name=staffName.value.trim();if(!name)return alert("Enter staff name");
- staff.push({id:Date.now(),name,email:staffEmail.value,dept:staffDept.value,role:staffRole.value});
- write("staff",staff);closeModal("staffModal");fillStaffSelect("leadAssign");fillStaffSelect("taskAssign");renderAll();
- ["staffName","staffEmail"].forEach(id=>document.getElementById(id).value="");
-}
-function removeRecord(key,id){
- if(!confirm("Delete this record?"))return;
- let arr=read(key).filter(x=>x.id!==id);write(key,arr);
- leads=read("leads");customers=read("customers");tasks=read("tasks");staff=read("staff");invoices=read("invoices");renderAll();
-}
-function table(headers,rows){
- if(!rows.length)return '<div class="empty">No records yet.</div>';
- return `<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
-}
-function renderAll(){
- leads=read("leads");customers=read("customers");tasks=read("tasks");staff=read("staff");invoices=read("invoices");
- statLeads.textContent=leads.length;statCustomers.textContent=customers.length;statInvoices.textContent=invoices.length;
- const revenue=invoices.reduce((s,i)=>s+i.total,0);
- statRevenue.textContent=money(revenue);reportTotal.textContent=money(revenue);reportCount.textContent=invoices.length;
- leadTable.innerHTML=table(["Customer","Phone","Department","Assigned","Requirement","Status",""],leads.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.phone)}</td><td>${safe(x.dept)}</td><td>${safe(x.assigned)}</td><td>${safe(x.details)}</td><td><span class="tag">${safe(x.status)}</span></td><td><button class="btn secondary small" onclick="removeRecord('leads',${x.id})">Delete</button></td></tr>`));
- recentLeads.innerHTML=leads.length?table(["Customer","Department","Status"],leads.slice(0,5).map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.dept)}</td><td><span class="tag">${safe(x.status)}</span></td></tr>`)):'<div class="empty">No inquiries received yet.</div>';
- customerTable.innerHTML=table(["Customer","Phone","Email","Department",""],customers.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.phone)}</td><td>${safe(x.email)}</td><td>${safe(x.dept)}</td><td><button class="btn secondary small" onclick="removeRecord('customers',${x.id})">Delete</button></td></tr>`));
- taskTable.innerHTML=table(["Task","Due date","Assigned","Department","Status",""],tasks.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.date)}</td><td>${safe(x.assigned)}</td><td>${safe(x.dept)}</td><td><span class="tag">${safe(x.status)}</span></td><td><button class="btn secondary small" onclick="removeRecord('tasks',${x.id})">Delete</button></td></tr>`));
- staffTable.innerHTML=table(["Staff member","Email / ID","Department","Role",""],staff.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.email)}</td><td>${safe(x.dept)}</td><td>${safe(x.role)}</td><td><button class="btn secondary small" onclick="removeRecord('staff',${x.id})">Delete</button></td></tr>`));
- invoiceTable.innerHTML=table(["Invoice","Customer","Date","Total",""],invoices.map(x=>`<tr><td>${safe(x.number)}</td><td>${safe(x.customer)}</td><td>${safe(x.date)}</td><td>${money(x.total)}</td><td><button class="btn secondary small" onclick="loadInvoice(${x.id})">View</button> <button class="btn secondary small" onclick="removeRecord('invoices',${x.id})">Delete</button></td></tr>`));
- reportTable.innerHTML=invoiceTable.innerHTML;
- departmentCards.innerHTML=departments.map((d,i)=>`<div class="card"><div class="gold">0${i+1} / COREVA DEPARTMENT</div><h2>${safe(d)}</h2><p class="muted">Manage customers, inquiries, assignments and follow-up activities for this department.</p></div>`).join("");
- if(window.overviewChartInstance)window.overviewChartInstance.destroy();
- if(window.departmentChartInstance)window.departmentChartInstance.destroy();
- const ctx=document.getElementById("overviewChart");
- window.overviewChartInstance=new Chart(ctx,{type:"line",data:{labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],datasets:[{label:"Inquiries",data:Array(12).fill(0).map((_,i)=>i===new Date().getMonth()?leads.length:0),borderColor:"#d8b875",backgroundColor:"#d8b87522",fill:true,tension:.4}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:"#aaa"}}},scales:{x:{ticks:{color:"#999"},grid:{color:"#292b30"}},y:{ticks:{color:"#999"},grid:{color:"#292b30"}}}}});
- window.departmentChartInstance=new Chart(document.getElementById("departmentChart"),{type:"doughnut",data:{labels:departments,datasets:[{data:departments.map(d=>leads.filter(x=>x.dept===d).length),backgroundColor:["#d8b875","#8c78bc","#65a9a0","#a8a8a8","#c48d68","#8193ae"],borderWidth:0}]},options:{maintainAspectRatio:false,plugins:{legend:{position:"bottom",labels:{color:"#bbb",boxWidth:10}}}}});
-}
-
-// Invoice builder
-let lineCounter=0;
-function newInvoice(){
- invNumber.value="CRV-"+Date.now().toString().slice(-8);
- invDate.value=today;invCustomer.value="";invPhone.value="";invAddress.value="";
- invTax.value=0;invDiscount.value=0;invNotes.value="";
- invoiceLines.innerHTML="";addInvoiceLine();calculateInvoice();
-}
-function addInvoiceLine(description="",qty=1,rate=0){
- const id=++lineCounter;
- const tr=document.createElement("tr");tr.id="line"+id;
- tr.innerHTML=`<td><input placeholder="Service / item" value="${safe(description)}" class="desc"></td>
- <td><input type="number" min="0" step="1" value="${qty}" class="qty" oninput="calculateInvoice()"></td>
- <td><input type="number" min="0" step="0.01" value="${rate}" class="rate" oninput="calculateInvoice()"></td>
- <td class="amount">₹0.00</td><td><button class="btn danger small" onclick="this.closest('tr').remove();calculateInvoice()">×</button></td>`;
- invoiceLines.appendChild(tr);calculateInvoice();
-}
-function getInvoiceLines(){
- return [...invoiceLines.querySelectorAll("tr")].map(tr=>({
- description:tr.querySelector(".desc").value,
- qty:Number(tr.querySelector(".qty").value)||0,
- rate:Number(tr.querySelector(".rate").value)||0
- })).filter(x=>x.description||x.rate);
-}
-function calculateInvoice(){
- let subtotal=0;
- [...invoiceLines.querySelectorAll("tr")].forEach(tr=>{
-  const q=Number(tr.querySelector(".qty").value)||0,r=Number(tr.querySelector(".rate").value)||0;
-  const amount=q*r;subtotal+=amount;tr.querySelector(".amount").textContent=money(amount);
- });
- const taxRate=Number(invTax.value)||0,discount=Number(invDiscount.value)||0;
- const tax=subtotal*taxRate/100,total=Math.max(0,subtotal+tax-discount);
- invSubtotal.textContent=money(subtotal);invTaxAmount.textContent=money(tax);
- invDiscountAmount.textContent=money(discount);invGrand.textContent=money(total);
- return {subtotal,tax,discount,total};
-}
-function invoiceData(){
- const sums=calculateInvoice();
- return {id:Date.now(),number:invNumber.value,date:invDate.value,customer:invCustomer.value,
- phone:invPhone.value,address:invAddress.value,lines:getInvoiceLines(),taxRate:Number(invTax.value)||0,
- notes:invNotes.value,...sums};
-}
-function saveInvoice(){
- const data=invoiceData();
- if(!data.customer.trim())return alert("Enter customer name before saving.");
- if(!data.lines.length)return alert("Add at least one invoice item.");
- invoices=read("invoices");
- const existing=invoices.findIndex(x=>x.number===data.number);
- if(existing>=0)invoices[existing]=data;else invoices.unshift(data);
- write("invoices",invoices);renderAll();alert("Invoice saved in this browser.");
-}
-function loadInvoice(id){
- const x=read("invoices").find(i=>i.id===id);if(!x)return;
- invNumber.value=x.number;invDate.value=x.date;invCustomer.value=x.customer;invPhone.value=x.phone;
- invAddress.value=x.address;invTax.value=x.taxRate;invDiscount.value=x.discount;invNotes.value=x.notes||"";
- invoiceLines.innerHTML="";x.lines.forEach(l=>addInvoiceLine(l.description,l.qty,l.rate));
- calculateInvoice();showPage("billing");
-}
-function printInvoice(){
- const x=invoiceData();if(!x.customer.trim())return alert("Enter customer name first.");
- const company=JSON.parse(localStorage.getItem("coreva_company")||"{}");
- const rows=x.lines.map(l=>`<tr><td>${safe(l.description)}</td><td>${l.qty}</td><td>${money(l.rate)}</td><td>${money(l.qty*l.rate)}</td></tr>`).join("");
- const html=`<!DOCTYPE html><html><head><title>${safe(x.number)}</title><style>
- body{font:14px Arial;color:#222;margin:35px}h1{margin-bottom:4px;color:#222}
- .top{display:flex;justify-content:space-between;border-bottom:2px solid #b28c4b;padding-bottom:20px}
- .brand{font-size:24px;font-weight:bold;letter-spacing:2px}small{color:#666}
- table{width:100%;border-collapse:collapse;margin-top:30px}th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}
- th{background:#f2eee6}.totals{margin:25px 0 0 auto;width:280px}.totals p{display:flex;justify-content:space-between}
- .sign{margin-top:90px;text-align:right}.line{display:inline-block;width:220px;border-top:1px solid #333;padding-top:9px}
- .notes{margin-top:30px;color:#555} @media print{button{display:none}}
- </style></head><body>
- <div class="top"><div><div class="brand">COREVA</div><h3>BUSINESS SOLUTIONS</h3><small>${safe(company.address||"")}</small><br><small>${safe(company.phone||"")} ${safe(company.email||"")}</small></div>
- <div><h1>INVOICE</h1><b>${safe(x.number)}</b><br><small>Date: ${safe(x.date)}</small></div></div>
- <h3>Bill To</h3><b>${safe(x.customer)}</b><br>${safe(x.phone)}<br>${safe(x.address)}
- <table><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table>
- <div class="totals"><p><span>Subtotal</span><b>${money(x.subtotal)}</b></p><p><span>Tax (${x.taxRate}%)</span><b>${money(x.tax)}</b></p><p><span>Discount</span><b>${money(x.discount)}</b></p><h2 style="text-align:right">Total: ${money(x.total)}</h2></div>
- <div class="notes">${safe(x.notes||"")}</div>
- <div class="sign"><div class="line"><b>Founder & CEO</b><br>COREVA Business Solutions</div></div>
- <p style="margin-top:55px;text-align:center;color:#777">Thank you for choosing COREVA Business Solutions.</p>
- <script>window.onload=()=>window.print();<\/script></body></html>`;
- const w=window.open("","_blank");if(!w)return alert("Allow pop-ups to print or save as PDF.");
- w.document.write(html);w.document.close();
-}
-function saveCompany(){
- const obj={name:companyName.value,email:companyEmail.value,phone:companyPhone.value,address:companyAddress.value};
- localStorage.setItem("coreva_company",JSON.stringify(obj));alert("Company details saved in this browser.");
-}
-newInvoice();renderAll();
+let role="founder",selectedCustomer=null,chartA=null,chartB=null,lineCounter=0;
+let leads=read("leads"),customers=read("customers"),tasks=read("tasks"),staff=read("staff"),invoices=read("invoices"),activities=read("activities"),audit=read("audit"),transfers=read("transfers");
+const el=id=>document.getElementById(id);
+const val=id=>el(id)?.value||"";
+function log(action,details,customerId=null){audit.unshift({id:Date.now()+Math.random(),action,details,customerId,by:roleLabel(),at:new Date().toISOString()});write("audit",audit);if(customerId){const c=customers.find(x=>String(x.id)===String(customerId));if(c){c.history=c.history||[];c.history.unshift({action,details,by:roleLabel(),at:new Date().toISOString()});write("customers",customers)}}}
+function roleLabel(){return role==="founder"?"Founder":role==="manager"?"Department Manager":role==="counter"?"Counter Executive":"Staff Preview"}
+function fillSelect(id,items,first="Select"){const e=el(id);if(!e)return;e.innerHTML=(first?`<option value="">${safe(first)}</option>`:"")+items.map(x=>`<option value="${safe(x.value??x)}">${safe(x.label??x)}</option>`).join("")}
+function fillDynamic(){["leadDept","custDept","taskDept","staffDept","updateDept","transferDept"].forEach(id=>fillSelect(id,DEPARTMENTS));["leadAssign","taskAssign","updateStaff","transferStaff"].forEach(id=>fillSelect(id,staff.filter(s=>s.status!=="Inactive").map(s=>({value:s.name,label:s.name+" · "+s.dept})),"Unassigned"));["taskCustomer","updateCustomer","invCustomerSelect"].forEach(id=>fillSelect(id,customers.map(c=>({value:c.id,label:c.name+" · "+(c.phone||"")})), "Select customer"));fillSelect("updateTask",tasks.map(t=>({value:t.id,label:t.name})),"Select task")}
+function showPage(page){const section=el(page);if(!section)return;if(!canOpen(page)){alert("This section is not available in this role preview.");return}document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));section.classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));el("pageTitle").textContent=document.querySelector(`[data-page="${page}"]`)?.textContent.trim()||page;el("sidebar").classList.remove("open");renderAll()}
+function canOpen(p){if(role==="founder")return true;if(role==="manager")return !["staff","reports","audit","settings"].includes(p);if(role==="counter")return ["dashboard","customers","billing","activity"].includes(p);return ["dashboard","inquiries","customers","tasks","activity","approvals"].includes(p)}
+document.querySelectorAll(".nav button[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function switchRole(r){role=r;el("roleLabel").textContent=roleLabel()+" · Preview";el("avatar").textContent=r[0].toUpperCase();el("welcomeTitle").innerHTML=r==="founder"?'Welcome, <span>Founder</span>':r==="manager"?'Welcome, <span>Department Manager</span>':r==="counter"?'Welcome, <span>Counter Team</span>':'Welcome to <span>COREVA</span>';el("welcomeSubtitle").textContent=role==="founder"?"Founder & CEO · COREVA Business Solutions":role==="manager"?"Department operations · Manager preview":role==="counter"?"Billing and customer service · Counter preview":"Assigned work · Staff preview";document.querySelectorAll(".nav button").forEach(b=>{b.classList.toggle("hide",!canOpen(b.dataset.page))});document.querySelectorAll(".role-founder").forEach(x=>x.classList.toggle("hide",r!=="founder"));document.querySelectorAll(".role-counter").forEach(x=>x.classList.toggle("hide",!["founder","counter"].includes(r)));showPage("dashboard")}
+function openModal(id){fillDynamic();el(id).classList.add("show")}function closeModal(id){el(id).classList.remove("show")}
+function addLead(){const name=val("leadName").trim();if(!name)return alert("Enter customer name.");const lead={id:Date.now(),name,phone:val("leadPhone"),email:val("leadEmail"),dept:val("leadDept"),assigned:val("leadAssign"),source:val("leadSource"),details:val("leadDetails"),status:"New",date:today};leads.unshift(lead);write("leads",leads);let c=customers.find(x=>x.phone&&x.phone===lead.phone);if(!c){c={id:Date.now()+1,name,phone:lead.phone,email:lead.email,dept:lead.dept,services:lead.details,address:"",history:[]};customers.unshift(c);write("customers",customers)}log("Inquiry created",`${name} · ${lead.dept} · ${lead.source}`,c.id);closeModal("leadModal");["leadName","leadPhone","leadEmail","leadDetails"].forEach(id=>el(id).value="");renderAll()}
+function addCustomer(){const name=val("custName").trim();if(!name)return alert("Enter customer name.");const c={id:Date.now(),name,phone:val("custPhone"),email:val("custEmail"),dept:val("custDept"),address:val("custAddress"),services:val("custServices"),history:[]};customers.unshift(c);write("customers",customers);log("Customer created",`${name} added to CRM`,c.id);closeModal("customerModal");["custName","custPhone","custEmail","custAddress","custServices"].forEach(id=>el(id).value="");renderAll()}
+function addTask(){const name=val("taskName").trim();if(!name)return alert("Enter task title.");const t={id:Date.now(),name,customerId:val("taskCustomer"),date:val("taskDate"),assigned:val("taskAssign"),dept:val("taskDept"),priority:val("taskPriority"),type:val("taskType"),details:val("taskDetails"),status:"Pending",created:today};tasks.unshift(t);write("tasks",tasks);log("Task created",`${name} assigned to ${t.assigned||"Unassigned"}`,t.customerId||null);closeModal("taskModal");["taskName","taskDate","taskDetails"].forEach(id=>el(id).value="");renderAll()}
+function addStaff(){const name=val("staffName").trim();if(!name)return alert("Enter staff name.");staff.push({id:Date.now(),name,email:val("staffEmail"),phone:val("staffPhone"),dept:val("staffDept"),role:val("staffRole"),status:val("staffStatus")});write("staff",staff);log("Team member added",`${name} · ${val("staffRole")} · ${val("staffDept")}`);closeModal("staffModal");["staffName","staffEmail","staffPhone"].forEach(id=>el(id).value="");renderAll()}
+function submitUpdate(){const notes=val("updateNotes").trim();if(!notes)return alert("Enter work update notes.");const a={id:Date.now(),customerId:val("updateCustomer"),taskId:val("updateTask"),dept:val("updateDept"),staff:val("updateStaff")||roleLabel(),status:val("updateStatus"),nextDate:val("updateDate"),notes,approval:"Pending",at:new Date().toISOString()};activities.unshift(a);write("activities",activities);if(a.taskId){const t=tasks.find(x=>String(x.id)===String(a.taskId));if(t){t.status=a.status==="Completed"?"Completed":"Submitted";write("tasks",tasks)}}log("Work update submitted",`${a.staff}: ${notes}`,a.customerId||null);closeModal("updateModal");el("updateNotes").value="";renderAll()}
+function setTaskStatus(id,status){const t=tasks.find(x=>String(x.id)===String(id));if(!t)return;t.status=status;write("tasks",tasks);log("Task status changed",`${t.name}: ${status}`,t.customerId||null);renderAll()}
+function reviewUpdate(id,decision){const a=activities.find(x=>String(x.id)===String(id));if(!a)return;a.approval=decision;write("activities",activities);log("Work update reviewed",`${a.staff}: ${decision}`,a.customerId||null);renderAll()}
+function openTransfer(id){el("transferCustomerId").value=id;fillDynamic();openModal("transferModal")}
+function saveTransfer(){const id=val("transferCustomerId"),c=customers.find(x=>String(x.id)===String(id));if(!c)return;const old=`${c.dept||"Unassigned"} / ${c.assigned||"Unassigned"}`;const nextDept=val("transferDept"),nextStaff=val("transferStaff"),reason=val("transferReason").trim();if(!reason)return alert("Enter transfer reason.");transfers.unshift({id:Date.now(),customerId:id,from:old,to:`${nextDept} / ${nextStaff}`,reason,by:roleLabel(),at:new Date().toISOString()});c.dept=nextDept;c.assigned=nextStaff;c.history=c.history||[];write("customers",customers);write("transfers",transfers);log("Customer transferred",`${old} → ${nextDept} / ${nextStaff}. Reason: ${reason}`,id);closeModal("transferModal");renderAll()}
+function openLeadStatus(id,status){el("statusLeadId").value=id;el("newLeadStatus").value=status;openModal("statusModal")}
+function saveLeadStatus(){const l=leads.find(x=>String(x.id)===String(val("statusLeadId")));if(!l)return;const old=l.status;l.status=val("newLeadStatus");write("leads",leads);log("Inquiry status changed",`${l.name}: ${old} → ${l.status}. ${val("leadStatusNote")}`);closeModal("statusModal");renderAll()}
+function openCustomer(id){selectedCustomer=id;const c=customers.find(x=>String(x.id)===String(id));if(!c)return;const profile=el("customerProfile");const relatedLeads=leads.filter(l=>l.phone===c.phone||l.name===c.name),relatedTasks=tasks.filter(t=>String(t.customerId)===String(id)),relatedInvoices=invoices.filter(i=>String(i.customerId)===String(id)),history=[...(c.history||[]),...transfers.filter(t=>String(t.customerId)===String(id)).map(t=>({action:"Transfer",details:`${t.from} → ${t.to}. ${t.reason}`,by:t.by,at:t.at}))].sort((a,b)=>new Date(b.at)-new Date(a.at));profile.classList.remove("hide");profile.innerHTML=`<div class="section-head"><h2 class="gold">${safe(c.name)}</h2><button class="btn secondary small" onclick="closeCustomer()">Close profile</button></div><div class="two-col"><div><div class="kpi"><span>Phone</span><b>${safe(c.phone||"—")}</b></div><div class="kpi"><span>Email</span><b>${safe(c.email||"—")}</b></div><div class="kpi"><span>Department</span><b>${safe(c.dept||"—")}</b></div><div class="kpi"><span>Assigned staff</span><b>${safe(c.assigned||"—")}</b></div><div class="kpi"><span>Address</span><b>${safe(c.address||"—")}</b></div><div class="kpi"><span>Services</span><b>${safe(c.services||"—")}</b></div></div><div><h3 class="subhead">Customer actions</h3><div class="actions"><button class="btn small" onclick="openTransfer(${c.id})">Transfer / Reassign</button><button class="btn secondary small" onclick="openModal('taskModal')">Create task</button><button class="btn secondary small" onclick="showPage('billing')">Create invoice</button></div><h3 class="subhead">Related records</h3><div class="kpi"><span>Inquiries</span><b>${relatedLeads.length}</b></div><div class="kpi"><span>Tasks</span><b>${relatedTasks.length}</b></div><div class="kpi"><span>Invoices</span><b>${relatedInvoices.length}</b></div></div></div><h3 class="subhead">Complete activity history</h3><div class="timeline">${history.length?history.map(h=>`<div class="event"><b>${safe(h.action)}</b><p>${safe(h.details)}</p><p>${safe(h.by||"System")} · ${new Date(h.at).toLocaleString("en-IN")}</p></div>`).join(""):'<div class="empty">No activity history recorded yet.</div>'}</div>`;profile.scrollIntoView({behavior:"smooth",block:"start"})}
+function closeCustomer(){el("customerProfile").classList.add("hide");selectedCustomer=null}
+function renderLeads(){const q=val("leadSearch").toLowerCase(),f=val("leadFilter");const rows=leads.filter(l=>(!f||l.status===f)&&[l.name,l.phone,l.details,l.dept].join(" ").toLowerCase().includes(q));el("leadTable").innerHTML=table(["Customer","Contact","Department","Assigned","Requirement","Source","Status","Actions"],rows.map(l=>`<tr><td>${safe(l.name)}</td><td>${safe(l.phone)}<br>${safe(l.email)}</td><td>${safe(l.dept)}</td><td>${safe(l.assigned||"Unassigned")}</td><td>${safe(l.details)}</td><td>${safe(l.source)}</td><td><span class="tag">${safe(l.status)}</span></td><td><button class="btn secondary small" onclick="openLeadStatus(${l.id},'${safe(l.status)}')">Status</button></td></tr>`))}
+function renderCustomers(){const q=val("customerSearch").toLowerCase();const rows=customers.filter(c=>[c.name,c.phone,c.email,c.dept].join(" ").toLowerCase().includes(q));el("customerTable").innerHTML=table(["Customer","Phone / Email","Department","Services","History","Actions"],rows.map(c=>`<tr><td><b>${safe(c.name)}</b></td><td>${safe(c.phone)}<br>${safe(c.email)}</td><td>${safe(c.dept)}</td><td>${safe(c.services||"—")}</td><td>${(c.history||[]).length} events</td><td><button class="btn small" onclick="openCustomer(${c.id})">Open 360°</button></td></tr>`))}
+function renderTasks(){const q=val("taskSearch").toLowerCase(),f=val("taskStatusFilter");const rows=tasks.filter(t=>(!f||t.status===f)&&[t.name,t.assigned,t.dept,t.details].join(" ").toLowerCase().includes(q));el("taskTable").innerHTML=table(["Task","Customer","Due date","Department","Assigned","Priority","Status","Update"],rows.map(t=>`<tr><td><b>${safe(t.name)}</b><br>${safe(t.details)}</td><td>${safe(customers.find(c=>String(c.id)===String(t.customerId))?.name||"—")}</td><td>${safe(t.date||"—")}</td><td>${safe(t.dept)}</td><td>${safe(t.assigned||"Unassigned")}</td><td><span class="tag ${t.priority==="Urgent"||t.priority==="High"?"red":""}">${safe(t.priority)}</span></td><td><span class="tag">${safe(t.status)}</span></td><td><select class="search" onchange="setTaskStatus(${t.id},this.value)">${["Pending","In Progress","Submitted","Completed","On Hold"].map(s=>`<option ${t.status===s?"selected":""}>${s}</option>`).join("")}</select></td></tr>`))}
+function renderActivity(){el("activityList").innerHTML=activities.length?`<div class="timeline">${activities.map(a=>`<div class="event"><b>${safe(a.staff)} · ${safe(a.status)}</b><p>${safe(a.notes)}</p><p>${safe(a.dept)} · ${new Date(a.at).toLocaleString("en-IN")} · Review: <span class="tag ${a.approval==="Approved"?"green":a.approval==="Rejected"?"red":""}">${safe(a.approval)}</span></p></div>`).join("")}</div>`:'<div class="empty">No work updates submitted yet.</div>';el("approvalList").innerHTML=activities.filter(a=>a.approval==="Pending").length?table(["Submitted by","Department","Update","Date","Review"],activities.filter(a=>a.approval==="Pending").map(a=>`<tr><td>${safe(a.staff)}</td><td>${safe(a.dept)}</td><td>${safe(a.notes)}</td><td>${new Date(a.at).toLocaleDateString("en-IN")}</td><td><button class="btn small" onclick="reviewUpdate(${a.id},'Approved')">Approve</button> <button class="btn danger small" onclick="reviewUpdate(${a.id},'Rejected')">Reject</button></td></tr>`)):'<div class="empty">No updates awaiting approval.</div>'}
+function renderStaff(){el("staffTable").innerHTML=table(["Name","Email / Login ID","Phone","Department","Role","Status"],staff.map(s=>`<tr><td>${safe(s.name)}</td><td>${safe(s.email)}</td><td>${safe(s.phone)}</td><td>${safe(s.dept)}</td><td>${safe(s.role)}</td><td><span class="tag ${s.status==="Active"?"green":"red"}">${safe(s.status)}</span></td></tr>`))}
+function renderDepartments(){el("departmentCards").innerHTML=DEPARTMENTS.map((d,i)=>`<div class="card"><div class="gold">0${i+1} / COREVA DEPARTMENT</div><h2>${safe(d)}</h2><p class="muted">${leads.filter(x=>x.dept===d).length} inquiries · ${customers.filter(x=>x.dept===d).length} customers · ${tasks.filter(x=>x.dept===d&&!["Completed"].includes(x.status)).length} open tasks</p><p class="muted">Department manager and team assignments are recorded in staff management.</p></div>`).join("")}
+function renderAudit(){el("auditList").innerHTML=audit.length?table(["Date / Time","Action","Details","Performed by"],audit.map(a=>`<tr><td>${new Date(a.at).toLocaleString("en-IN")}</td><td>${safe(a.action)}</td><td>${safe(a.details)}</td><td>${safe(a.by)}</td></tr>`)):'<div class="empty">No audit events yet.</div>'}
+function table(headers,rows){if(!rows.length)return'<div class="empty">No records found.</div>';return`<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`}
+function renderRecent(){el("recentLeads").innerHTML=table(["Customer","Department","Status","Date"],leads.slice(0,5).map(l=>`<tr><td>${safe(l.name)}</td><td>${safe(l.dept)}</td><td><span class="tag">${safe(l.status)}</span></td><td>${safe(l.date)}</td></tr>`));el("recentActivity").innerHTML=activities.slice(0,5).map(a=>`<div class="kpi"><span>${safe(a.staff)} · ${safe(a.notes)}</span><b>${safe(a.status)}</b></div>`).join("")||'<div class="empty">No recent activity.</div>'}
+function renderReports(){const total=invoices.reduce((s,x)=>s+Number(x.total||0),0),paid=invoices.filter(x=>x.payment==="Paid").reduce((s,x)=>s+x.total,0);el("reportTotal").textContent=money(total);el("reportPaid").textContent=money(paid);el("reportUnpaid").textContent=money(total-paid);el("reportCompleted").textContent=tasks.filter(t=>t.status==="Completed").length;el("departmentReport").innerHTML=DEPARTMENTS.map(d=>`<div class="kpi"><span>${safe(d)}</span><b>${tasks.filter(t=>t.dept===d&&!["Completed"].includes(t.status)).length} open tasks</b></div>`).join("");el("staffReport").innerHTML=staff.map(s=>`<div class="kpi"><span>${safe(s.name)} · ${safe(s.dept)}</span><b>${tasks.filter(t=>t.assigned===s.name&&t.status==="Completed").length} completed / ${tasks.filter(t=>t.assigned===s.name).length} assigned</b></div>`).join("")||'<div class="empty">Add staff records to see workload.</div>';el("reportTable").innerHTML=el("invoiceTable").innerHTML}
+function renderInvoices(){el("invoiceTable").innerHTML=table(["Invoice","Customer","Date","Total","Payment","Actions"],invoices.map(i=>`<tr><td>${safe(i.number)}</td><td>${safe(i.customer)}</td><td>${safe(i.date)}</td><td>${money(i.total)}</td><td><span class="tag ${i.payment==="Paid"?"green":"red"}">${safe(i.payment)}</span></td><td><button class="btn secondary small" onclick="loadInvoice(${i.id})">Open</button></td></tr>`))}
+function renderStats(){el("statLeads").textContent=leads.length;el("statCustomers").textContent=customers.length;el("statTasks").textContent=tasks.filter(t=>t.status!=="Completed").length;el("statInvoices").textContent=invoices.length;el("statRevenue").textContent=money(invoices.reduce((s,i)=>s+i.total,0));el("statAssigned").textContent=tasks.filter(t=>t.assigned===roleLabel()||role==="founder").length;el("statApprovals").textContent=activities.filter(a=>a.approval==="Pending").length;el("statOverdue").textContent=tasks.filter(t=>t.date&&t.date<today&&t.status!=="Completed").length}
+function renderCharts(){if(!window.Chart)return;if(chartA)chartA.destroy();if(chartB)chartB.destroy();const months=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];chartA=new Chart(el("overviewChart"),{type:"line",data:{labels:months,datasets:[{label:"Inquiries",data:months.map((m,i)=>leads.filter(l=>new Date(l.date).getMonth()===i).length),borderColor:"#d8b875",backgroundColor:"#d8b87522",fill:true,tension:.35}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:"#aaa"}}},scales:{x:{ticks:{color:"#999"},grid:{color:"#292b30"}},y:{ticks:{color:"#999"},grid:{color:"#292b30"}}}}});chartB=new Chart(el("departmentChart"),{type:"doughnut",data:{labels:DEPARTMENTS,datasets:[{data:DEPARTMENTS.map(d=>leads.filter(x=>x.dept===d).length+tasks.filter(t=>t.dept===d&&t.status!=="Completed").length),backgroundColor:["#d8b875","#8c78bc","#65a9a0","#a8a8a8","#c48d68","#8193ae","#bd9b72"],borderWidth:0}]},options:{maintainAspectRatio:false,plugins:{legend:{position:"bottom",labels:{color:"#bbb",boxWidth:10}}}}})}
+function renderAll(){leads=read("leads");customers=read("customers");tasks=read("tasks");staff=read("staff");invoices=read("invoices");activities=read("activities");audit=read("audit");transfers=read("transfers");fillDynamic();renderStats();renderLeads();renderCustomers();renderTasks();renderActivity();renderStaff();renderDepartments();renderInvoices();renderReports();renderAudit();renderRecent();renderCharts()}
+function nextInvoiceNumber(){const n=Number(localStorage.getItem("coreva_invoice_seq")||"0")+1;localStorage.setItem("coreva_invoice_seq",String(n));return"CRV-"+String(n).padStart(3,"0")}
+function newInvoice(){el("invNumber").value=nextInvoiceNumber();el("invDate").value=today;["invCustomer","invPhone","invEmail","invAddress","invNotes"].forEach(id=>el(id).value="");el("invCustomerSelect").value="";el("invTax").value=0;el("invDiscount").value=0;el("invPayment").value="Unpaid";el("invMethod").value="Not recorded";el("invoiceLines").innerHTML="";addInvoiceLine();calculateInvoice()}
+function addInvoiceLine(description="",qty=1,rate=0){const id=++lineCounter,tr=document.createElement("tr");tr.id="line"+id;tr.innerHTML=`<td><input placeholder="Service / item" value="${safe(description)}" class="desc"></td><td><input type="number" min="0" step="1" value="${qty}" class="qty" oninput="calculateInvoice()"></td><td><input type="number" min="0" step=".01" value="${rate}" class="rate" oninput="calculateInvoice()"></td><td class="amount">₹0.00</td><td><button class="btn danger small" onclick="this.closest('tr').remove();calculateInvoice()">×</button></td>`;el("invoiceLines").appendChild(tr);calculateInvoice()}
+function getInvoiceLines(){return[...el("invoiceLines").querySelectorAll("tr")].map(tr=>({description:tr.querySelector(".desc").value,qty:Number(tr.querySelector(".qty").value)||0,rate:Number(tr.querySelector(".rate").value)||0})).filter(x=>x.description.trim())}
+function calculateInvoice(){let subtotal=0;[...el("invoiceLines").querySelectorAll("tr")].forEach(tr=>{const amount=(Number(tr.querySelector(".qty").value)||0)*(Number(tr.querySelector(".rate").value)||0);subtotal+=amount;tr.querySelector(".amount").textContent=money(amount)});const tax=subtotal*(Number(val("invTax"))||0)/100,discount=Number(val("invDiscount"))||0,total=Math.max(0,subtotal+tax-discount);el("invSubtotal").textContent=money(subtotal);el("invTaxAmount").textContent=money(tax);el("invDiscountAmount").textContent=money(discount);el("invGrand").textContent=money(total);return{subtotal,tax,discount,total}}
+function selectInvoiceCustomer(){const c=customers.find(x=>String(x.id)===String(val("invCustomerSelect")));if(!c)return;el("invCustomer").value=c.name;el("invPhone").value=c.phone||"";el("invEmail").value=c.email||"";el("invAddress").value=c.address||"";if(c.services)addInvoiceLine(c.services,1,0)}
+function invoiceData(){return{id:Date.now(),customerId:val("invCustomerSelect"),number:val("invNumber"),date:val("invDate"),customer:val("invCustomer"),phone:val("invPhone"),email:val("invEmail"),address:val("invAddress"),lines:getInvoiceLines(),taxRate:Number(val("invTax"))||0,payment:val("invPayment"),method:val("invMethod"),notes:val("invNotes"),...calculateInvoice()}}
+function saveInvoice(){const x=invoiceData();if(!x.customer.trim())return alert("Enter or select customer name.");if(!x.lines.length)return alert("Add at least one invoice item.");if(!x.lines.some(l=>l.qty>0))return alert("Enter a valid quantity.");invoices=read("invoices");const idx=invoices.findIndex(i=>i.number===x.number);if(idx>=0)invoices[idx]=x;else invoices.unshift(x);write("invoices",invoices);log("Invoice saved",`${x.number} · ${x.customer} · ${money(x.total)}`,x.customerId||null);renderAll();alert("Invoice saved in this browser.")}
+function loadInvoice(id){const x=invoices.find(i=>i.id===id);if(!x)return;el("invNumber").value=x.number;el("invDate").value=x.date;el("invCustomer").value=x.customer;el("invPhone").value=x.phone;el("invEmail").value=x.email||"";el("invAddress").value=x.address;el("invTax").value=x.taxRate;el("invDiscount").value=x.discount;el("invPayment").value=x.payment||"Unpaid";el("invMethod").value=x.method||"Not recorded";el("invNotes").value=x.notes||"";el("invoiceLines").innerHTML="";(x.lines||[]).forEach(l=>addInvoiceLine(l.description,l.qty,l.rate));showPage("billing");calculateInvoice()}
+function printInvoice(){const x=invoiceData();if(!x.customer.trim()||!x.lines.length)return alert("Complete customer and invoice items first.");const company=JSON.parse(localStorage.getItem("coreva_company")||"{}");const rows=x.lines.map(l=>`<tr><td>${safe(l.description)}</td><td>${l.qty}</td><td>${money(l.rate)}</td><td>${money(l.qty*l.rate)}</td></tr>`).join("");const w=window.open("","_blank");if(!w)return alert("Allow pop-ups to print / save PDF.");w.document.write(`<!doctype html><html><head><title>${safe(x.number)}</title><style>body{font:14px Arial;color:#222;margin:35px}.top{display:flex;justify-content:space-between;border-bottom:2px solid #b28c4b;padding-bottom:20px}.brand{font-size:25px;font-weight:bold;letter-spacing:2px}small{color:#666}table{width:100%;border-collapse:collapse;margin-top:30px}th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}th{background:#f2eee6}.totals{margin:25px 0 0 auto;width:280px}.totals p{display:flex;justify-content:space-between}.sign{margin-top:80px;text-align:right}.line{display:inline-block;width:220px;border-top:1px solid #333;padding-top:9px}</style></head><body><div class="top"><div><div class="brand">COREVA</div><h3>BUSINESS SOLUTIONS</h3><small>${safe(company.address||"")}</small><br><small>${safe(company.phone||"")} ${safe(company.email||"")}</small></div><div><h1>INVOICE</h1><b>${safe(x.number)}</b><br><small>Date: ${safe(x.date)}</small></div></div><h3>Bill To</h3><b>${safe(x.customer)}</b><br>${safe(x.phone)}<br>${safe(x.email)}<br>${safe(x.address)}<table><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table><div class="totals"><p><span>Subtotal</span><b>${money(x.subtotal)}</b></p><p><span>Tax (${x.taxRate}%)</span><b>${money(x.tax)}</b></p><p><span>Discount</span><b>${money(x.discount)}</b></p><h2 style="text-align:right">Total: ${money(x.total)}</h2><p>Payment: ${safe(x.payment)} · ${safe(x.method)}</p></div><p>${safe(x.notes)}</p><div class="sign"><div class="line"><b>Founder & CEO</b><br>COREVA Business Solutions</div></div><p style="margin-top:45px;text-align:center;color:#777">Thank you for choosing COREVA Business Solutions.</p><script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+function saveCompany(){const obj={name:val("companyName"),email:val("companyEmail"),phone:val("companyPhone"),address:val("companyAddress")};localStorage.setItem("coreva_company",JSON.stringify(obj));log("Company settings updated","Company contact details changed");alert("Company details saved locally.")}
+function exportCSV(type){let rows=[];if(type==="customers")rows=[["Name","Phone","Email","Department","Address","Services"],...customers.map(c=>[c.name,c.phone,c.email,c.dept,c.address,c.services])];if(type==="invoices")rows=[["Invoice","Date","Customer","Phone","Total","Payment"],...invoices.map(i=>[i.number,i.date,i.customer,i.phone,i.total,i.payment])];if(type==="audit")rows=[["Date","Action","Details","By"],...audit.map(a=>[a.at,a.action,a.details,a.by])];const csv=rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\n");const blob=new Blob([csv],{type:"text/csv"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`coreva-${type}.csv`;a.click();URL.revokeObjectURL(a.href)}
+function backupData(){const data={version:1,exportedAt:new Date().toISOString()};KEYS.forEach(k=>data[k]=read(k));data.company=JSON.parse(localStorage.getItem("coreva_company")||"{}");const a=document.createElement("a"),url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.href=url;a.download="coreva-dashboard-backup.json";a.click();URL.revokeObjectURL(url)}
+function restoreData(event){const f=event.target.files[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{try{const d=JSON.parse(reader.result);KEYS.forEach(k=>write(k,Array.isArray(d[k])?d[k]:[]));if(d.company)localStorage.setItem("coreva_company",JSON.stringify(d.company));renderAll();alert("Backup restored locally.")}catch(e){alert("Invalid backup file.")}};reader.readAsText(f)}
+function resetData(){if(!confirm("This permanently clears all COREVA prototype records stored in this browser. Continue?"))return;KEYS.forEach(k=>localStorage.removeItem("coreva_"+k));localStorage.removeItem("coreva_invoice_seq");renderAll();newInvoice();alert("Local prototype data cleared.")}
+el("today").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+const company=JSON.parse(localStorage.getItem("coreva_company")||"{}");if(company.name)el("companyName").value=company.name;if(company.email)el("companyEmail").value=company.email;if(company.phone)el("companyPhone").value=company.phone;if(company.address)el("companyAddress").value=company.address;
+el("restoreFile").addEventListener("change",restoreData);
+fillDynamic();newInvoice();renderAll();
 </script>
 </body>
 </html>
