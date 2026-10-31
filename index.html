@@ -2513,67 +2513,50 @@ footer{
 }
 
 
-/* =========================================================
-   COREVA WELCOME VOICE — DISCREET FLOATING CONTROL
-   ========================================================= */
-.coreva-welcome-voice{
-  position:fixed;
-  right:22px;
-  bottom:22px;
-  z-index:1200;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:13px 17px;
-  border:1px solid rgba(255,255,255,.28);
-  border-radius:999px;
-  color:#fff;
-  background:rgba(8,8,8,.86);
-  box-shadow:0 12px 36px rgba(0,0,0,.35);
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-  font-size:11px;
-  font-weight:700;
-  letter-spacing:.04em;
-  transition:transform .3s ease,border-color .3s ease,background .3s ease;
-}
-.coreva-welcome-voice:hover{
-  transform:translateY(-3px);
-  border-color:rgba(255,255,255,.65);
-  background:rgba(28,28,28,.96);
-}
-.coreva-welcome-voice .voice-icon{
-  display:inline-grid;
-  place-items:center;
-  width:25px;
-  height:25px;
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:50%;
-  font-size:13px;
-}
-.coreva-welcome-voice[aria-pressed="true"] .voice-icon{
-  animation:corevaVoicePulse 1.2s ease-in-out infinite;
-}
-.coreva-voice-status{
-  position:fixed;
-  width:1px;
-  height:1px;
-  padding:0;
-  margin:-1px;
-  overflow:hidden;
-  clip:rect(0,0,0,0);
-  white-space:nowrap;
-  border:0;
-}
-@keyframes corevaVoicePulse{
-  50%{box-shadow:0 0 0 6px rgba(255,255,255,.09)}
-}
-@media(max-width:600px){
-  .coreva-welcome-voice{right:12px;bottom:12px;padding:10px 13px;font-size:10px}
-}
-@media(prefers-reduced-motion:reduce){
-  .coreva-welcome-voice[aria-pressed="true"] .voice-icon{animation:none}
-}
+/* COREVA ENTRY, ROTATING BRAND ECOSYSTEM AND 3D SERVICE ART */
+.coreva-entry-screen{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;background:radial-gradient(circle at 50% 48%,#25221b,#090909 48%,#020202);transition:opacity .85s,visibility .85s;overflow:hidden}
+.coreva-entry-screen.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.entry-glow{position:absolute;width:min(75vw,760px);aspect-ratio:1;border:1px solid #c7a66a44;border-radius:50%;box-shadow:0 0 100px #c7a66a18,inset 0 0 100px #c7a66a0c;animation:entrySpin 22s linear infinite}
+.entry-glow:before,.entry-glow:after{content:"";position:absolute;inset:10%;border:1px solid #ffffff18;border-radius:50%;transform:rotateX(68deg)}
+.entry-glow:after{inset:22%;transform:rotateY(68deg)}
+@keyframes entrySpin{to{transform:rotate(360deg)}}
+.entry-content{position:relative;z-index:2;text-align:center;padding:28px;max-width:680px}
+.entry-content img{width:155px;max-height:90px;object-fit:contain;margin:0 auto 28px}
+.entry-kicker{font-size:9px;letter-spacing:.28em;color:#c9b17d}
+.entry-content h2{font-size:clamp(42px,8vw,86px);line-height:.98;letter-spacing:-.065em;margin:22px 0}
+.entry-content h2 span{color:#d9c18e}.entry-content p{color:#aaa;font-size:14px;margin-bottom:34px}
+#corevaEnterButton{border:1px solid #e4cd9eb3;border-radius:999px;padding:17px 28px;background:linear-gradient(135deg,#e9ddc1,#9f875a);color:#111;font-size:10px;font-weight:800;letter-spacing:.17em;box-shadow:0 12px 45px #c6a05b33;transition:.3s}
+#corevaEnterButton:hover{transform:translateY(-4px);box-shadow:0 18px 55px #c6a05b55}
+#corevaEnterButton span{margin-left:15px}.entry-content small{display:block;color:#777;font-size:10px;margin-top:15px}
+.coreva-ecosystem-orbit{position:relative;width:min(100%,760px);height:570px;margin:55px auto 75px;perspective:1100px;display:grid;place-items:center}
+.eco-orbit-ring{position:absolute;width:480px;height:480px;border:1px solid #dabE8445;border-radius:50%;transform:rotateX(67deg) rotateZ(-18deg);box-shadow:0 0 55px #d6b26c10,inset 0 0 45px #d6b26c0a}
+.eco-orbit-ring.ring-b{width:360px;height:360px;border-color:#ffffff26;transform:rotateX(67deg) rotateZ(18deg)}
+.eco-orbit-center{position:absolute;width:172px;height:172px;border:1px solid #e0c59199;border-radius:34px;display:grid;place-items:center;align-content:center;gap:8px;background:linear-gradient(145deg,#ffffff24,#14120ecc);backdrop-filter:blur(18px);box-shadow:0 0 75px #d9b56b2e,inset 0 0 35px #ffffff12;animation:centerFloat 5s ease-in-out infinite;z-index:3}
+.eco-orbit-center img{width:112px;max-height:80px;object-fit:contain}.eco-orbit-center span{font-size:8px;letter-spacing:.23em;color:#cdbb94}
+@keyframes centerFloat{50%{transform:translateY(-10px) rotateY(8deg)}}
+.eco-orbit-track{position:absolute;inset:0;animation:brandOrbit 24s linear infinite;transform-style:preserve-3d}
+@keyframes brandOrbit{to{transform:rotate(360deg)}}
+.eco-orbit-node{position:absolute;left:50%;top:50%;width:180px;min-height:100px;margin:-50px 0 0 -90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:14px;border:1px solid #dec5948c;border-radius:18px;background:linear-gradient(145deg,#27241df5,#050505f0);box-shadow:0 20px 55px #0009,inset 0 0 25px #ffffff0d;text-align:center;backdrop-filter:blur(12px)}
+.eco-orbit-node b{font-size:10px;letter-spacing:.12em;color:#f3ead8}.eco-orbit-node small{font-size:9px;color:#999}
+.node-symbol{display:grid;place-items:center;width:30px;height:30px;border:1px solid #bca574;border-radius:50%;color:#e2c88e;font-size:12px;font-weight:800}
+.node-velora{transform:rotate(0deg) translateY(-235px) rotate(0deg)}.node-builders{transform:rotate(120deg) translateY(-235px) rotate(-120deg)}.node-properties{transform:rotate(240deg) translateY(-235px) rotate(-240deg)}
+.coreva-feature-showcase{margin-top:90px}.feature-showcase-heading{max-width:620px;margin-bottom:28px}.feature-showcase-heading h3{font-size:clamp(28px,4vw,48px);letter-spacing:-.05em;margin:14px 0}.feature-showcase-heading p{font-size:13px;color:#999;line-height:1.7}
+.feature-visual-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.feature-visual-card{position:relative;min-height:340px;overflow:hidden;border:1px solid #ffffff22;border-radius:22px;background:linear-gradient(145deg,#141414,#070707);transform-style:preserve-3d;transition:.5s}
+.feature-visual-card:hover{transform:perspective(1000px) rotateX(3deg) rotateY(-3deg) translateY(-7px);border-color:#dcbf89aa;box-shadow:0 25px 60px #0007}
+.visual-art{height:190px;position:relative;overflow:hidden;background:radial-gradient(circle at 50% 55%,#c29d5f40,transparent 50%),linear-gradient(140deg,#101923,#080808)}
+.visual-art:before{content:"";position:absolute;inset:15% 20%;border:1px solid #e0c38c47;transform:perspective(500px) rotateX(58deg) rotateZ(35deg);box-shadow:0 0 45px #cda7631f}
+.feature-copy{padding:20px 22px 24px}.feature-copy small{color:#c5a974;font-size:8px;letter-spacing:.22em}.feature-copy h4{font-size:19px;margin:9px 0}.feature-copy p{font-size:11px;line-height:1.65;color:#929292}
+.visual-digital .visual-art{background:radial-gradient(circle at 60% 40%,#24516b,transparent 45%),linear-gradient(135deg,#060a12,#0b1926)}
+.digital-screen{position:absolute;width:145px;height:95px;left:50%;top:48%;transform:translate(-50%,-50%) rotateY(-18deg) rotateX(8deg);border:2px solid #8bb4c7;border-radius:9px;background:linear-gradient(135deg,#4a9abe70,#050c14e6);box-shadow:0 15px 45px #000,0 0 25px #4e9ab455}
+.digital-screen:after{content:"COREVA / DIGITAL";position:absolute;inset:35% 0;text-align:center;font-size:9px;letter-spacing:.14em;color:#d9edf5}.digital-orbit{position:absolute;width:220px;height:70px;border:1px solid #8fc5dc88;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-25deg)}
+.visual-property .visual-art{background:linear-gradient(145deg,#172b36,#090b0d)}.city-silhouette{position:absolute;bottom:0;left:13%;right:13%;height:140px;display:flex;align-items:end;gap:8px;justify-content:center}.city-silhouette i{display:block;width:22%;height:80%;border:1px solid #b9a16d;background:repeating-linear-gradient(0deg,transparent 0 13px,#d9b97988 14px 15px),repeating-linear-gradient(90deg,#152632 0 10px,#d9b97966 11px 12px);box-shadow:0 0 20px #d9b97933}.city-silhouette i:nth-child(2){height:100%;width:25%}.city-silhouette i:nth-child(3){height:70%}.city-silhouette i:nth-child(4){height:88%}
+.visual-build .visual-art{background:linear-gradient(145deg,#2c261b,#090909)}.build-silhouette{position:absolute;inset:30px 12%;display:flex;align-items:end;gap:8px}.build-silhouette i{height:85%;flex:1;border:1px solid #c5a66b;background:repeating-linear-gradient(0deg,#24201a 0 17px,#d9b97988 18px 19px);transform:skewY(-7deg);box-shadow:0 0 25px #caa35b33}.build-silhouette i:nth-child(2){height:100%}.build-silhouette i:nth-child(3){height:65%}
+.visual-events .visual-art{background:radial-gradient(circle at 50% 45%,#684a75,transparent 48%),linear-gradient(145deg,#1b1221,#070707)}.event-stage{position:absolute;inset:38px 15%;border-bottom:3px solid #d6b77b;display:flex;align-items:center;justify-content:space-around}.event-stage i{width:28px;height:95px;background:linear-gradient(#c7a6df,#473253);clip-path:polygon(50% 0,100% 35%,70% 100%,30% 100%,0 35%);filter:drop-shadow(0 0 15px #c7a6df)}.event-stage i:nth-child(2){height:125px;width:40px;background:linear-gradient(#f0d79c,#755a31)}
+.visual-sap .visual-art{background:radial-gradient(circle at 50% 45%,#55431f,transparent 50%),linear-gradient(145deg,#101010,#070707)}.sap-panel{position:absolute;left:50%;top:50%;width:150px;height:105px;transform:translate(-50%,-50%) perspective(500px) rotateY(-18deg);border:1px solid #d8bb7a;border-radius:12px;background:linear-gradient(145deg,#282216,#080808);box-shadow:0 15px 35px #000,0 0 25px #caa35b33;padding:14px}.sap-panel span{font-size:24px;font-weight:900;color:#e6cc91}.sap-panel i{display:block;height:5px;margin-top:8px;width:85%;background:#bca16a66;border-radius:5px}
+.visual-robotics .visual-art{background:radial-gradient(circle at 50% 45%,#24515a,transparent 48%),linear-gradient(145deg,#071116,#060809)}.robot-head{position:absolute;left:50%;top:25%;width:90px;height:75px;transform:translateX(-50%) perspective(500px) rotateY(-15deg);border:1px solid #a8d6d6;border-radius:24px 24px 18px 18px;background:linear-gradient(145deg,#47616a,#101b20);box-shadow:0 0 35px #78caca44}.robot-head i{position:absolute;left:18px;top:28px;width:12px;height:12px;background:#9cf4ed;border-radius:50%;box-shadow:38px 0 #9cf4ed,0 0 12px #9cf4ed}.robot-head b{position:absolute;left:35px;bottom:13px;width:20px;height:3px;background:#a8d6d6}.robot-arm{position:absolute;left:50%;top:70%;width:125px;height:35px;border:7px solid #6c9294;border-top:0;border-radius:0 0 50% 50%;transform:translateX(-50%) rotate(-8deg)}
+@media(max-width:900px){.coreva-ecosystem-orbit{height:480px;transform:scale(.86);margin:20px auto}.eco-orbit-ring{width:390px;height:390px}.eco-orbit-ring.ring-b{width:290px;height:290px}.node-velora{transform:rotate(0deg) translateY(-190px)}.node-builders{transform:rotate(120deg) translateY(-190px) rotate(-120deg)}.node-properties{transform:rotate(240deg) translateY(-190px) rotate(-240deg)}.feature-visual-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.entry-content img{width:125px}.entry-content h2{font-size:48px}.coreva-ecosystem-orbit{height:370px;transform:scale(.72);margin:-15px auto -5px}.eco-orbit-ring{width:340px;height:340px}.eco-orbit-ring.ring-b{width:260px;height:260px}.eco-orbit-center{width:135px;height:135px}.eco-orbit-center img{width:90px}.eco-orbit-node{width:155px;margin-left:-77px}.node-velora{transform:rotate(0deg) translateY(-170px)}.node-builders{transform:rotate(120deg) translateY(-170px) rotate(-120deg)}.node-properties{transform:rotate(240deg) translateY(-170px) rotate(-240deg)}.feature-visual-grid{grid-template-columns:1fr}.feature-visual-card{min-height:315px}}
+@media(prefers-reduced-motion:reduce){.eco-orbit-track,.eco-orbit-center,.entry-glow{animation:none!important}}
 
 </style>
 </head>
@@ -2593,6 +2576,17 @@ footer{
     </div>
   </div>
 
+</div>
+
+
+<div class="coreva-entry-screen" id="corevaEntryScreen" aria-label="Welcome to COREVA">
+ <div class="entry-glow"></div><div class="entry-content">
+  <img src="coreva-logo.png" alt="COREVA">
+  <div class="entry-kicker">PROPERTY · DIGITAL · FINANCE · BUSINESS SUPPORT</div>
+  <h2>Welcome to <span>COREVA.</span></h2><p>One ecosystem. Multiple solutions. One direction.</p>
+  <button type="button" id="corevaEnterButton">ENTER WEBSITE <span>↗</span></button>
+  <small>Tap to enter with a welcome greeting</small>
+ </div>
 </div>
 
 <div class="noise"></div>
@@ -3260,6 +3254,18 @@ footer{
 
   </div>
 
+
+<div class="coreva-feature-showcase reveal">
+ <div class="feature-showcase-heading"><div class="label">COREVA CAPABILITIES</div><h3>From digital systems to built environments.</h3><p>Specialist solutions across technology, property, construction and business operations.</p></div>
+ <div class="feature-visual-grid">
+  <article class="feature-visual-card visual-digital"><div class="visual-art"><div class="digital-screen"></div><div class="digital-orbit"></div></div><div class="feature-copy"><small>01 / TECHNOLOGY</small><h4>Digital Business Systems</h4><p>Websites, platforms, automation, business systems and digital products.</p></div></article>
+  <article class="feature-visual-card visual-property"><div class="visual-art"><div class="city-silhouette"><i></i><i></i><i></i><i></i></div></div><div class="feature-copy"><small>02 / PROPERTY</small><h4>Real Estate & Development</h4><p>Property discovery, real estate support, project planning and development.</p></div></article>
+  <article class="feature-visual-card visual-build"><div class="visual-art"><div class="build-silhouette"><i></i><i></i><i></i></div></div><div class="feature-copy"><small>03 / CONSTRUCTION</small><h4>Builders & Interiors</h4><p>Construction, architecture, interiors and built environment solutions.</p></div></article>
+  <article class="feature-visual-card visual-events"><div class="visual-art"><div class="event-stage"><i></i><i></i><i></i></div></div><div class="feature-copy"><small>04 / CREATIVE</small><h4>Event Designs & Branding</h4><p>Creative event visuals, brand identity, promotional design and media.</p></div></article>
+  <article class="feature-visual-card visual-sap"><div class="visual-art"><div class="sap-panel"><span>SAP</span><i></i><i></i><i></i></div></div><div class="feature-copy"><small>05 / ENTERPRISE</small><h4>SAP & Business Operations</h4><p>Business process systems, enterprise workflows and digital operations support.</p></div></article>
+  <article class="feature-visual-card visual-robotics"><div class="visual-art"><div class="robot-head"><i></i><b></b></div><div class="robot-arm"></div></div><div class="feature-copy"><small>06 / INNOVATION</small><h4>Robotics & Emerging Tech</h4><p>Robotics concepts, automation exploration and emerging technology projects.</p></div></article>
+ </div>
+</div>
 </section>
 
 
@@ -3294,7 +3300,17 @@ footer{
     </div>
 
 
-    <div class="ecosystem-grid">
+    
+<div class="coreva-ecosystem-orbit reveal" aria-label="COREVA specialist brands orbiting around COREVA">
+  <div class="eco-orbit-track">
+    <div class="eco-orbit-node node-velora"><span class="node-symbol">V</span><b>VELORA DIGITAL</b><small>Digital & Technology</small></div>
+    <div class="eco-orbit-node node-builders"><span class="node-symbol">T</span><b>TBD BUILDERS</b><small>Construction & Development</small></div>
+    <div class="eco-orbit-node node-properties"><span class="node-symbol">SR</span><b>SR PRIME</b><small>Property & Real Estate</small></div>
+  </div>
+  <div class="eco-orbit-ring ring-a"></div><div class="eco-orbit-ring ring-b"></div>
+  <div class="eco-orbit-center"><img src="coreva-logo.png" alt="COREVA Business Solutions"><span>ONE ECOSYSTEM</span></div>
+</div>
+<div class="ecosystem-grid">
 
 
       <!-- VELORA -->
@@ -5207,132 +5223,23 @@ if(corevaIntroVideo){
 }
 
 
-
-/* =========================================================
-   COREVA WELCOME VOICE
-   Uses built-in browser speech synthesis; no API key or
-   external audio file is needed. Browsers may require a
-   visitor interaction before allowing speech.
-   ========================================================= */
+/* COREVA welcome audio: begins after visitor presses ENTER WEBSITE. */
 (function(){
-  const voiceButton = document.getElementById("corevaWelcomeVoice");
-  const voiceLabel = document.getElementById("corevaWelcomeVoiceLabel");
-  const voiceStatus = document.getElementById("corevaVoiceStatus");
-
-  if (!voiceButton || !("speechSynthesis" in window) ||
-      !("SpeechSynthesisUtterance" in window)) {
-    if (voiceButton) {
-      voiceButton.addEventListener("click", function(){
-        if (voiceStatus) {
-          voiceStatus.textContent =
-            "Welcome voice is not supported in this browser. Please enable browser audio or try a recent version of Chrome or Edge.";
-        }
-      });
-    }
-    return;
-  }
-
-  let greetingStarted = false;
-  let isSpeaking = false;
-
-  const greeting =
-    "Hi, and welcome to Coreva Business Solutions. Your plans, your growth — we're here to help you move forward. Explore our digital solutions, property opportunities, construction and interior services. Have a requirement? Contact us, and let's build something great together.";
-
-  function chooseEnglishVoice(){
-    const voices = window.speechSynthesis.getVoices();
-    return voices.find(v => /en-IN/i.test(v.lang)) ||
-           voices.find(v => /en-GB/i.test(v.lang)) ||
-           voices.find(v => /en-US/i.test(v.lang)) ||
-           voices.find(v => /^en/i.test(v.lang)) ||
-           null;
-  }
-
-  function speakWelcome(){
-    if (isSpeaking) {
-      window.speechSynthesis.cancel();
-      isSpeaking = false;
-    }
-
-    const utterance = new SpeechSynthesisUtterance(greeting);
-    const selectedVoice = chooseEnglishVoice();
-
-    if (selectedVoice) utterance.voice = selectedVoice;
-    utterance.lang = selectedVoice ? selectedVoice.lang : "en-IN";
-    utterance.rate = 0.94;
-    utterance.pitch = 1.0;
-    utterance.volume = 1;
-
-    utterance.onstart = function(){
-      isSpeaking = true;
-      voiceButton.setAttribute("aria-pressed", "true");
-      voiceLabel.textContent = "Speaking welcome…";
-      if (voiceStatus) voiceStatus.textContent = "COREVA welcome greeting is playing.";
-    };
-
-    utterance.onend = function(){
-      isSpeaking = false;
-      greetingStarted = true;
-      voiceButton.setAttribute("aria-pressed", "false");
-      voiceLabel.textContent = "Replay welcome";
-      if (voiceStatus) voiceStatus.textContent = "COREVA welcome greeting finished.";
-    };
-
-    utterance.onerror = function(){
-      isSpeaking = false;
-      voiceButton.setAttribute("aria-pressed", "false");
-      voiceLabel.textContent = "Hear welcome";
-      if (voiceStatus) {
-        voiceStatus.textContent =
-          "The welcome voice could not start. Press Hear welcome to try again.";
-      }
-    };
-
-    window.speechSynthesis.speak(utterance);
-  }
-
-  voiceButton.addEventListener("click", function(){
-    greetingStarted = true;
-    speakWelcome();
-  });
-
-  // Browsers commonly block audio until the visitor interacts.
-  // Start the greeting on the first interaction anywhere on the page,
-  // except when the visitor specifically presses the voice button.
-  function firstVisitorInteraction(event){
-    if (event && event.target && event.target.closest &&
-        event.target.closest("#corevaWelcomeVoice")) return;
-    if (greetingStarted) return;
-    greetingStarted = true;
-    speakWelcome();
-  }
-
-  document.addEventListener("pointerdown", firstVisitorInteraction, {
-    once: true,
-    passive: true
-  });
-  document.addEventListener("keydown", firstVisitorInteraction, {
-    once: true
-  });
-
-  // Load available voices early when the browser exposes them asynchronously.
-  window.speechSynthesis.getVoices();
+ const entry=document.getElementById("corevaEntryScreen");
+ const enter=document.getElementById("corevaEnterButton");
+ const message="Hi, and welcome to COREVA Business Solutions. Your plans, your growth. We are here to help you move forward. Explore our digital solutions, property opportunities, construction, interiors, business systems and technology services. Tell us what you need, contact our team, and let us build something great together.";
+ function speak(){
+  if(!("speechSynthesis" in window)||!("SpeechSynthesisUtterance" in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(message),v=window.speechSynthesis.getVoices();
+  u.voice=v.find(x=>/en-IN/i.test(x.lang))||v.find(x=>/en-GB/i.test(x.lang))||v.find(x=>/^en/i.test(x.lang))||null;
+  u.lang=u.voice?u.voice.lang:"en-IN";u.rate=.94;u.pitch=1;u.volume=1;
+  window.speechSynthesis.speak(u);
+ }
+ if(enter&&entry)enter.addEventListener("click",()=>{entry.classList.add("is-leaving");speak();setTimeout(()=>entry.remove(),950);});
 })();
 
 </script>
-
-
-<!-- COREVA WELCOME VOICE: click to replay; first visitor interaction may trigger the greeting -->
-<button
-  type="button"
-  class="coreva-welcome-voice"
-  id="corevaWelcomeVoice"
-  aria-label="Play COREVA welcome greeting"
-  aria-pressed="false"
->
-  <span class="voice-icon" aria-hidden="true">♪</span>
-  <span id="corevaWelcomeVoiceLabel">Hear welcome</span>
-</button>
-<span class="coreva-voice-status" id="corevaVoiceStatus" role="status" aria-live="polite"></span>
 
 </body>
 </html>
