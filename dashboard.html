@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COREVA | Central Business Dashboard</title>
+<link rel="icon" href="coreva-logo.png">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+ --bg:#090a0c;--panel:#111316;--panel2:#17191d;--line:#292b30;
+ --gold:#d8b875;--gold2:#f1d99e;--text:#f4f2ed;--muted:#92949b;
+ --green:#54c49a;--red:#ed7777;--radius:18px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(circle at 80% 0%,#292014 0,transparent 28%),var(--bg);
+ color:var(--text);font-family:Inter,Arial,sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#0c0d0f;border-right:1px solid var(--line);
+ padding:25px 16px;position:fixed;inset:0 auto 0 0;z-index:5;overflow:auto}
+.brand{display:flex;align-items:center;gap:12px;padding:5px 10px 30px}
+.brand img{width:125px;max-height:48px;object-fit:contain}
+.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;margin-top:5px}
+.nav-label{font-size:10px;letter-spacing:2px;color:#686b72;padding:15px 12px 8px}
+.nav button{width:100%;border:0;background:transparent;color:#aeb0b5;text-align:left;
+ padding:12px;border-radius:11px;margin:3px 0;display:flex;gap:13px;align-items:center}
+.nav button:hover,.nav button.active{background:linear-gradient(90deg,#332918,#1c1a16);
+ color:var(--gold2);border:1px solid #51432b}
+.nav .ico{width:20px;text-align:center;font-size:16px}
+.sidebar-foot{border-top:1px solid var(--line);margin-top:30px;padding:18px 10px;color:var(--muted);font-size:11px;line-height:1.7}
+.main{margin-left:245px;width:calc(100% - 245px);padding:26px 34px 60px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--line);padding-bottom:20px}
+.topbar h2{font-size:20px;font-weight:500;margin:0}
+.top-actions{display:flex;align-items:center;gap:10px}
+.pill{border:1px solid var(--line);border-radius:30px;padding:9px 14px;background:#151619;color:#ddd}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#f2d99f,#8e6931);
+ color:#17130c;display:grid;place-items:center;font-weight:bold}
+.welcome{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:30px 0 24px}
+.welcome h1{font-size:clamp(24px,3vw,36px);margin:0 0 9px;font-weight:500}
+.welcome h1 span{color:var(--gold2)}
+.muted{color:var(--muted);font-size:13px}
+.gold{color:var(--gold2)}
+.grid{display:grid;gap:16px}
+.stats{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:linear-gradient(145deg,#17191c,#101113);border:1px solid var(--line);
+ border-radius:var(--radius);padding:20px;box-shadow:0 12px 35px #0005}
+.stat-title{color:var(--muted);font-size:11px;letter-spacing:1.3px;text-transform:uppercase}
+.stat-value{font-size:30px;margin:14px 0 7px;font-weight:600}
+.stat-foot{font-size:11px;color:var(--muted)}
+.section{display:none}.section.active{display:block}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:25px 0 17px}
+.section-head h2{font-size:20px;font-weight:500;margin:0}
+.btn{border:1px solid #6d5835;background:linear-gradient(135deg,#dfc184,#9e7b40);
+ color:#17130b;border-radius:10px;padding:11px 16px;font-weight:700}
+.btn.secondary{background:#1b1d20;color:#e6e2d9;border:1px solid var(--line)}
+.btn.danger{background:#381c1d;color:#ffb5b5;border-color:#613233}
+.btn.small{padding:7px 10px;font-size:12px}
+.charts{grid-template-columns:1.5fr 1fr;margin-top:16px}
+.chart-wrap{height:260px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;min-width:650px}
+th,td{padding:14px 15px;text-align:left;border-bottom:1px solid var(--line);font-size:12px}
+th{color:var(--muted);font-weight:500;background:#141619}
+td{color:#e4e1db}
+tr:last-child td{border-bottom:0}
+.tag{display:inline-block;padding:5px 9px;border-radius:30px;font-size:10px;background:#24211a;color:var(--gold2)}
+.tag.green{background:#14271f;color:#7bd6b0}
+.tag.red{background:#301a1b;color:#ffaaaa}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:13px}
+.field label{font-size:11px;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;background:#0d0f11;color:white;border:1px solid var(--line);
+ border-radius:9px;padding:12px;outline:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+.full{grid-column:1/-1}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+.panel-grid{grid-template-columns:1fr 1fr}
+.invoice-total{margin-left:auto;max-width:320px;margin-top:20px}
+.invoice-total div{display:flex;justify-content:space-between;padding:8px 0;color:#bbb}
+.invoice-total .grand{font-size:20px;color:var(--gold2);border-top:1px solid var(--line);padding-top:14px}
+#invoiceLines input{min-width:70px}
+.empty{text-align:center;padding:35px;color:var(--muted)}
+.notice{padding:13px 15px;border:1px solid #57462b;background:#211c13;border-radius:12px;
+ color:#e6d2a7;font-size:12px;line-height:1.6;margin:18px 0}
+.modal{position:fixed;inset:0;background:#000b;display:none;place-items:center;z-index:20;padding:18px}
+.modal.show{display:grid}
+.modal-box{width:min(680px,100%);max-height:90vh;overflow:auto;background:#141619;
+ border:1px solid #55462c;border-radius:18px;padding:24px}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.close{background:none;border:0;color:white;font-size:24px}
+.mobile-menu{display:none}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}}
+@media(max-width:700px){
+ .sidebar{transform:translateX(-100%);transition:.25s}.sidebar.open{transform:translateX(0)}
+ .main{margin:0;width:100%;padding:18px}
+ .mobile-menu{display:inline-block}.welcome{align-items:flex-start;flex-direction:column}
+ .stats{grid-template-columns:1fr 1fr}.panel-grid{grid-template-columns:1fr}
+}
+@media(max-width:420px){.stats{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}}
+@media print{
+ body{background:white;color:#111}.sidebar,.topbar,.welcome,.no-print{display:none!important}
+ .main{margin:0;width:100%;padding:0}.section{display:none!important}
+ #billing.section{display:block!important}.card{background:white;color:#111;border:0;box-shadow:none}
+ table,th,td{color:#111;border-color:#ddd}.invoice-paper{display:block!important}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+ <div class="brand">
+  <img src="coreva-logo.png" alt="COREVA">
+  <div><small>BUSINESS SOLUTIONS</small></div>
+ </div>
+ <div class="nav">
+  <div class="nav-label">WORKSPACE</div>
+  <button class="active" data-page="dashboard"><span class="ico">◫</span> Dashboard</button>
+  <button data-page="inquiries"><span class="ico">✉</span> Website Inquiries</button>
+  <button data-page="customers"><span class="ico">♙</span> Customers</button>
+  <button data-page="tasks"><span class="ico">✓</span> Follow-ups & Tasks</button>
+  <div class="nav-label">BUSINESS</div>
+  <button data-page="billing"><span class="ico">▤</span> Billing & Invoices</button>
+  <button data-page="staff"><span class="ico">♧</span> Staff Management</button>
+  <button data-page="services"><span class="ico">▦</span> Departments</button>
+  <div class="nav-label">ADMINISTRATION</div>
+  <button data-page="reports" class="admin-only"><span class="ico">▥</span> Revenue & Reports</button>
+  <button data-page="settings" class="admin-only"><span class="ico">⚙</span> Settings</button>
+ </div>
+ <div class="sidebar-foot">COREVA BUSINESS SOLUTIONS<br>PROPERTY • DIGITAL • FINANCE<br>CONSTRUCTION • INTERIORS<br><br>Central Management System</div>
+</aside>
+
+<main class="main">
+ <header class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+   <button class="btn secondary mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+   <h2 id="pageTitle">Dashboard</h2>
+  </div>
+  <div class="top-actions">
+   <span class="pill" id="roleLabel">Founder / Admin</span>
+   <button class="pill" onclick="switchPreviewRole()">Preview role</button>
+   <div class="avatar">F</div>
+  </div>
+ </header>
+
+ <div class="welcome">
+  <div>
+   <div class="muted gold">COREVA CENTRAL MANAGEMENT</div>
+   <h1 id="welcomeTitle">Welcome, <span>Mr. Abubakar Faiz</span></h1>
+   <div class="muted" id="welcomeSubtitle">Founder & CEO · COREVA Business Solutions</div>
+  </div>
+  <div class="muted" id="today"></div>
+ </div>
+
+ <section class="section active" id="dashboard">
+  <div class="grid stats">
+   <div class="card"><div class="stat-title">Total inquiries</div><div class="stat-value" id="statLeads">0</div><div class="stat-foot">All recorded inquiries</div></div>
+   <div class="card"><div class="stat-title">Customers</div><div class="stat-value" id="statCustomers">0</div><div class="stat-foot">Customer records</div></div>
+   <div class="card"><div class="stat-title">Invoices created</div><div class="stat-value" id="statInvoices">0</div><div class="stat-foot">Billing records</div></div>
+   <div class="card admin-only"><div class="stat-title">Invoice value</div><div class="stat-value" id="statRevenue">₹0</div><div class="stat-foot">Recorded invoice totals</div></div>
+  </div>
+  <div class="grid charts">
+   <div class="card"><div class="section-head"><h2>Business Overview</h2><span class="tag">Activity</span></div><div class="chart-wrap"><canvas id="overviewChart"></canvas></div></div>
+   <div class="card"><div class="section-head"><h2>Department Overview</h2></div><div class="chart-wrap"><canvas id="departmentChart"></canvas></div></div>
+  </div>
+  <div class="section-head"><h2>Recent Inquiries</h2><button class="btn secondary small" onclick="showPage('inquiries')">View all</button></div>
+  <div class="card"><div id="recentLeads"></div></div>
+ </section>
+
+ <section class="section" id="inquiries">
+  <div class="section-head"><h2>Website Inquiries</h2><button class="btn" onclick="openModal('leadModal')">+ Add Inquiry</button></div>
+  <div class="notice">New inquiries submitted through the public website can be routed here after we connect the website contact form to the secure database.</div>
+  <div class="card"><div id="leadTable"></div></div>
+ </section>
+
+ <section class="section" id="customers">
+  <div class="section-head"><h2>Customer Management</h2><button class="btn" onclick="openModal('customerModal')">+ Add Customer</button></div>
+  <div class="card"><div id="customerTable"></div></div>
+ </section>
+
+ <section class="section" id="tasks">
+  <div class="section-head"><h2>Follow-ups & Tasks</h2><button class="btn" onclick="openModal('taskModal')">+ Add Task</button></div>
+  <div class="card"><div id="taskTable"></div></div>
+ </section>
+
+ <section class="section" id="billing">
+  <div class="section-head"><h2>Billing & Invoices</h2><button class="btn" onclick="newInvoice()">+ Create Invoice</button></div>
+  <div class="notice">Create itemised bills, calculate totals, save invoice records and print or save the invoice as PDF.</div>
+  <div class="card">
+   <div id="invoiceEditor">
+    <div class="section-head"><h2 class="gold">New COREVA Invoice</h2><span class="tag">Invoice</span></div>
+    <div class="form-grid">
+     <div class="field"><label>Invoice number</label><input id="invNumber" readonly></div>
+     <div class="field"><label>Invoice date</label><input id="invDate" type="date"></div>
+     <div class="field"><label>Customer / Company name</label><input id="invCustomer" placeholder="Customer name"></div>
+     <div class="field"><label>Phone number</label><input id="invPhone" placeholder="+91"></div>
+     <div class="field full"><label>Customer address</label><textarea id="invAddress" rows="2" placeholder="Billing address"></textarea></div>
+    </div>
+    <div class="section-head"><h2>Invoice Items</h2><button class="btn secondary small" onclick="addInvoiceLine()">+ Add item</button></div>
+    <div class="table-wrap"><table><thead><tr><th>Description</th><th>Qty</th><th>Rate (₹)</th><th>Amount (₹)</th><th></th></tr></thead><tbody id="invoiceLines"></tbody></table></div>
+    <div class="form-grid" style="margin-top:18px">
+     <div class="field"><label>GST / Tax (%)</label><input id="invTax" type="number" min="0" value="0" oninput="calculateInvoice()"></div>
+     <div class="field"><label>Discount (₹)</label><input id="invDiscount" type="number" min="0" value="0" oninput="calculateInvoice()"></div>
+     <div class="field full"><label>Notes / Payment terms</label><textarea id="invNotes" rows="2" placeholder="Payment details, due date, terms..."></textarea></div>
+    </div>
+    <div class="invoice-total">
+     <div><span>Subtotal</span><b id="invSubtotal">₹0.00</b></div>
+     <div><span>Tax</span><b id="invTaxAmount">₹0.00</b></div>
+     <div><span>Discount</span><b id="invDiscountAmount">₹0.00</b></div>
+     <div class="grand"><span>Total</span><b id="invGrand">₹0.00</b></div>
+    </div>
+    <div class="actions no-print" style="margin-top:25px">
+     <button class="btn" onclick="saveInvoice()">Save Invoice</button>
+     <button class="btn secondary" onclick="printInvoice()">Print / Save PDF</button>
+     <button class="btn secondary" onclick="newInvoice()">Clear</button>
+    </div>
+   </div>
+  </div>
+  <div class="section-head"><h2>Saved Invoices</h2></div>
+  <div class="card"><div id="invoiceTable"></div></div>
+ </section>
+
+ <section class="section" id="staff">
+  <div class="section-head"><h2>Staff Management</h2><button class="btn" onclick="openModal('staffModal')">+ Create Staff</button></div>
+  <div class="notice">Assign each staff member to a department and role. In this preview, staff records are stored only in this browser. Real individual logins and secure access controls will be enabled through Supabase.</div>
+  <div class="card"><div id="staffTable"></div></div>
+ </section>
+
+ <section class="section" id="services">
+  <div class="section-head"><h2>COREVA Departments</h2></div>
+  <div class="grid panel-grid" id="departmentCards"></div>
+ </section>
+
+ <section class="section admin-only" id="reports">
+  <div class="section-head"><h2>Revenue & Reports</h2></div>
+  <div class="grid stats">
+   <div class="card"><div class="stat-title">Total invoiced</div><div class="stat-value" id="reportTotal">₹0</div></div>
+   <div class="card"><div class="stat-title">Invoice count</div><div class="stat-value" id="reportCount">0</div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h2>Invoice Records</h2><div id="reportTable"></div></div>
+ </section>
+
+ <section class="section admin-only" id="settings">
+  <div class="section-head"><h2>Company Settings</h2></div>
+  <div class="card">
+   <div class="form-grid">
+    <div class="field"><label>Company name</label><input value="COREVA Business Solutions" id="companyName"></div>
+    <div class="field"><label>Company email</label><input id="companyEmail" placeholder="Your official email"></div>
+    <div class="field"><label>Company phone</label><input id="companyPhone" placeholder="+91"></div>
+    <div class="field"><label>Company address</label><input id="companyAddress" placeholder="Business address"></div>
+   </div>
+   <p class="muted">Company details appear on invoice printouts. Add your verified details before issuing real invoices.</p>
+   <button class="btn" onclick="saveCompany()">Save Company Details</button>
+  </div>
+ </section>
+</main>
+</div>
+
+<!-- Add inquiry -->
+<div class="modal" id="leadModal"><div class="modal-box">
+ <div class="modal-head"><h2>Add Inquiry</h2><button class="close" onclick="closeModal('leadModal')">×</button></div>
+ <div class="form-grid">
+  <div class="field"><label>Customer name</label><input id="leadName"></div>
+  <div class="field"><label>Phone</label><input id="leadPhone"></div>
+  <div class="field"><label>Department</label><select id="leadDept"></select></div>
+  <div class="field"><label>Assign staff</label><select id="leadAssign"></select></div>
+  <div class="field full"><label>Requirement</label><textarea id="leadDetails" rows="3"></textarea></div>
+ </div>
+ <button class="btn" onclick="addLead()">Save Inquiry</button>
+</div></div>
+
+<!-- Add customer -->
+<div class="modal" id="customerModal"><div class="modal-box">
+ <div class="modal-head"><h2>Add Customer</h2><button class="close" onclick="closeModal('customerModal')">×</button></div>
+ <div class="form-grid">
+  <div class="field"><label>Name</label><input id="custName"></div>
+  <div class="field"><label>Phone</label><input id="custPhone"></div>
+  <div class="field"><label>Email</label><input id="custEmail"></div>
+  <div class="field"><label>Department</label><select id="custDept"></select></div>
+ </div>
+ <button class="btn" onclick="addCustomer()">Save Customer</button>
+</div></div>
+
+<!-- Add task -->
+<div class="modal" id="taskModal"><div class="modal-box">
+ <div class="modal-head"><h2>Add Follow-up Task</h2><button class="close" onclick="closeModal('taskModal')">×</button></div>
+ <div class="form-grid">
+  <div class="field"><label>Task</label><input id="taskName"></div>
+  <div class="field"><label>Due date</label><input id="taskDate" type="date"></div>
+  <div class="field"><label>Assign staff</label><select id="taskAssign"></select></div>
+  <div class="field"><label>Department</label><select id="taskDept"></select></div>
+ </div>
+ <button class="btn" onclick="addTask()">Save Task</button>
+</div></div>
+
+<!-- Add staff -->
+<div class="modal" id="staffModal"><div class="modal-box">
+ <div class="modal-head"><h2>Create Staff Record</h2><button class="close" onclick="closeModal('staffModal')">×</button></div>
+ <div class="form-grid">
+  <div class="field"><label>Staff full name</label><input id="staffName"></div>
+  <div class="field"><label>Email / Login ID</label><input id="staffEmail"></div>
+  <div class="field"><label>Department</label><select id="staffDept"></select></div>
+  <div class="field"><label>Role</label><select id="staffRole"><option>Department Manager</option><option>Staff</option><option>Sales Executive</option><option>Support Executive</option></select></div>
+ </div>
+ <p class="muted">Do not enter a real password here. Secure account creation will be handled by the authentication system.</p>
+ <button class="btn" onclick="addStaff()">Save Staff Record</button>
+</div></div>
+
+<script>
+const departments=[
+ "Property Management","Digital Management","Finance Management",
+ "Business Support","Construction Management","Interior Design"
+];
+const read=(key)=>JSON.parse(localStorage.getItem("coreva_"+key)||"[]");
+const write=(key,value)=>localStorage.setItem("coreva_"+key,JSON.stringify(value));
+let leads=read("leads"),customers=read("customers"),tasks=read("tasks"),
+ staff=read("staff"),invoices=read("invoices"),currentRole="admin";
+
+const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today=new Date().toISOString().slice(0,10);
+document.getElementById("today").textContent=new Date().toLocaleDateString("en-IN",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+function fillSelect(id,values){document.getElementById(id).innerHTML=values.map(x=>`<option>${safe(x)}</option>`).join("")}
+["leadDept","custDept","taskDept","staffDept"].forEach(id=>fillSelect(id,departments));
+function fillStaffSelect(id){document.getElementById(id).innerHTML='<option value="">Unassigned</option>'+staff.map(s=>`<option value="${safe(s.name)}">${safe(s.name)}</option>`).join("")}
+["leadAssign","taskAssign"].forEach(fillStaffSelect);
+
+document.querySelectorAll(".nav button[data-page]").forEach(btn=>btn.addEventListener("click",()=>showPage(btn.dataset.page)));
+function showPage(page){
+ if(currentRole!=="admin"&&["reports","settings"].includes(page)){alert("This section is restricted to the Founder / Admin.");return}
+ document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+ document.getElementById(page).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ document.getElementById("pageTitle").textContent=document.querySelector(`[data-page="${page}"]`).textContent.trim();
+ document.getElementById("sidebar").classList.remove("open");
+ renderAll();
+}
+function switchPreviewRole(){
+ if(currentRole==="admin"){
+  currentRole="staff";
+  document.getElementById("roleLabel").textContent="Staff Preview";
+  document.getElementById("welcomeTitle").innerHTML='Welcome to <span>COREVA</span>';
+  document.getElementById("welcomeSubtitle").textContent="Staff workspace preview · Restricted access";
+  document.querySelectorAll(".admin-only").forEach(e=>e.style.display="none");
+  showPage("inquiries");
+ }else{
+  currentRole="admin";
+  document.getElementById("roleLabel").textContent="Founder / Admin";
+  document.getElementById("welcomeTitle").innerHTML='Welcome, <span>Mr. Abubakar Faiz</span>';
+  document.getElementById("welcomeSubtitle").textContent="Founder & CEO · COREVA Business Solutions";
+  document.querySelectorAll(".admin-only").forEach(e=>e.style.display="");
+  showPage("dashboard");
+ }
+}
+function openModal(id){document.getElementById(id).classList.add("show")}
+function closeModal(id){document.getElementById(id).classList.remove("show")}
+
+function addLead(){
+ const name=leadName.value.trim();if(!name)return alert("Enter customer name");
+ leads.unshift({id:Date.now(),name,phone:leadPhone.value,dept:leadDept.value,assigned:leadAssign.value,details:leadDetails.value,status:"New",date:today});
+ write("leads",leads);["leadName","leadPhone","leadDetails"].forEach(id=>document.getElementById(id).value="");
+ closeModal("leadModal");renderAll();
+}
+function addCustomer(){
+ const name=custName.value.trim();if(!name)return alert("Enter customer name");
+ customers.unshift({id:Date.now(),name,phone:custPhone.value,email:custEmail.value,dept:custDept.value});
+ write("customers",customers);closeModal("customerModal");renderAll();
+}
+function addTask(){
+ const name=taskName.value.trim();if(!name)return alert("Enter task");
+ tasks.unshift({id:Date.now(),name,date:taskDate.value,assigned:taskAssign.value,dept:taskDept.value,status:"Pending"});
+ write("tasks",tasks);closeModal("taskModal");renderAll();
+}
+function addStaff(){
+ const name=staffName.value.trim();if(!name)return alert("Enter staff name");
+ staff.push({id:Date.now(),name,email:staffEmail.value,dept:staffDept.value,role:staffRole.value});
+ write("staff",staff);closeModal("staffModal");fillStaffSelect("leadAssign");fillStaffSelect("taskAssign");renderAll();
+ ["staffName","staffEmail"].forEach(id=>document.getElementById(id).value="");
+}
+function removeRecord(key,id){
+ if(!confirm("Delete this record?"))return;
+ let arr=read(key).filter(x=>x.id!==id);write(key,arr);
+ leads=read("leads");customers=read("customers");tasks=read("tasks");staff=read("staff");invoices=read("invoices");renderAll();
+}
+function table(headers,rows){
+ if(!rows.length)return '<div class="empty">No records yet.</div>';
+ return `<div class="table-wrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.join("")}</tbody></table></div>`;
+}
+function renderAll(){
+ leads=read("leads");customers=read("customers");tasks=read("tasks");staff=read("staff");invoices=read("invoices");
+ statLeads.textContent=leads.length;statCustomers.textContent=customers.length;statInvoices.textContent=invoices.length;
+ const revenue=invoices.reduce((s,i)=>s+i.total,0);
+ statRevenue.textContent=money(revenue);reportTotal.textContent=money(revenue);reportCount.textContent=invoices.length;
+ leadTable.innerHTML=table(["Customer","Phone","Department","Assigned","Requirement","Status",""],leads.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.phone)}</td><td>${safe(x.dept)}</td><td>${safe(x.assigned)}</td><td>${safe(x.details)}</td><td><span class="tag">${safe(x.status)}</span></td><td><button class="btn secondary small" onclick="removeRecord('leads',${x.id})">Delete</button></td></tr>`));
+ recentLeads.innerHTML=leads.length?table(["Customer","Department","Status"],leads.slice(0,5).map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.dept)}</td><td><span class="tag">${safe(x.status)}</span></td></tr>`)):'<div class="empty">No inquiries received yet.</div>';
+ customerTable.innerHTML=table(["Customer","Phone","Email","Department",""],customers.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.phone)}</td><td>${safe(x.email)}</td><td>${safe(x.dept)}</td><td><button class="btn secondary small" onclick="removeRecord('customers',${x.id})">Delete</button></td></tr>`));
+ taskTable.innerHTML=table(["Task","Due date","Assigned","Department","Status",""],tasks.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.date)}</td><td>${safe(x.assigned)}</td><td>${safe(x.dept)}</td><td><span class="tag">${safe(x.status)}</span></td><td><button class="btn secondary small" onclick="removeRecord('tasks',${x.id})">Delete</button></td></tr>`));
+ staffTable.innerHTML=table(["Staff member","Email / ID","Department","Role",""],staff.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.email)}</td><td>${safe(x.dept)}</td><td>${safe(x.role)}</td><td><button class="btn secondary small" onclick="removeRecord('staff',${x.id})">Delete</button></td></tr>`));
+ invoiceTable.innerHTML=table(["Invoice","Customer","Date","Total",""],invoices.map(x=>`<tr><td>${safe(x.number)}</td><td>${safe(x.customer)}</td><td>${safe(x.date)}</td><td>${money(x.total)}</td><td><button class="btn secondary small" onclick="loadInvoice(${x.id})">View</button> <button class="btn secondary small" onclick="removeRecord('invoices',${x.id})">Delete</button></td></tr>`));
+ reportTable.innerHTML=invoiceTable.innerHTML;
+ departmentCards.innerHTML=departments.map((d,i)=>`<div class="card"><div class="gold">0${i+1} / COREVA DEPARTMENT</div><h2>${safe(d)}</h2><p class="muted">Manage customers, inquiries, assignments and follow-up activities for this department.</p></div>`).join("");
+ if(window.overviewChartInstance)window.overviewChartInstance.destroy();
+ if(window.departmentChartInstance)window.departmentChartInstance.destroy();
+ const ctx=document.getElementById("overviewChart");
+ window.overviewChartInstance=new Chart(ctx,{type:"line",data:{labels:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],datasets:[{label:"Inquiries",data:Array(12).fill(0).map((_,i)=>i===new Date().getMonth()?leads.length:0),borderColor:"#d8b875",backgroundColor:"#d8b87522",fill:true,tension:.4}]},options:{maintainAspectRatio:false,plugins:{legend:{labels:{color:"#aaa"}}},scales:{x:{ticks:{color:"#999"},grid:{color:"#292b30"}},y:{ticks:{color:"#999"},grid:{color:"#292b30"}}}}});
+ window.departmentChartInstance=new Chart(document.getElementById("departmentChart"),{type:"doughnut",data:{labels:departments,datasets:[{data:departments.map(d=>leads.filter(x=>x.dept===d).length),backgroundColor:["#d8b875","#8c78bc","#65a9a0","#a8a8a8","#c48d68","#8193ae"],borderWidth:0}]},options:{maintainAspectRatio:false,plugins:{legend:{position:"bottom",labels:{color:"#bbb",boxWidth:10}}}}});
+}
+
+// Invoice builder
+let lineCounter=0;
+function newInvoice(){
+ invNumber.value="CRV-"+Date.now().toString().slice(-8);
+ invDate.value=today;invCustomer.value="";invPhone.value="";invAddress.value="";
+ invTax.value=0;invDiscount.value=0;invNotes.value="";
+ invoiceLines.innerHTML="";addInvoiceLine();calculateInvoice();
+}
+function addInvoiceLine(description="",qty=1,rate=0){
+ const id=++lineCounter;
+ const tr=document.createElement("tr");tr.id="line"+id;
+ tr.innerHTML=`<td><input placeholder="Service / item" value="${safe(description)}" class="desc"></td>
+ <td><input type="number" min="0" step="1" value="${qty}" class="qty" oninput="calculateInvoice()"></td>
+ <td><input type="number" min="0" step="0.01" value="${rate}" class="rate" oninput="calculateInvoice()"></td>
+ <td class="amount">₹0.00</td><td><button class="btn danger small" onclick="this.closest('tr').remove();calculateInvoice()">×</button></td>`;
+ invoiceLines.appendChild(tr);calculateInvoice();
+}
+function getInvoiceLines(){
+ return [...invoiceLines.querySelectorAll("tr")].map(tr=>({
+ description:tr.querySelector(".desc").value,
+ qty:Number(tr.querySelector(".qty").value)||0,
+ rate:Number(tr.querySelector(".rate").value)||0
+ })).filter(x=>x.description||x.rate);
+}
+function calculateInvoice(){
+ let subtotal=0;
+ [...invoiceLines.querySelectorAll("tr")].forEach(tr=>{
+  const q=Number(tr.querySelector(".qty").value)||0,r=Number(tr.querySelector(".rate").value)||0;
+  const amount=q*r;subtotal+=amount;tr.querySelector(".amount").textContent=money(amount);
+ });
+ const taxRate=Number(invTax.value)||0,discount=Number(invDiscount.value)||0;
+ const tax=subtotal*taxRate/100,total=Math.max(0,subtotal+tax-discount);
+ invSubtotal.textContent=money(subtotal);invTaxAmount.textContent=money(tax);
+ invDiscountAmount.textContent=money(discount);invGrand.textContent=money(total);
+ return {subtotal,tax,discount,total};
+}
+function invoiceData(){
+ const sums=calculateInvoice();
+ return {id:Date.now(),number:invNumber.value,date:invDate.value,customer:invCustomer.value,
+ phone:invPhone.value,address:invAddress.value,lines:getInvoiceLines(),taxRate:Number(invTax.value)||0,
+ notes:invNotes.value,...sums};
+}
+function saveInvoice(){
+ const data=invoiceData();
+ if(!data.customer.trim())return alert("Enter customer name before saving.");
+ if(!data.lines.length)return alert("Add at least one invoice item.");
+ invoices=read("invoices");
+ const existing=invoices.findIndex(x=>x.number===data.number);
+ if(existing>=0)invoices[existing]=data;else invoices.unshift(data);
+ write("invoices",invoices);renderAll();alert("Invoice saved in this browser.");
+}
+function loadInvoice(id){
+ const x=read("invoices").find(i=>i.id===id);if(!x)return;
+ invNumber.value=x.number;invDate.value=x.date;invCustomer.value=x.customer;invPhone.value=x.phone;
+ invAddress.value=x.address;invTax.value=x.taxRate;invDiscount.value=x.discount;invNotes.value=x.notes||"";
+ invoiceLines.innerHTML="";x.lines.forEach(l=>addInvoiceLine(l.description,l.qty,l.rate));
+ calculateInvoice();showPage("billing");
+}
+function printInvoice(){
+ const x=invoiceData();if(!x.customer.trim())return alert("Enter customer name first.");
+ const company=JSON.parse(localStorage.getItem("coreva_company")||"{}");
+ const rows=x.lines.map(l=>`<tr><td>${safe(l.description)}</td><td>${l.qty}</td><td>${money(l.rate)}</td><td>${money(l.qty*l.rate)}</td></tr>`).join("");
+ const html=`<!DOCTYPE html><html><head><title>${safe(x.number)}</title><style>
+ body{font:14px Arial;color:#222;margin:35px}h1{margin-bottom:4px;color:#222}
+ .top{display:flex;justify-content:space-between;border-bottom:2px solid #b28c4b;padding-bottom:20px}
+ .brand{font-size:24px;font-weight:bold;letter-spacing:2px}small{color:#666}
+ table{width:100%;border-collapse:collapse;margin-top:30px}th,td{padding:12px;border-bottom:1px solid #ddd;text-align:left}
+ th{background:#f2eee6}.totals{margin:25px 0 0 auto;width:280px}.totals p{display:flex;justify-content:space-between}
+ .sign{margin-top:90px;text-align:right}.line{display:inline-block;width:220px;border-top:1px solid #333;padding-top:9px}
+ .notes{margin-top:30px;color:#555} @media print{button{display:none}}
+ </style></head><body>
+ <div class="top"><div><div class="brand">COREVA</div><h3>BUSINESS SOLUTIONS</h3><small>${safe(company.address||"")}</small><br><small>${safe(company.phone||"")} ${safe(company.email||"")}</small></div>
+ <div><h1>INVOICE</h1><b>${safe(x.number)}</b><br><small>Date: ${safe(x.date)}</small></div></div>
+ <h3>Bill To</h3><b>${safe(x.customer)}</b><br>${safe(x.phone)}<br>${safe(x.address)}
+ <table><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th></tr></thead><tbody>${rows}</tbody></table>
+ <div class="totals"><p><span>Subtotal</span><b>${money(x.subtotal)}</b></p><p><span>Tax (${x.taxRate}%)</span><b>${money(x.tax)}</b></p><p><span>Discount</span><b>${money(x.discount)}</b></p><h2 style="text-align:right">Total: ${money(x.total)}</h2></div>
+ <div class="notes">${safe(x.notes||"")}</div>
+ <div class="sign"><div class="line"><b>Founder & CEO</b><br>COREVA Business Solutions</div></div>
+ <p style="margin-top:55px;text-align:center;color:#777">Thank you for choosing COREVA Business Solutions.</p>
+ <script>window.onload=()=>window.print();<\/script></body></html>`;
+ const w=window.open("","_blank");if(!w)return alert("Allow pop-ups to print or save as PDF.");
+ w.document.write(html);w.document.close();
+}
+function saveCompany(){
+ const obj={name:companyName.value,email:companyEmail.value,phone:companyPhone.value,address:companyAddress.value};
+ localStorage.setItem("coreva_company",JSON.stringify(obj));alert("Company details saved in this browser.");
+}
+newInvoice();renderAll();
+</script>
+</body>
+</html>
