@@ -1,148 +1,5338 @@
-<!doctype html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0a0b0e">
-<meta name="description" content="COREVA Business Solutions — Property, Digital, Finance and Business Support.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>COREVA | Business Solutions</title>
+
+<meta name="description" content="COREVA Business Solutions — Property, Digital, Finance, Business Support, Construction & Interiors and Business Growth.">
+<meta name="theme-color" content="#050505">
+
+<link rel="icon" type="image/png" href="coreva-logo.png">
+
 <style>
-:root{--bg:#090a0d;--panel:#111319;--line:rgba(255,255,255,.15);--muted:#a9adb8;--white:#f6f6f4;--gold:#d9c38c;--gold2:#9c8451;--max:1220px}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:85px}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#30333d 0,#12141a 35%,var(--bg) 72%);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;overflow-x:hidden}
-a{color:inherit;text-decoration:none}button,select{font:inherit}.container{width:min(var(--max),calc(100% - 42px));margin:auto}.muted{color:var(--muted)}.eyebrow{text-transform:uppercase;letter-spacing:.2em;font-size:10px;font-weight:800;color:var(--gold)}.section{padding:100px 0;position:relative}.section-head{max-width:720px;margin-bottom:38px}.section-head h2{font-size:clamp(34px,5vw,62px);line-height:.99;letter-spacing:-.055em;margin:14px 0}.section-head p{color:var(--muted);line-height:1.8;max-width:610px;font-size:14px}
-header{height:76px;position:sticky;top:0;z-index:20;background:rgba(8,9,12,.82);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.09)}.nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:22px}.brand{display:flex;align-items:center;gap:10px;min-width:150px}.brand img{width:118px;max-height:43px;object-fit:contain}.brand-fallback{font-size:25px;font-weight:900;letter-spacing:-.08em}.navlinks{display:flex;align-items:center;gap:clamp(12px,2.1vw,28px);font-size:11px;color:#d6d6d9}.navlinks a{transition:color .2s}.navlinks a:hover{color:var(--gold)}.nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:12px 17px;border:1px solid rgba(255,255,255,.28);border-radius:999px;font-size:11px;font-weight:750;transition:transform .25s,background .25s,border-color .25s}.nav-cta:hover,.btn:hover{transform:translateY(-2px);border-color:var(--gold)}.btn.primary{background:linear-gradient(135deg,#f0e6c8,#b49a61);color:#111;border-color:transparent}.btn.ghost{background:rgba(255,255,255,.035)}.mobile-menu{display:none;background:transparent;color:white;border:1px solid var(--line);padding:8px 12px;border-radius:9px}
-.hero{min-height:660px;display:grid;align-items:center;position:relative;overflow:hidden;padding:90px 0 75px}.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,9,12,.97),rgba(8,9,12,.75) 48%,rgba(8,9,12,.2)),url("coreva-hero-background.png") center/cover;opacity:.5}.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 68%,var(--bg));pointer-events:none}.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}.hero h1{font-size:clamp(48px,7.5vw,96px);line-height:.9;letter-spacing:-.075em;margin:18px 0 24px;max-width:800px}.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px rgba(239,230,207,.9)}.hero-copy{max-width:580px;color:#c2c4ca;font-size:14px;line-height:1.9}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}.hero-meta{display:flex;gap:25px;flex-wrap:wrap;margin-top:44px;color:#a8abb3;font-size:10px;letter-spacing:.12em;text-transform:uppercase}.hero-meta strong{color:#f5f2e9;display:block;font-size:14px;letter-spacing:0;margin-bottom:5px}
-.orbit-scene{height:430px;position:relative;display:grid;place-items:center;perspective:1000px}.orbit-ring{position:absolute;border:1px solid rgba(218,201,153,.34);border-radius:50%;transform:rotateX(64deg) rotateZ(-18deg);box-shadow:0 0 35px rgba(218,201,153,.05),inset 0 0 35px rgba(218,201,153,.03)}.orbit-ring.r1{width:300px;height:300px}.orbit-ring.r2{width:390px;height:390px}.orbit-ring.r3{width:470px;height:470px;border-style:dashed;opacity:.55}.orbit-core{width:165px;height:165px;position:relative;display:grid;place-items:center;border-radius:35px;transform:rotate(-8deg);background:linear-gradient(145deg,rgba(255,255,255,.18),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.34);box-shadow:20px 25px 60px #0009,inset 0 1px rgba(255,255,255,.4);backdrop-filter:blur(15px)}.orbit-core img{width:115px;max-height:72px;object-fit:contain;transform:rotate(8deg)}.orbit-step{position:absolute;display:flex;align-items:center;gap:8px;padding:9px 12px;border:1px solid rgba(255,255,255,.17);background:rgba(15,16,20,.82);backdrop-filter:blur(10px);border-radius:12px;font-size:10px;color:#dedede;box-shadow:0 10px 30px #0005}.orbit-step b{display:grid;place-items:center;width:23px;height:23px;background:linear-gradient(145deg,#f0e3bf,#9f864e);color:#111;border-radius:50%;font-size:10px}.s1{top:42px;left:4%}.s2{top:120px;right:-2%}.s3{bottom:92px;right:0}.s4{bottom:35px;left:6%}.orbit-caption{position:absolute;bottom:-2px;text-align:center;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#a7a9ae}
-.trust-strip{border-block:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.018)}.trust-inner{display:flex;justify-content:space-between;align-items:center;gap:22px;padding:23px 0;flex-wrap:wrap}.trust-inner span{color:#888c96;text-transform:uppercase;letter-spacing:.16em;font-size:9px}.trust-inner strong{color:#e6e3db;font-size:11px;letter-spacing:.05em}
-.about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:60px;align-items:start}.about-statement{font-size:clamp(30px,4vw,49px);letter-spacing:-.055em;line-height:1.04;margin:0}.about-copy{color:var(--muted);font-size:14px;line-height:1.95}.about-copy p{margin:0 0 18px}.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px}.principle{padding:18px;border-top:1px solid var(--gold2);background:linear-gradient(180deg,rgba(255,255,255,.035),transparent)}.principle b{display:block;font-size:13px;margin:0 0 8px}.principle span{font-size:11px;color:#969aa4;line-height:1.6}
-.brand-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.brand-card{position:relative;min-height:220px;overflow:hidden;padding:26px;border:1px solid rgba(255,255,255,.18);border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018));isolation:isolate;transition:transform .3s,border-color .3s}.brand-card:hover{transform:translateY(-5px);border-color:rgba(218,201,153,.65)}.brand-card::before{content:"";position:absolute;width:250px;height:250px;border:1px solid rgba(218,201,153,.24);border-radius:50%;right:-55px;top:-95px;z-index:-1;box-shadow:0 0 0 25px rgba(218,201,153,.025),0 0 0 50px rgba(218,201,153,.02)}.brand-card::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.025),transparent 75%);z-index:-1}.brand-card .mark{width:64px;height:64px;margin-bottom:24px;display:grid;place-items:center;border-radius:19px;background:linear-gradient(145deg,rgba(255,255,255,.2),rgba(255,255,255,.035));border:1px solid rgba(255,255,255,.27);box-shadow:8px 10px 20px #0006,inset 0 1px rgba(255,255,255,.35);transform:rotate(-5deg)}.mark svg{width:39px;height:39px;filter:drop-shadow(0 4px 4px #0008)}.brand-card h3{font-size:27px;letter-spacing:-.045em;margin:0 0 9px}.brand-card p{font-size:12px;color:#b3b6bf;line-height:1.8;max-width:440px;margin:0 0 17px}.text-link{display:inline-flex;gap:8px;align-items:center;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-.vision{background:linear-gradient(180deg,transparent,rgba(255,255,255,.025),transparent)}.vision-grid{display:grid;grid-template-columns:1fr .8fr;gap:45px;align-items:center}.vision h2{font-size:clamp(42px,7vw,84px);line-height:.92;letter-spacing:-.07em;margin:15px 0 22px}.vision h2 span{color:transparent;-webkit-text-stroke:1px #d7c9a3}.vision p{max-width:580px;color:var(--muted);font-size:14px;line-height:1.9}.vision-art{min-height:340px;position:relative;display:grid;place-items:center;overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:28px;background:radial-gradient(circle at center,rgba(210,188,128,.14),transparent 52%),#0d0f13}.vision-art .ring{position:absolute;width:240px;height:240px;border:1px solid rgba(218,201,153,.4);border-radius:50%;box-shadow:0 0 0 26px rgba(218,201,153,.035),0 0 0 52px rgba(218,201,153,.025),0 0 0 78px rgba(218,201,153,.018)}.vision-art .ring::before,.vision-art .ring::after{content:"";position:absolute;inset:24px;border:1px dashed rgba(218,201,153,.28);border-radius:50%;animation:spin 28s linear infinite}.vision-art .ring::after{inset:48px;animation-direction:reverse;animation-duration:19s}.vision-badge{position:relative;width:135px;height:135px;border-radius:30px;display:grid;place-items:center;background:linear-gradient(145deg,#25272d,#090a0d);border:1px solid #77705c;box-shadow:0 20px 60px #0009;transform:rotate(45deg)}.vision-badge span{transform:rotate(-45deg);font-size:35px;font-weight:900;letter-spacing:-.1em;color:var(--gold)}
-.capability-grid{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:220px 220px;gap:14px}.capability{position:relative;overflow:hidden;border:1px solid rgba(255,255,255,.17);border-radius:22px;min-height:210px;display:flex;align-items:end;padding:24px;isolation:isolate;background:#15171c}.capability:first-child{grid-row:span 2}.capability:last-child{grid-column:span 2}.capability::before{content:"";position:absolute;inset:-4%;z-index:-2;transition:transform .6s,filter .6s;filter:saturate(.9);background-size:cover;background-position:center}.capability:hover::before{transform:scale(1.06);filter:saturate(1.08)}
-.capability.digital::before{background-image:radial-gradient(circle at 72% 30%,rgba(244,211,137,.9) 0 1px,transparent 2px),radial-gradient(ellipse at 70% 45%,rgba(206,169,92,.34),transparent 28%),repeating-linear-gradient(0deg,transparent 0 27px,rgba(220,197,143,.13) 28px 29px),repeating-linear-gradient(90deg,transparent 0 35px,rgba(220,197,143,.12) 36px 37px),linear-gradient(135deg,#101720,#28303a 48%,#07090d)}
-.capability.digital::after{background:linear-gradient(180deg,rgba(5,6,8,.04),rgba(5,6,8,.9) 90%),repeating-radial-gradient(circle at 72% 34%,transparent 0 34px,rgba(223,196,132,.18) 35px 36px,transparent 37px 56px)}
-.capability.property::before{background-image:linear-gradient(90deg,transparent 0 12%,rgba(10,12,16,.7) 12% 14%,transparent 14% 30%,rgba(10,12,16,.7) 30% 32%,transparent 32%),repeating-linear-gradient(90deg,transparent 0 32px,rgba(255,230,177,.45) 33px 35px,transparent 36px 52px),repeating-linear-gradient(0deg,transparent 0 30px,rgba(255,230,177,.28) 31px 33px,transparent 34px 52px),linear-gradient(145deg,#111b27,#6d604b 55%,#11151a)}
-.capability.property::after{background:linear-gradient(180deg,rgba(5,6,8,.03),rgba(5,6,8,.9) 90%),linear-gradient(90deg,transparent 55%,rgba(236,208,151,.16))}
-.capability.build::before{background-image:repeating-linear-gradient(90deg,transparent 0 50px,rgba(219,184,111,.48) 51px 54px,transparent 55px 82px),repeating-linear-gradient(0deg,transparent 0 36px,rgba(219,184,111,.35) 37px 40px,transparent 41px 63px),linear-gradient(135deg,#272d33,#7b6546 48%,#15181c)}
-.capability.build::after{background:linear-gradient(180deg,rgba(5,6,8,.02),rgba(5,6,8,.9) 90%),linear-gradient(135deg,transparent 40%,rgba(235,196,124,.2))}
-.capability.interiors::before{background-image:linear-gradient(90deg,rgba(7,8,10,.65) 0 7%,transparent 7% 15%,rgba(7,8,10,.35) 15% 18%,transparent 18%),linear-gradient(0deg,rgba(7,8,10,.35) 0 22%,transparent 22%),repeating-linear-gradient(90deg,transparent 0 48px,rgba(232,203,149,.25) 49px 51px,transparent 52px 70px),radial-gradient(ellipse at 72% 45%,rgba(231,192,115,.52),transparent 20%),linear-gradient(135deg,#24201b,#6e5941 48%,#11151a)}
-.capability.interiors::after{background:linear-gradient(180deg,rgba(5,6,8,.02),rgba(5,6,8,.9) 90%),linear-gradient(90deg,rgba(10,10,10,.2),transparent)}
-.capability::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,6,8,.04),rgba(5,6,8,.88) 90%)}.capability-content{max-width:440px}.capability h3{font-size:clamp(23px,3vw,36px);letter-spacing:-.045em;margin:8px 0}.capability p{font-size:11px;color:#d1d2d6;line-height:1.7;margin:0;max-width:420px}
-.video-panel{display:grid;grid-template-columns:.85fr 1.15fr;gap:35px;align-items:center;border:1px solid var(--line);border-radius:26px;padding:26px;background:linear-gradient(140deg,rgba(255,255,255,.06),rgba(255,255,255,.012))}.video-copy h3{font-size:clamp(28px,4vw,48px);letter-spacing:-.05em;line-height:1;margin:13px 0}.video-copy p{font-size:13px;line-height:1.85;color:var(--muted)}.video-frame{position:relative;overflow:hidden;border-radius:18px;border:1px solid rgba(255,255,255,.2);background:#050505;aspect-ratio:16/9}.video-frame video{width:100%;height:100%;object-fit:cover;display:block}.video-placeholder{position:absolute;inset:0;display:grid;place-items:center;color:#c9cbd1;font-size:12px;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.04),transparent)}
-.founder-grid{display:grid;grid-template-columns:.75fr 1.25fr;gap:55px;align-items:center}.founder-photo{position:relative;min-height:400px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(145deg,#22252b,#0c0d10)}.founder-photo img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;object-position:center}.founder-photo::after{content:"";position:absolute;inset:45% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.65))}.founder-photo .founder-label{position:absolute;z-index:1;bottom:22px;left:22px}.founder-label strong{display:block;font-size:16px}.founder-label span{font-size:10px;color:#dedede}.founder-copy h2{font-size:clamp(36px,5vw,62px);line-height:.96;letter-spacing:-.06em;margin:14px 0 22px}.founder-copy p{font-size:14px;color:var(--muted);line-height:1.9}.contact-box{border:1px solid rgba(218,201,153,.3);border-radius:28px;padding:clamp(25px,5vw,58px);background:radial-gradient(circle at 100% 0,rgba(218,201,153,.1),transparent 45%),linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.01));display:flex;justify-content:space-between;align-items:center;gap:30px}.contact-box h2{font-size:clamp(35px,5vw,64px);letter-spacing:-.06em;line-height:.95;margin:13px 0}.contact-box p{max-width:570px;color:var(--muted);font-size:13px;line-height:1.8}.contact-actions{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}
-footer{border-top:1px solid rgba(255,255,255,.1);padding:28px 0;color:#8f939d;font-size:10px}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.footer-links{display:flex;gap:18px}.footer-links a:hover{color:var(--gold)}
-@keyframes spin{to{transform:rotate(360deg)}}@media(max-width:850px){.navlinks{display:none;position:absolute;left:20px;right:20px;top:68px;background:#111319;border:1px solid var(--line);border-radius:14px;padding:18px;flex-direction:column;align-items:flex-start}.navlinks.open{display:flex}.mobile-menu{display:block}.nav-cta{display:none}.hero-grid,.about-grid,.vision-grid,.video-panel,.founder-grid{grid-template-columns:1fr}.hero{padding-top:65px}.orbit-scene{height:360px;max-width:520px;width:100%;margin:auto}.orbit-ring.r3{width:390px;height:390px}.orbit-ring.r2{width:320px;height:320px}.orbit-ring.r1{width:250px;height:250px}.s2{right:0}.s3{right:0}.section{padding:75px 0}.capability-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 190px 190px}.capability:first-child{grid-row:auto;grid-column:span 2}.capability:last-child{grid-column:span 2}.contact-box{align-items:flex-start;flex-direction:column}.founder-photo{min-height:360px;max-width:480px;width:100%}}
-@media(max-width:560px){.container{width:calc(100% - 28px)}header{height:67px}.brand img{width:100px}.hero h1{font-size:52px}.hero-grid{gap:5px}.orbit-scene{height:315px;transform:scale(.94);margin:-8px auto}.orbit-ring.r3{width:320px;height:320px}.orbit-ring.r2{width:275px;height:275px}.orbit-ring.r1{width:215px;height:215px}.orbit-core{width:130px;height:130px}.orbit-core img{width:95px}.orbit-step{font-size:8px;padding:7px 8px}.s1{left:0;top:22px}.s2{right:0;top:80px}.s3{right:0;bottom:68px}.s4{left:0;bottom:22px}.trust-inner{gap:12px}.trust-inner span{width:100%}.principles{grid-template-columns:1fr}.brand-grid{grid-template-columns:1fr}.brand-card{min-height:205px}.capability-grid{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(4,220px)}.capability:first-child,.capability:last-child{grid-column:auto;grid-row:auto}.video-panel{padding:15px}.section-head h2{font-size:40px}.footer-inner{align-items:flex-start;flex-direction:column}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+
+/* =========================================================
+   COREVA BUSINESS SOLUTIONS
+   PREMIUM 3D WEBSITE
+   ========================================================= */
+
+:root{
+  --black:#030303;
+  --black2:#070707;
+  --black3:#0d0d0d;
+
+  --white:#fff;
+  --silver:#d9d9d9;
+  --muted:#929292;
+
+  --line:rgba(255,255,255,.12);
+  --line2:rgba(255,255,255,.07);
+
+  --glass:rgba(12,12,12,.68);
+
+  --max:1450px;
+
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--black);
+  color:white;
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+  overflow-x:hidden;
+}
+
+body.lock{
+  overflow:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+::selection{
+  background:white;
+  color:black;
+}
+
+/* =========================================================
+   PRELOADER
+   ========================================================= */
+
+.preloader{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:#020202;
+
+  transition:.8s ease;
+}
+
+.preloader.hide{
+  opacity:0;
+  visibility:hidden;
+}
+
+.preloader img{
+  width:220px;
+  animation:preFloat 2s ease-in-out infinite;
+}
+
+.preloader-line{
+  width:170px;
+  height:1px;
+  background:#222;
+  margin:30px auto 0;
+  overflow:hidden;
+}
+
+.preloader-line span{
+  display:block;
+  width:45%;
+  height:100%;
+  background:white;
+  animation:loader 1.4s infinite;
+}
+
+@keyframes preFloat{
+  50%{transform:translateY(-8px)}
+}
+
+@keyframes loader{
+  from{transform:translateX(-150%)}
+  to{transform:translateX(300%)}
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+.noise{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1000;
+  opacity:.025;
+
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.cursor{
+  position:fixed;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+
+  background:radial-gradient(
+    circle,
+    rgba(255,255,255,.055),
+    transparent 70%
+  );
+
+  transform:translate(-50%,-50%);
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.navbar{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:88px;
+
+  z-index:900;
+
+  display:flex;
+  align-items:center;
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.82),
+    rgba(0,0,0,.2)
+  );
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  transition:.4s var(--ease);
+}
+
+.navbar.scrolled{
+  height:70px;
+  background:rgba(3,3,3,.92);
+}
+
+.nav-inner{
+  width:min(var(--max),calc(100% - 50px));
+  margin:auto;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  gap:30px;
+}
+
+.logo{
+  width:175px;
+  transition:.35s;
+}
+
+.logo:hover{
+  transform:scale(1.035);
+  filter:drop-shadow(0 0 18px rgba(255,255,255,.18));
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:34px;
+}
+
+.nav-links a{
+  position:relative;
+  color:#bdbdbd;
+  font-size:13px;
+  transition:.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:white;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-9px;
+  width:0;
+  height:1px;
+  background:white;
+  transition:.3s;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after{
+  width:100%;
+}
+
+.nav-start{
+  padding:13px 21px;
+
+  border:1px solid rgba(255,255,255,.3);
+  border-radius:100px;
+
+  background:rgba(255,255,255,.045);
+
+  font-size:12px;
+  font-weight:600;
+
+  transition:.35s;
+}
+
+.nav-start:hover{
+  background:white;
+  color:black;
+  transform:translateY(-2px);
+}
+
+.mobile-menu{
+  display:none;
+
+  width:45px;
+  height:45px;
+
+  border:1px solid var(--line);
+  border-radius:50%;
+
+  background:rgba(255,255,255,.04);
+  color:white;
+}
+
+.mobile-menu span{
+  display:block;
+  width:18px;
+  height:1px;
+  background:white;
+  margin:4px auto;
+}
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.hero{
+  position:relative;
+  min-height:100svh;
+
+  display:flex;
+  align-items:center;
+
+  padding:150px 25px 340px;
+
+  overflow:hidden;
+}
+
+.hero-bg{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.92),
+      rgba(0,0,0,.64) 40%,
+      rgba(0,0,0,.22) 80%,
+      rgba(0,0,0,.48)
+    ),
+    url("coreva-hero-background.png")
+    center/cover no-repeat;
+
+  z-index:-5;
+
+  transform:scale(1.04);
+
+  animation:heroZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom{
+  to{transform:scale(1.1)}
+}
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at 75% 45%,
+      transparent,
+      rgba(0,0,0,.7) 85%
+    );
+
+  z-index:-4;
+}
+
+.hero-light{
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  right:-180px;
+  top:15%;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.08),
+      transparent 70%
+    );
+
+  filter:blur(20px);
+
+  animation:lightFloat 7s ease-in-out infinite;
+}
+
+@keyframes lightFloat{
+  50%{
+    transform:translate(-40px,30px) scale(1.1);
+  }
+}
+
+.hero-grid{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:-20%;
+  height:55%;
+
+  opacity:.13;
+
+  background-image:
+    linear-gradient(
+      rgba(255,255,255,.17) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.17) 1px,
+      transparent 1px
+    );
+
+  background-size:70px 70px;
+
+  transform:
+    perspective(700px)
+    rotateX(65deg);
+
+  transform-origin:bottom;
+
+  mask-image:linear-gradient(
+    to top,
+    black,
+    transparent
+  );
+}
+
+.hero-inner{
+  width:min(var(--max),100%);
+  margin:auto;
+
+  position:relative;
+  z-index:2;
+}
+
+.hero-content{
+  max-width:760px;
+}
+
+.eyebrow{
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  color:#cfcfcf;
+
+  font-size:10px;
+  font-weight:600;
+
+  letter-spacing:.4em;
+  text-transform:uppercase;
+
+  margin-bottom:25px;
+}
+
+.eyebrow::before{
+  content:"";
+  width:38px;
+  height:1px;
+  background:#ddd;
+}
+
+.hero h1{
+  font-size:clamp(55px,8vw,118px);
+  line-height:.87;
+  letter-spacing:-.07em;
+  font-weight:600;
+}
+
+.hero h1 .outline{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.85);
+}
+
+.hero-description{
+  max-width:670px;
+
+  margin-top:30px;
+
+  color:#d1d1d1;
+
+  font-size:15px;
+  line-height:1.85;
+}
+
+.hero-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+
+  margin-top:34px;
+}
+
+.btn{
+  min-height:54px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:11px;
+
+  padding:0 25px;
+
+  border-radius:10px;
+
+  border:1px solid rgba(255,255,255,.22);
+
+  font-size:13px;
+  font-weight:700;
+
+  transition:.35s var(--ease);
+}
+
+.btn-primary{
+  background:white;
+  color:black;
+}
+
+.btn-primary:hover{
+  transform:translateY(-4px);
+  box-shadow:0 20px 55px rgba(255,255,255,.1);
+}
+
+.btn-dark{
+  background:rgba(0,0,0,.3);
+  color:white;
+  backdrop-filter:blur(15px);
+}
+
+.btn-dark:hover{
+  transform:translateY(-4px);
+  border-color:white;
+  background:rgba(255,255,255,.08);
+}
+
+/* =========================================================
+   HERO 3D ORBIT
+   ========================================================= */
+
+.orbit{
+  position:absolute;
+
+  right:7%;
+  top:50%;
+
+  width:420px;
+  height:420px;
+
+  transform:translateY(-50%);
+
+  perspective:1000px;
+
+  pointer-events:none;
+}
+
+.orbit-ring{
+  position:absolute;
+  inset:0;
+
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:50%;
+
+  transform:rotateX(67deg) rotateZ(20deg);
+
+  animation:orbitSpin 18s linear infinite;
+}
+
+.orbit-ring:nth-child(2){
+  inset:45px;
+  animation-duration:13s;
+  transform:rotateX(67deg) rotateZ(-20deg);
+}
+
+.orbit-ring:nth-child(3){
+  inset:90px;
+  animation-duration:9s;
+}
+
+@keyframes orbitSpin{
+  to{
+    transform:
+      rotateX(67deg)
+      rotateZ(380deg);
+  }
+}
+
+.orbit-core{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:150px;
+  height:150px;
+
+  transform:translate(-50%,-50%);
+
+  display:grid;
+  place-items:center;
+
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.13),
+      rgba(255,255,255,.02)
+    );
+
+  backdrop-filter:blur(15px);
+
+  box-shadow:
+    inset 0 0 60px rgba(255,255,255,.04),
+    0 30px 100px rgba(0,0,0,.55);
+
+  transform-style:preserve-3d;
+
+  animation:coreFloat 5s ease-in-out infinite;
+}
+
+.orbit-core img{
+  width:110px;
+}
+
+@keyframes coreFloat{
+  50%{
+    transform:
+      translate(-50%,-58%)
+      rotateY(8deg);
+  }
+}
+
+/* =========================================================
+   SIX SERVICES
+   ========================================================= */
+
+.service-strip{
+  position:absolute;
+
+  left:50%;
+  bottom:25px;
+
+  transform:translateX(-50%);
+
+  width:min(var(--max),calc(100% - 50px));
+
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+
+  z-index:10;
+}
+
+.service-mini{
+  min-height:112px;
+
+  padding:18px;
+
+  text-align:left;
+
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:15px;
+
+  color:white;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.085),
+      rgba(0,0,0,.42)
+    );
+
+  backdrop-filter:blur(18px);
+
+  transition:.45s var(--ease);
+
+  transform-style:preserve-3d;
+}
+
+.service-mini:hover{
+  transform:
+    translateY(-10px)
+    rotateX(5deg)
+    rotateY(-4deg);
+
+  border-color:rgba(255,255,255,.4);
+
+  box-shadow:
+    0 25px 60px rgba(0,0,0,.45);
+}
+
+.service-mini .num{
+  color:#666;
+  font-size:9px;
+  letter-spacing:.2em;
+  margin-bottom:12px;
+}
+
+.service-mini h3{
+  font-size:12px;
+  line-height:1.45;
+}
+
+.service-mini .arrow{
+  display:block;
+  margin-top:10px;
+  color:#aaa;
+  transition:.3s;
+}
+
+.service-mini:hover .arrow{
+  color:white;
+  transform:translateX(6px);
+}
+
+/* =========================================================
+   GENERAL SECTIONS
+   ========================================================= */
+
+section:not(.hero){
+  position:relative;
+  padding:130px 25px;
+}
+
+.container{
+  width:min(var(--max),100%);
+  margin:auto;
+}
+
+.label{
+  color:#858585;
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.35em;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+.heading{
+  max-width:850px;
+}
+
+.heading h2{
+  font-size:clamp(40px,5vw,76px);
+  line-height:.98;
+  letter-spacing:-.065em;
+  font-weight:600;
+}
+
+.heading p{
+  max-width:650px;
+  margin-top:22px;
+  color:#8e8e8e;
+  line-height:1.8;
+  font-size:14px;
+}
+
+/* =========================================================
+   ABOUT
+   ========================================================= */
+
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:90px;
+  align-items:center;
+  margin-top:70px;
+}
+
+.about-copy{
+  color:#9b9b9b;
+  line-height:1.9;
+  font-size:15px;
+}
+
+.about-copy p+p{
+  margin-top:22px;
+}
+
+.about-copy strong{
+  color:white;
+}
+
+.about-3d{
+  height:500px;
+  position:relative;
+  perspective:1200px;
+}
+
+.about-box{
+  position:absolute;
+
+  width:250px;
+  height:250px;
+
+  left:50%;
+  top:50%;
+
+  transform:
+    translate(-50%,-50%)
+    rotateX(55deg)
+    rotateZ(35deg);
+
+  transform-style:preserve-3d;
+
+  animation:boxRotate 15s linear infinite;
+}
+
+@keyframes boxRotate{
+  to{
+    transform:
+      translate(-50%,-50%)
+      rotateX(55deg)
+      rotateZ(395deg);
+  }
+}
+
+.about-face{
+  position:absolute;
+  inset:0;
+
+  border:1px solid rgba(255,255,255,.3);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.1),
+      rgba(255,255,255,.015)
+    );
+
+  backdrop-filter:blur(5px);
+
+  display:grid;
+  place-items:center;
+}
+
+.about-face::after{
+  content:"COREVA";
+  letter-spacing:.25em;
+  font-size:20px;
+  color:#ddd;
+}
+
+.af1{transform:translateZ(125px)}
+.af2{transform:rotateY(180deg) translateZ(125px)}
+.af3{transform:rotateY(90deg) translateZ(125px)}
+.af4{transform:rotateY(-90deg) translateZ(125px)}
+.af5{transform:rotateX(90deg) translateZ(125px)}
+.af6{transform:rotateX(-90deg) translateZ(125px)}
+
+/* =========================================================
+   SERVICES
+   ========================================================= */
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:65px;
+}
+
+.service-card{
+  position:relative;
+
+  min-height:360px;
+
+  padding:30px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+  border-radius:24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.075),
+      rgba(255,255,255,.018)
+    );
+
+  backdrop-filter:blur(16px);
+
+  transform-style:preserve-3d;
+
+  transition:.45s var(--ease);
+}
+
+.service-card::before{
+  content:"";
+
+  position:absolute;
+
+  width:250px;
+  height:250px;
+
+  right:-120px;
+  top:-120px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255,255,255,.1),
+      transparent 70%
+    );
+
+  transition:.6s;
+}
+
+.service-card:hover{
+  transform:
+    perspective(1000px)
+    rotateX(4deg)
+    rotateY(-4deg)
+    translateY(-9px);
+
+  border-color:rgba(255,255,255,.35);
+
+  box-shadow:0 35px 90px rgba(0,0,0,.4);
+}
+
+.service-card:hover::before{
+  transform:scale(1.5);
+}
+
+.service-number{
+  color:#555;
+  font-size:10px;
+  letter-spacing:.2em;
+}
+
+.service-icon{
+  width:48px;
+  height:48px;
+
+  margin-top:45px;
+  margin-bottom:24px;
+
+  color:#ddd;
+}
+
+.service-card h3{
+  font-size:25px;
+  letter-spacing:-.035em;
+}
+
+.service-card p{
+  color:#858585;
+  font-size:13px;
+  line-height:1.75;
+  margin-top:13px;
+  max-width:390px;
+}
+
+.service-open{
+  position:absolute;
+
+  right:25px;
+  bottom:25px;
+
+  width:45px;
+  height:45px;
+
+  display:grid;
+  place-items:center;
+
+  border:1px solid var(--line);
+  border-radius:50%;
+
+  background:transparent;
+  color:white;
+
+  transition:.35s;
+}
+
+.service-card:hover .service-open{
+  background:white;
+  color:black;
+  transform:rotate(-45deg);
+}
+
+/* =========================================================
+   ECOSYSTEM
+   ========================================================= */
+
+.ecosystem{
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(255,255,255,.045),
+      transparent 45%
+    );
+}
+
+.ecosystem-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+  margin-top:65px;
+}
+
+.eco-card{
+  position:relative;
+
+  min-height:390px;
+
+  padding:35px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+  border-radius:28px;
+
+  background:#090909;
+
+  transform-style:preserve-3d;
+
+  transition:.55s var(--ease);
+}
+
+.eco-card:hover{
+  transform:
+    perspective(1200px)
+    rotateX(3deg)
+    rotateY(-3deg)
+    translateY(-8px);
+
+  border-color:rgba(255,255,255,.35);
+}
+
+.eco-visual{
+  position:absolute;
+  inset:0;
+
+  overflow:hidden;
+}
+
+.eco-visual::before{
+  content:"";
+
+  position:absolute;
+
+  width:420px;
+  height:420px;
+
+  right:-120px;
+  top:-120px;
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.15);
+
+  box-shadow:
+    0 0 100px rgba(255,255,255,.04),
+    inset 0 0 100px rgba(255,255,255,.04);
+
+  transition:.8s;
+}
+
+.eco-card:hover .eco-visual::before{
+  transform:scale(1.2) rotate(20deg);
+}
+
+.eco-lines{
+  position:absolute;
+  inset:0;
+
+  opacity:.16;
+
+  background:
+    linear-gradient(
+      135deg,
+      transparent 30%,
+      rgba(255,255,255,.2) 30.2%,
+      transparent 30.5%
+    ),
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      rgba(255,255,255,.14) 50.2%,
+      transparent 50.5%
+    );
+}
+
+.eco-content{
+  position:absolute;
+
+  left:35px;
+  right:35px;
+  bottom:32px;
+
+  z-index:3;
+}
+
+.eco-category{
+  color:#777;
+  font-size:9px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+}
+
+.eco-content h3{
+  font-size:32px;
+  letter-spacing:-.045em;
+  margin-top:9px;
+}
+
+.eco-content p{
+  color:#888;
+  font-size:13px;
+  line-height:1.65;
+  max-width:470px;
+  margin-top:8px;
+}
+
+.eco-link{
+  display:inline-flex;
+  margin-top:18px;
+
+  color:#ddd;
+
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.eco-card.wide{
+  grid-column:1/-1;
+}
+
+/* =========================================================
+   MULTIPLE SOLUTIONS
+   ========================================================= */
+
+.innovation{
+  min-height:650px;
+
+  display:flex;
+  align-items:center;
+
+  overflow:hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255,255,255,.08),
+      transparent 30%
+    );
+}
+
+.innovation-orb{
+  position:absolute;
+
+  width:550px;
+  height:550px;
+
+  right:5%;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  border-radius:50%;
+
+  border:1px solid rgba(255,255,255,.15);
+
+  box-shadow:
+    inset 0 0 100px rgba(255,255,255,.03),
+    0 0 120px rgba(255,255,255,.025);
+
+  animation:innovationSpin 20s linear infinite;
+}
+
+.innovation-orb::before,
+.innovation-orb::after{
+  content:"";
+  position:absolute;
+  inset:45px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+}
+
+.innovation-orb::after{
+  inset:100px;
+}
+
+@keyframes innovationSpin{
+  to{transform:translateY(-50%) rotate(360deg)}
+}
+
+.innovation-content{
+  position:relative;
+  z-index:3;
+  max-width:700px;
+}
+
+.innovation-content h2{
+  font-size:clamp(48px,7vw,105px);
+  line-height:.88;
+  letter-spacing:-.07em;
+}
+
+.innovation-content h2 span{
+  color:transparent;
+  -webkit-text-stroke:1px #aaa;
+}
+
+.innovation-content p{
+  color:#888;
+  max-width:620px;
+  line-height:1.8;
+  margin-top:25px;
+}
+
+/* =========================================================
+   PROJECTS
+   ========================================================= */
+
+.projects-grid{
+  display:grid;
+  grid-template-columns:1.25fr .75fr;
+  gap:15px;
+  margin-top:65px;
+}
+
+.project{
+  position:relative;
+  min-height:500px;
+
+  overflow:hidden;
+
+  border:1px solid var(--line);
+  border-radius:26px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #151515,
+      #050505
+    );
+}
+
+.project.small{
+  min-height:242px;
+  margin-bottom:15px;
+}
+
+.project:last-child{
+  margin-bottom:0;
+}
+
+.project-shape{
+  position:absolute;
+
+  width:340px;
+  height:340px;
+
+  right:7%;
+  top:10%;
+
+  border:1px solid rgba(255,255,255,.22);
+
+  transform:
+    rotate(35deg)
+    skew(-8deg);
+
+  box-shadow:
+    inset 0 0 80px rgba(255,255,255,.04),
+    0 40px 100px rgba(0,0,0,.5);
+
+  transition:.8s var(--ease);
+}
+
+.project:hover .project-shape{
+  transform:
+    rotate(48deg)
+    scale(1.12)
+    translateY(-15px);
+}
+
+.project-content{
+  position:absolute;
+  left:30px;
+  right:30px;
+  bottom:30px;
+  z-index:2;
+}
+
+.project-content small{
+  color:#777;
+  font-size:9px;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+}
+
+.project-content h3{
+  font-size:35px;
+  letter-spacing:-.05em;
+  margin-top:8px;
+}
+
+.project-content p{
+  color:#888;
+  font-size:13px;
+  margin-top:7px;
+}
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.stats{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+
+.stat{
+  padding:60px 25px;
+  text-align:center;
+  border-right:1px solid var(--line);
+}
+
+.stat:last-child{
+  border-right:0;
+}
+
+.stat-number{
+  font-size:clamp(42px,5vw,72px);
+  letter-spacing:-.07em;
+}
+
+.stat-label{
+  color:#666;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-top:7px;
+}
+
+/* =========================================================
+   FOUNDER
+   ========================================================= */
+
+.founder-grid{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:85px;
+  align-items:center;
+}
+
+.founder-photo{
+  position:relative;
+
+  min-height:620px;
+
+  border:1px solid var(--line);
+  border-radius:28px;
+
+  overflow:hidden;
+
+  background:#0a0a0a;
+}
+
+.founder-photo img{
+  width:100%;
+  height:100%;
+  min-height:620px;
+  object-fit:cover;
+  object-position:center;
+  filter:saturate(.85) contrast(1.05);
+
+  transition:.8s;
+}
+
+.founder-photo:hover img{
+  transform:scale(1.035);
+}
+
+.founder-overlay{
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(0,0,0,.72),
+      transparent 50%
+    );
+}
+
+.founder-badge{
+  position:absolute;
+
+  left:25px;
+  bottom:25px;
+
+  padding:14px 17px;
+
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:12px;
+
+  background:rgba(0,0,0,.5);
+
+  backdrop-filter:blur(15px);
+}
+
+.founder-badge small{
+  color:#888;
+  font-size:8px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.founder-badge strong{
+  display:block;
+  margin-top:5px;
+  font-size:13px;
+}
+
+.founder-info h2{
+  font-size:clamp(44px,6vw,82px);
+  line-height:.9;
+  letter-spacing:-.07em;
+}
+
+.founder-info p{
+  max-width:680px;
+  color:#8d8d8d;
+  line-height:1.9;
+  margin-top:25px;
+  font-size:15px;
+}
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.contact{
+  background:
+    radial-gradient(
+      circle at 50% 0,
+      rgba(255,255,255,.07),
+      transparent 40%
+    );
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:.75fr 1.25fr;
+  gap:60px;
+  margin-top:65px;
+}
+
+.contact-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.contact-item{
+  display:block;
+
+  padding:22px;
+
+  border:1px solid var(--line);
+  border-radius:16px;
+
+  background:rgba(255,255,255,.025);
+
+  transition:.35s;
+}
+
+.contact-item:hover{
+  transform:translateX(6px);
+  border-color:rgba(255,255,255,.3);
+}
+
+.contact-item small{
+  display:block;
+
+  color:#666;
+
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+
+  margin-bottom:8px;
+}
+
+.contact-item strong{
+  font-size:14px;
+  font-weight:500;
+}
+
+.form{
+  padding:35px;
+
+  border:1px solid var(--line);
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.02)
+    );
+
+  backdrop-filter:blur(18px);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.field{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.field.full{
+  grid-column:1/-1;
+}
+
+.field label{
+  color:#777;
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+
+  border:1px solid var(--line);
+  border-radius:10px;
+
+  background:rgba(0,0,0,.4);
+  color:white;
+
+  outline:none;
+
+  padding:15px;
+
+  transition:.3s;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:rgba(255,255,255,.5);
+  box-shadow:0 0 0 3px rgba(255,255,255,.03);
+}
+
+.field textarea{
+  min-height:150px;
+  resize:vertical;
+}
+
+.field select option{
+  background:#101010;
+}
+
+.submit{
+  width:100%;
+  margin-top:18px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer{
+  padding:75px 25px 30px;
+  border-top:1px solid var(--line);
+}
+
+.footer-grid{
+  width:min(var(--max),100%);
+  margin:auto;
+
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:45px;
+
+  padding-bottom:60px;
+}
+
+.footer-logo{
+  width:190px;
+  margin-bottom:20px;
+}
+
+.footer-brand p{
+  max-width:360px;
+  color:#666;
+  font-size:13px;
+  line-height:1.8;
+}
+
+.footer-col h4{
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin-bottom:20px;
+}
+
+.footer-col a{
+  display:block;
+  color:#666;
+  font-size:12px;
+  margin-bottom:12px;
+  transition:.25s;
+}
+
+.footer-col a:hover{
+  color:white;
+  transform:translateX(4px);
+}
+
+.footer-bottom{
+  width:min(var(--max),100%);
+  margin:auto;
+
+  padding-top:25px;
+
+  border-top:1px solid var(--line);
+
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+
+  color:#4e4e4e;
+  font-size:10px;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+
+  z-index:5000;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+
+  background:rgba(0,0,0,.78);
+
+  backdrop-filter:blur(16px);
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.35s;
+}
+
+.modal.open{
+  opacity:1;
+  visibility:visible;
+}
+
+.modal-box{
+  width:min(620px,100%);
+
+  padding:35px;
+
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:25px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #151515,
+      #050505
+    );
+
+  box-shadow:0 40px 120px rgba(0,0,0,.7);
+
+  transform:translateY(20px) scale(.96);
+
+  transition:.4s;
+}
+
+.modal.open .modal-box{
+  transform:none;
+}
+
+.modal-close{
+  float:right;
+
+  width:38px;
+  height:38px;
+
+  border:1px solid var(--line);
+  border-radius:50%;
+
+  background:transparent;
+  color:white;
+
+  font-size:20px;
+}
+
+.modal-box h2{
+  font-size:42px;
+  letter-spacing:-.06em;
+  margin-top:20px;
+}
+
+.modal-box p{
+  color:#8c8c8c;
+  line-height:1.8;
+  margin:15px 0 25px;
+}
+
+/* =========================================================
+   ENQUIRY CHOICE
+   ========================================================= */
+
+.choice-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin-top:25px;
+}
+
+.choice{
+  min-height:100px;
+
+  border:1px solid var(--line);
+  border-radius:16px;
+
+  background:rgba(255,255,255,.035);
+  color:white;
+
+  text-align:left;
+
+  padding:20px;
+
+  transition:.35s;
+}
+
+.choice:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,.45);
+  background:rgba(255,255,255,.08);
+}
+
+.choice strong{
+  display:block;
+  font-size:15px;
+}
+
+.choice span{
+  display:block;
+  color:#777;
+  font-size:11px;
+  margin-top:8px;
+}
+
+/* =========================================================
+   BACK TO TOP
+   ========================================================= */
+
+.top{
+  position:fixed;
+
+  right:24px;
+  bottom:25px;
+
+  z-index:700;
+
+  width:45px;
+  height:45px;
+
+  border:1px solid var(--line);
+  border-radius:50%;
+
+  background:rgba(0,0,0,.7);
+  color:white;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:.3s;
+}
+
+.top.show{
+  opacity:1;
+  visibility:visible;
+}
+
+.top:hover{
+  background:white;
+  color:black;
+}
+
+/* =========================================================
+   REVEAL
+   ========================================================= */
+
+.reveal{
+  opacity:0;
+  transform:translateY(35px);
+  transition:
+    opacity .9s ease,
+    transform .9s var(--ease);
+}
+
+.reveal.show{
+  opacity:1;
+  transform:none;
+}
+
+
+/* =========================================================
+   COREVA INTRO VIDEO — PREMIUM CINEMATIC 3D
+   ========================================================= */
+
+.coreva-video-section{
+  position:relative;
+  overflow:hidden;
+  min-height:780px;
+  background:
+    radial-gradient(circle at 70% 45%, rgba(255,255,255,.055), transparent 32%),
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,.025), transparent 30%),
+    #030303;
+}
+
+.coreva-video-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:.5;
+  background:
+    linear-gradient(90deg, transparent 49.9%, rgba(255,255,255,.035) 50%, transparent 50.1%),
+    linear-gradient(0deg, transparent 49.9%, rgba(255,255,255,.025) 50%, transparent 50.1%);
+  background-size:180px 180px;
+  mask-image:radial-gradient(circle at 65% 50%, black, transparent 72%);
+}
+
+.coreva-video-wrap{
+  position:relative;
+  margin-top:70px;
+  min-height:560px;
+  display:grid;
+  grid-template-columns:.75fr 1.25fr;
+  align-items:center;
+  gap:70px;
+}
+
+.coreva-video-copy{
+  position:relative;
+  z-index:5;
+  max-width:560px;
+}
+
+.coreva-video-copy h3{
+  font-size:clamp(42px,5vw,78px);
+  line-height:.92;
+  letter-spacing:-.065em;
+  font-weight:600;
+}
+
+.coreva-video-copy h3 span{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.7);
+}
+
+.coreva-video-copy p{
+  margin-top:25px;
+  max-width:510px;
+  color:#888;
+  font-size:14px;
+  line-height:1.9;
+}
+
+.coreva-video-stage{
+  position:relative;
+  width:min(760px,100%);
+  aspect-ratio:16/10;
+  justify-self:end;
+  perspective:1600px;
+  transform-style:preserve-3d;
+}
+
+.coreva-video-halo{
+  position:absolute;
+  width:78%;
+  aspect-ratio:1;
+  right:4%;
+  top:10%;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,255,255,.09), transparent 68%);
+  filter:blur(35px);
+  animation:corevaVideoHalo 7s ease-in-out infinite;
+}
+
+@keyframes corevaVideoHalo{
+  50%{
+    transform:translate(-25px,20px) scale(1.08);
+    opacity:.7;
+  }
+}
+
+.coreva-video-orbit{
+  position:absolute;
+  inset:-12%;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:50%;
+  transform:rotateX(68deg) rotateZ(-12deg);
+  animation:corevaVideoOrbit 18s linear infinite;
+  pointer-events:none;
+}
+
+.coreva-video-orbit::before,
+.coreva-video-orbit::after{
+  content:"";
+  position:absolute;
+  inset:12%;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:50%;
+}
+
+.coreva-video-orbit::after{
+  inset:25%;
+}
+
+@keyframes corevaVideoOrbit{
+  to{
+    transform:rotateX(68deg) rotateZ(348deg);
+  }
+}
+
+.coreva-video-card{
+  position:absolute;
+  inset:6%;
+  padding:1px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:28px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.22), rgba(255,255,255,.025) 35%, rgba(0,0,0,.9));
+  box-shadow:
+    0 45px 120px rgba(0,0,0,.7),
+    inset 0 0 80px rgba(255,255,255,.025);
+  transform:
+    rotateY(-7deg)
+    rotateX(3deg)
+    translateZ(25px);
+  transform-style:preserve-3d;
+  transition:transform .7s var(--ease), border-color .5s ease;
+  overflow:hidden;
+}
+
+.coreva-video-card:hover{
+  transform:
+    rotateY(-3deg)
+    rotateX(1deg)
+    translateY(-8px)
+    translateZ(35px);
+  border-color:rgba(255,255,255,.38);
+}
+
+.coreva-video-frame{
+  position:relative;
+  width:100%;
+  height:100%;
+  min-height:100%;
+  overflow:hidden;
+  border-radius:27px;
+  background:#050505;
+}
+
+.coreva-video-frame::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,.13), transparent 22%, transparent 70%, rgba(255,255,255,.035)),
+    linear-gradient(0deg, rgba(0,0,0,.45), transparent 40%);
+  mix-blend-mode:screen;
+}
+
+.coreva-video-frame::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  box-shadow:
+    inset 0 0 70px rgba(0,0,0,.7),
+    inset 0 0 0 1px rgba(255,255,255,.08);
+}
+
+.coreva-video{
+  width:100%;
+  height:100%;
+  min-height:430px;
+  display:block;
+  object-fit:cover;
+  background:#000;
+  filter:saturate(.82) contrast(1.08) brightness(.9);
+  transform:scale(1.015);
+}
+
+.coreva-video-play{
+  position:absolute;
+  left:50%;
+  top:50%;
+  z-index:8;
+  transform:translate(-50%,-50%);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  min-width:150px;
+  min-height:58px;
+  padding:12px 18px;
+  border:1px solid rgba(255,255,255,.32);
+  border-radius:999px;
+  background:rgba(8,8,8,.62);
+  color:#fff;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 18px 55px rgba(0,0,0,.5), inset 0 0 24px rgba(255,255,255,.05);
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:opacity .3s ease, transform .3s ease, border-color .3s ease, background .3s ease;
+}
+
+.coreva-video-play:hover{
+  transform:translate(-50%,-50%) scale(1.04);
+  border-color:rgba(255,255,255,.6);
+  background:rgba(20,20,20,.72);
+}
+
+.coreva-video-play.is-hidden{
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,-50%) scale(.94);
+}
+
+.coreva-video-play-icon{
+  width:0;
+  height:0;
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+  border-left:14px solid #fff;
+  filter:drop-shadow(0 0 8px rgba(255,255,255,.22));
+}
+
+.coreva-video-play-text{
+  line-height:1;
+}
+
+.coreva-video-ui{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:20px;
+  z-index:5;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  pointer-events:none;
+}
+
+.coreva-video-tag,
+.coreva-video-status{
+  padding:10px 13px;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:100px;
+  background:rgba(0,0,0,.48);
+  backdrop-filter:blur(15px);
+  color:#ddd;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.coreva-video-status{
+  color:#888;
+  letter-spacing:.12em;
+}
+
+.coreva-video-corner{
+  position:absolute;
+  z-index:6;
+  width:55px;
+  height:55px;
+  border-color:rgba(255,255,255,.32);
+  border-style:solid;
+  pointer-events:none;
+}
+
+.coreva-video-corner.tl{
+  left:18px;
+  top:18px;
+  border-width:1px 0 0 1px;
+}
+
+.coreva-video-corner.br{
+  right:18px;
+  bottom:18px;
+  border-width:0 1px 1px 0;
+}
+
+.coreva-video-line{
+  position:absolute;
+  left:50%;
+  top:-5%;
+  width:1px;
+  height:110%;
+  z-index:4;
+  pointer-events:none;
+  background:linear-gradient(to bottom, transparent, rgba(255,255,255,.18), transparent);
+  opacity:.45;
+  animation:corevaVideoScan 6s ease-in-out infinite;
+}
+
+@keyframes corevaVideoScan{
+  0%,100%{transform:translateX(-240px);opacity:0}
+  35%{opacity:.45}
+  65%{opacity:.18}
+  100%{transform:translateX(240px);opacity:0}
+}
+
+@media(max-width:1000px){
+  .coreva-video-wrap{
+    grid-template-columns:1fr;
+    gap:50px;
+  }
+
+  .coreva-video-stage{
+    justify-self:center;
+    width:min(820px,100%);
+  }
+
+  .coreva-video-copy{
+    max-width:720px;
+  }
+}
+
+@media(max-width:800px){
+  .coreva-video-section{
+    min-height:auto;
+  }
+
+  .coreva-video-wrap{
+    margin-top:50px;
+    gap:38px;
+  }
+
+  .coreva-video-stage{
+    aspect-ratio:16/11;
+  }
+
+  .coreva-video-card{
+    inset:4%;
+    transform:none;
+  }
+
+  .coreva-video-card:hover{
+    transform:translateY(-4px);
+  }
+
+  .coreva-video{
+    min-height:300px;
+  }
+
+  .coreva-video-orbit{
+    inset:-5%;
+    opacity:.65;
+  }
+
+  .coreva-video-copy h3{
+    font-size:clamp(42px,12vw,68px);
+  }
+}
+
+@media(max-width:500px){
+  .coreva-video-wrap{
+    gap:30px;
+  }
+
+  .coreva-video-stage{
+    aspect-ratio:4/3;
+  }
+
+  .coreva-video-card{
+    inset:2%;
+    border-radius:20px;
+  }
+
+  .coreva-video-frame{
+    border-radius:19px;
+  }
+
+  .coreva-video{
+    min-height:250px;
+  }
+
+  .coreva-video-ui{
+    left:12px;
+    right:12px;
+    bottom:12px;
+  }
+
+  .coreva-video-tag,
+  .coreva-video-status{
+    padding:8px 10px;
+    font-size:7px;
+  }
+
+  .coreva-video-status{
+    display:none;
+  }
+
+  .coreva-video-corner{
+    width:35px;
+    height:35px;
+  }
+
+  .coreva-video-corner.tl{
+    left:12px;
+    top:12px;
+  }
+
+  .coreva-video-corner.br{
+    right:12px;
+    bottom:12px;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:1100px){
+
+  .nav-links{
+    gap:20px;
+  }
+
+  .orbit{
+    opacity:.35;
+    right:-100px;
+  }
+
+  .service-strip{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .hero{
+    padding-bottom:330px;
+  }
+
+  .service-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .ecosystem-grid{
+    grid-template-columns:1fr;
+  }
+
+  .eco-card.wide{
+    grid-column:auto;
+  }
+
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .stat:nth-child(2){
+    border-right:0;
+  }
+
+  .footer-grid{
+    grid-template-columns:1.5fr 1fr 1fr;
+  }
+
+}
+
+@media(max-width:800px){
+
+  .navbar{
+    height:72px;
+  }
+
+  .nav-inner{
+    width:calc(100% - 30px);
+  }
+
+  .logo{
+    width:145px;
+  }
+
+  .nav-links,
+  .nav-start{
+    display:none;
+  }
+
+  .mobile-menu{
+    display:block;
+  }
+
+  .nav-links.mobile{
+    position:fixed;
+
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+
+    top:82px;
+    left:15px;
+    right:15px;
+
+    padding:25px;
+
+    border:1px solid var(--line);
+    border-radius:20px;
+
+    background:rgba(5,5,5,.96);
+
+    backdrop-filter:blur(25px);
+
+    gap:22px;
+  }
+
+  .nav-links.mobile a{
+    font-size:16px;
+  }
+
+  .hero{
+    padding:
+      120px 18px
+      340px;
+  }
+
+  .hero-bg{
+    background-position:62% center;
+  }
+
+  .hero h1{
+    font-size:clamp(48px,14vw,75px);
+  }
+
+  .hero-description{
+    font-size:13px;
+  }
+
+  .orbit{
+    display:none;
+  }
+
+  .service-strip{
+    width:calc(100% - 30px);
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .service-mini{
+    min-height:90px;
+    padding:13px;
+  }
+
+  .service-mini h3{
+    font-size:10px;
+  }
+
+  .service-mini .arrow{
+    display:none;
+  }
+
+  section:not(.hero){
+    padding:90px 18px;
+  }
+
+  .about-grid,
+  .founder-grid,
+  .contact-grid,
+  .projects-grid{
+    grid-template-columns:1fr;
+    gap:45px;
+  }
+
+  .service-grid{
+    grid-template-columns:1fr;
+  }
+
+  .about-3d{
+    height:360px;
+  }
+
+  .ecosystem-grid{
+    grid-template-columns:1fr;
+  }
+
+  .innovation{
+    min-height:600px;
+  }
+
+  .innovation-orb{
+    width:400px;
+    height:400px;
+    right:-160px;
+    opacity:.5;
+  }
+
+  .founder-photo,
+  .founder-photo img{
+    min-height:520px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .field.full{
+    grid-column:auto;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+}
+
+@media(max-width:500px){
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .btn{
+    width:100%;
+  }
+
+  .service-strip{
+    gap:6px;
+  }
+
+  .service-mini{
+    min-height:82px;
+  }
+
+  .service-mini .num{
+    display:none;
+  }
+
+  .heading h2{
+    font-size:42px;
+  }
+
+  .founder-photo,
+  .founder-photo img{
+    min-height:450px;
+  }
+
+  .choice-buttons{
+    grid-template-columns:1fr;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+  .footer-brand{
+    grid-column:auto;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation:none!important;
+    transition:none!important;
+    scroll-behavior:auto!important;
+  }
+
+}
+
+
+/* =========================================================
+   COREVA WELCOME VOICE — DISCREET FLOATING CONTROL
+   ========================================================= */
+.coreva-welcome-voice{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:1200;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:13px 17px;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;
+  color:#fff;
+  background:rgba(8,8,8,.86);
+  box-shadow:0 12px 36px rgba(0,0,0,.35);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.04em;
+  transition:transform .3s ease,border-color .3s ease,background .3s ease;
+}
+.coreva-welcome-voice:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,255,255,.65);
+  background:rgba(28,28,28,.96);
+}
+.coreva-welcome-voice .voice-icon{
+  display:inline-grid;
+  place-items:center;
+  width:25px;
+  height:25px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+  font-size:13px;
+}
+.coreva-welcome-voice[aria-pressed="true"] .voice-icon{
+  animation:corevaVoicePulse 1.2s ease-in-out infinite;
+}
+.coreva-voice-status{
+  position:fixed;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+@keyframes corevaVoicePulse{
+  50%{box-shadow:0 0 0 6px rgba(255,255,255,.09)}
+}
+@media(max-width:600px){
+  .coreva-welcome-voice{right:12px;bottom:12px;padding:10px 13px;font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+  .coreva-welcome-voice[aria-pressed="true"] .voice-icon{animation:none}
+}
+
 </style>
 </head>
+
 <body>
-<header>
-  <div class="container nav">
-    <a class="brand" href="#home" aria-label="COREVA home"><img src="coreva-logo.png" alt="COREVA" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="brand-fallback" style="display:none">COREVA</span></a>
-    <nav class="navlinks" id="navlinks">
-      <a href="#home">Home</a><a href="#about">About</a><a href="#ecosystem">Ecosystem</a><a href="#capabilities">Capabilities</a><a href="#introduction">Introduction</a><a href="#founder">Founder</a><a href="#contact">Contact</a>
+
+<!-- =======================================================
+     PRELOADER
+     ======================================================= -->
+
+<div class="preloader" id="preloader">
+
+  <div>
+    <img src="coreva-logo.png" alt="COREVA">
+    <div class="preloader-line">
+      <span></span>
+    </div>
+  </div>
+
+</div>
+
+<div class="noise"></div>
+<div class="cursor" id="cursor"></div>
+
+
+<!-- =======================================================
+     NAVIGATION
+     ======================================================= -->
+
+<header class="navbar" id="navbar">
+
+  <div class="nav-inner">
+
+    <a href="#home">
+      <img
+        class="logo"
+        src="coreva-logo.png"
+        alt="COREVA Business Solutions"
+      >
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Solutions</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#intro-video">Introduction</a>
+      <a href="#founder">Founder</a>
+      <a href="#contact">Contact</a>
+
     </nav>
-    <a class="nav-cta" href="#contact">Get Started ↗</a>
-    <button class="mobile-menu" id="mobileMenu" aria-label="Open navigation">Menu</button>
+
+    <a href="#contact" class="nav-start">
+      Get Started →
+    </a>
+
+    <button
+      class="mobile-menu"
+      id="mobileMenu"
+      aria-label="Open menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
   </div>
+
 </header>
+
+
+<!-- =======================================================
+     HERO
+     ======================================================= -->
+
 <main>
+
 <section class="hero" id="home">
-  <div class="container hero-grid">
-    <div>
-      <div class="eyebrow">Property · Digital · Finance · Business Support</div>
-      <h1>Innovation.<span>Multiple solutions.</span>One direction.</h1>
-      <p class="hero-copy">A connected business ecosystem built to help people and businesses discover opportunities, access services, build with confidence and move forward with clarity.</p>
-      <div class="hero-actions"><a class="btn primary" href="#ecosystem">Explore COREVA ↓</a><a class="btn ghost" href="#contact">Discuss a requirement ↗</a></div>
-      <div class="hero-meta"><div><strong>01 / Discover</strong>Understand your need</div><div><strong>02 / Connect</strong>Find the right solution</div><div><strong>03 / Build</strong>Move forward</div></div>
+
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-light"></div>
+
+  <div class="hero-inner">
+
+    <div class="hero-content reveal">
+
+      <div class="eyebrow">
+        Welcome to COREVA
+      </div>
+
+      <h1>
+        Solutions
+        <span class="outline">For A Bigger</span>
+        Tomorrow
+      </h1>
+
+      <p class="hero-description">
+        COREVA Business Solutions connects people,
+        businesses and opportunities through
+        property, digital, finance, business support,
+        construction, interiors and growth solutions.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a
+          href="#contact"
+          class="btn btn-primary"
+        >
+          Start Your Requirement →
+        </a>
+
+        <a
+          href="#services"
+          class="btn btn-dark"
+        >
+          Explore Solutions ↓
+        </a>
+
+      </div>
+
     </div>
-    <div class="orbit-scene" aria-label="COREVA's four-step connected business ecosystem">
-      <div class="orbit-ring r3"></div><div class="orbit-ring r2"></div><div class="orbit-ring r1"></div>
-      <div class="orbit-core"><img src="coreva-logo.png" alt="COREVA logo"></div>
-      <div class="orbit-step s1"><b>01</b> Discover</div><div class="orbit-step s2"><b>02</b> Connect</div><div class="orbit-step s3"><b>03</b> Build</div><div class="orbit-step s4"><b>04</b> Grow</div>
-      <div class="orbit-caption">One ecosystem · Connected solutions</div>
+
+  </div>
+
+
+  <!-- 3D COREVA ORBIT -->
+
+  <div class="orbit">
+
+    <div class="orbit-ring"></div>
+    <div class="orbit-ring"></div>
+    <div class="orbit-ring"></div>
+
+    <div class="orbit-core">
+
+      <img
+        src="coreva-logo.png"
+        alt="COREVA"
+      >
+
     </div>
+
   </div>
-</section>
-<div class="trust-strip"><div class="container trust-inner"><span>A connected group of businesses</span><strong>VELORA DIGITAL</strong><strong>TBD BUILDERS & DEVELOPERS</strong><strong>AURELIV INTERIORS</strong><strong>SR PRIME PROPERTIES</strong></div></div>
-<section class="section" id="about">
- <div class="container">
-  <div class="about-grid">
-   <div><div class="eyebrow">About COREVA</div><h2 class="about-statement">One trusted direction for <span style="color:var(--gold)">multiple needs.</span></h2></div>
-   <div class="about-copy"><p>COREVA Business Solutions brings multiple service areas into one connected ecosystem. From digital systems and property opportunities to construction, interiors and business support, the aim is to make it easier to find the right starting point.</p><p>Each specialist brand has its own focus, while COREVA provides a shared direction for discovery, communication and growth. Service details, project scope, pricing and availability are confirmed directly with the relevant team.</p>
-    <div class="principles"><div class="principle"><b>Clarity first</b><span>Understand the requirement before moving forward.</span></div><div class="principle"><b>Connected teams</b><span>Reach the relevant specialist brand.</span></div><div class="principle"><b>Built for growth</b><span>Practical solutions for changing needs.</span></div></div>
-   </div>
+
+
+  <!-- SIX SOLUTIONS -->
+
+  <div class="service-strip">
+
+    <button
+      class="service-mini"
+      data-service="property"
+    >
+      <div class="num">01</div>
+      <h3>Property &<br>Real Estate</h3>
+      <span class="arrow">→</span>
+    </button>
+
+    <button
+      class="service-mini"
+      data-service="digital"
+    >
+      <div class="num">02</div>
+      <h3>Digital<br>Solutions</h3>
+      <span class="arrow">→</span>
+    </button>
+
+    <button
+      class="service-mini"
+      data-service="finance"
+    >
+      <div class="num">03</div>
+      <h3>Finance<br>Solutions</h3>
+      <span class="arrow">→</span>
+    </button>
+
+    <button
+      class="service-mini"
+      data-service="support"
+    >
+      <div class="num">04</div>
+      <h3>Business<br>Support</h3>
+      <span class="arrow">→</span>
+    </button>
+
+    <button
+      class="service-mini"
+      data-service="construction"
+    >
+      <div class="num">05</div>
+      <h3>Construction<br>& Interiors</h3>
+      <span class="arrow">→</span>
+    </button>
+
+    <button
+      class="service-mini"
+      data-service="growth"
+    >
+      <div class="num">06</div>
+      <h3>Business<br>Growth</h3>
+      <span class="arrow">→</span>
+    </button>
+
   </div>
- </div>
+
 </section>
-<section class="section" id="ecosystem">
- <div class="container">
-  <div class="section-head"><div class="eyebrow">Our ecosystem</div><h2>Specialist brands.<br><span style="color:var(--gold)">One direction.</span></h2><p>Explore the brands within the COREVA ecosystem. The 3D-style marks below are code-built visual identities; replace them with official logo files whenever those files are uploaded.</p></div>
-  <div class="brand-grid">
-   <article class="brand-card">
-    <div class="mark"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M7 33 20 9l8 14 5-8 8 18H7Z" stroke="#e6d3a0" stroke-width="2.3"/><path d="M14 33 22 20l8 13M26 33l7-11 4 11" stroke="#fff" stroke-width="1.6"/><circle cx="20" cy="9" r="2" fill="#e6d3a0"/></svg></div>
-    <div class="eyebrow">Digital solutions</div><h3>Velora Digital</h3><p>Websites, digital products, business systems, automation, branding and modern technology solutions.</p><a class="text-link" href="#contact">Explore digital solutions ↗</a>
-   </article>
-   <article class="brand-card">
-    <div class="mark"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M7 40V16l11 6V11l11 7V6h9v34H7Z" stroke="#e6d3a0" stroke-width="2.2"/><path d="M14 29h4m-4 6h4m6-11h4m-4 6h4m-4 6h4m7-20h3m-3 6h3m-3 6h3m-3 6h3" stroke="#fff" stroke-width="1.5"/></svg></div>
-    <div class="eyebrow">Construction & development</div><h3>TBD Builders & Developers</h3><p>Construction, development and project solutions with a focus on quality, planning and long-term value.</p><a class="text-link" href="#contact">Discuss a project ↗</a>
-   </article>
-   <article class="brand-card">
-    <div class="mark"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M7 39V19L24 7l17 12v20H7Z" stroke="#e6d3a0" stroke-width="2.2"/><path d="M16 39V24h16v15M20 28h8M20 33h8" stroke="#fff" stroke-width="1.7"/><path d="M12 19h24" stroke="#e6d3a0" stroke-width="1.7"/></svg></div>
-    <div class="eyebrow">Interior design</div><h3>Aureliv Interiors</h3><p>Interior design and space solutions for residential, commercial and business environments.</p><a class="text-link" href="#contact">Discuss interiors ↗</a>
-   </article>
-   <article class="brand-card">
-    <div class="mark"><svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M5 22 24 7l19 15M10 20v20h28V20M18 40V27h12v13" stroke="#e6d3a0" stroke-width="2.2"/><path d="M15 20h18M24 7v-3" stroke="#fff" stroke-width="1.6"/><circle cx="24" cy="18" r="2" fill="#e6d3a0"/></svg></div>
-    <div class="eyebrow">Property & real estate</div><h3>SR PRIME Properties</h3><p>Property and real estate development opportunities focused on discovery, investment and growth.</p><a class="text-link" href="#contact">Property enquiry ↗</a>
-   </article>
+
+
+<!-- =======================================================
+     ABOUT
+     ======================================================= -->
+
+<section id="about">
+
+  <div class="container">
+
+    <div class="heading reveal">
+
+      <div class="label">
+        About COREVA
+      </div>
+
+      <h2>
+        Multiple solutions.
+        <br>
+        One direction.
+      </h2>
+
+      <p>
+        COREVA is being built as a connected business
+        ecosystem designed to help people and businesses
+        find the right solution and move forward.
+      </p>
+
+    </div>
+
+
+    <div class="about-grid">
+
+      <div class="about-copy reveal">
+
+        <p>
+          <strong>COREVA Business Solutions</strong>
+          brings different areas of business support
+          together under one professional identity.
+        </p>
+
+        <p>
+          Our solution areas cover property and real
+          estate, digital technology, finance, business
+          support, construction and interiors, and
+          business growth.
+        </p>
+
+        <p>
+          The long-term vision is bigger than a normal
+          service company. COREVA is designed to become
+          a connected platform where customers,
+          professionals, projects and services can work
+          together.
+        </p>
+
+        <br>
+
+        <a
+          href="#contact"
+          class="btn btn-dark"
+        >
+          Talk to COREVA →
+        </a>
+
+      </div>
+
+
+      <div class="about-3d reveal">
+
+        <div class="about-box">
+
+          <div class="about-face af1"></div>
+          <div class="about-face af2"></div>
+          <div class="about-face af3"></div>
+          <div class="about-face af4"></div>
+          <div class="about-face af5"></div>
+          <div class="about-face af6"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
- </div>
+
 </section>
-<section class="section vision">
- <div class="container vision-grid">
-  <div><div class="eyebrow">Our vision</div><h2>Innovation.<br><span>Multiple solutions.</span><br>One direction.</h2><p>COREVA is building more than individual services. The vision is a connected business ecosystem where people can discover, communicate, manage and grow through one trusted direction.</p><a class="btn primary" href="#contact" style="margin-top:14px">Build with COREVA ↗</a></div>
-  <div class="vision-art" aria-label="Animated circular COREVA ecosystem graphic"><div class="ring"></div><div class="vision-badge"><span>C</span></div></div>
- </div>
-</section>
-<section class="section" id="capabilities">
- <div class="container">
-  <div class="section-head"><div class="eyebrow">Digital systems & built environments</div><h2>Ideas made<br><span style="color:var(--gold)">tangible.</span></h2><p>Explore four visual themes for COREVA's key capability areas. The technology and architectural backgrounds are drawn directly with CSS, so no separate generated image file is required.</p></div>
-  <div class="capability-grid">
-   <article class="capability digital"><div class="capability-content"><div class="eyebrow">Digital</div><h3>Digital Business Systems</h3><p>Websites, platforms, automation and business technology.</p></div></article>
-   <article class="capability property"><div class="capability-content"><div class="eyebrow">Property</div><h3>Real Estate</h3><p>Property opportunities and solutions.</p></div></article>
-   <article class="capability build"><div class="capability-content"><div class="eyebrow">Construction</div><h3>Built Environments</h3><p>Construction and development solutions.</p></div></article>
-   <article class="capability interiors"><div class="capability-content"><div class="eyebrow">Interiors</div><h3>Designed Spaces</h3><p>Interior concepts and modern spaces.</p></div></article>
+
+
+
+<!-- =======================================================
+     COREVA INTRODUCTION VIDEO
+     ======================================================= -->
+
+<section
+  class="coreva-video-section"
+  id="intro-video"
+>
+
+  <div class="container">
+
+    <div class="heading reveal">
+
+      <div class="label">
+        COREVA Introduction
+      </div>
+
+      <h2>
+        The vision
+        <br>
+        <span>behind COREVA.</span>
+      </h2>
+
+      <p>
+        One ecosystem. Multiple solutions.
+        A long-term vision built around people,
+        businesses, technology and opportunity.
+      </p>
+
+    </div>
+
+
+    <div class="coreva-video-wrap">
+
+      <div class="coreva-video-copy reveal">
+
+        <div class="label">
+          Watch the Journey
+        </div>
+
+        <h3>
+          Building People.
+          <br>
+          <span>Businesses.</span>
+          <br>
+          A Better Tomorrow.
+        </h3>
+
+        <p>
+          Discover the idea behind COREVA Business Solutions
+          and the direction we are building toward.
+        </p>
+
+        <a
+          href="#contact"
+          class="btn btn-dark"
+        >
+          Start Your Requirement →
+        </a>
+
+      </div>
+
+
+      <div class="coreva-video-stage reveal">
+
+        <div class="coreva-video-halo"></div>
+
+        <div class="coreva-video-orbit"></div>
+
+        <div class="coreva-video-card">
+
+          <div class="coreva-video-frame">
+
+            <video
+              class="coreva-video"
+              id="corevaIntroVideo"
+              src="coreva-intro.mp4"
+              loop
+              playsinline
+              preload="metadata"
+              poster="coreva-hero-background.png"
+              aria-label="COREVA Business Solutions introduction video"
+            ></video>
+
+            <div class="coreva-video-line"></div>
+
+            <div class="coreva-video-corner tl"></div>
+            <div class="coreva-video-corner br"></div>
+
+            <button
+              class="coreva-video-play"
+              id="corevaVideoPlay"
+              type="button"
+              aria-label="Play COREVA introduction video"
+            >
+              <span class="coreva-video-play-icon" aria-hidden="true"></span>
+              <span class="coreva-video-play-text">Play Video</span>
+            </button>
+
+            <div class="coreva-video-ui">
+
+              <div class="coreva-video-tag">
+                COREVA / INTRO
+              </div>
+
+              <div class="coreva-video-status">
+                Business Solutions
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
- </div>
+
 </section>
-<section class="section" id="introduction">
- <div class="container">
-  <div class="video-panel">
-   <div class="video-copy"><div class="eyebrow">COREVA introduction</div><h3>A closer look at our direction.</h3><p>Watch the existing COREVA introduction video. Your original video file is preserved and referenced below.</p><p class="muted" style="font-size:11px">When you upload the second video, add another video card using its exact filename.</p></div>
-   <div class="video-frame"><video src="coreva-intro.mp4" poster="coreva-hero-background.png" controls playsinline preload="metadata" aria-label="COREVA introduction video"></video><div class="video-placeholder">COREVA INTRODUCTION VIDEO</div></div>
+
+
+<!-- =======================================================
+     SOLUTIONS
+     ======================================================= -->
+
+<section id="services">
+
+  <div class="container">
+
+    <div class="heading reveal">
+
+      <div class="label">
+        COREVA Solutions
+      </div>
+
+      <h2>
+        Built around
+        <br>
+        your requirement.
+      </h2>
+
+      <p>
+        Select a solution to learn more.
+      </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+
+      <article
+        class="service-card reveal"
+        data-service="property"
+      >
+
+        <div class="service-number">
+          01 / 06
+        </div>
+
+        <svg
+          class="service-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        >
+          <path d="M3 21h18"/>
+          <path d="M5 21V8l7-5 7 5v13"/>
+          <path d="M9 21v-6h6v6"/>
+        </svg>
+
+        <h3>
+          Property & Real Estate
+        </h3>
+
+        <p>
+          Property opportunities, real estate support,
+          listings and practical direction for buyers,
+          sellers and investors.
+        </p>
+
+        <button class="service-open">
+          →
+        </button>
+
+      </article>
+
+
+      <article
+        class="service-card reveal"
+        data-service="digital"
+      >
+
+        <div class="service-number">
+          02 / 06
+        </div>
+
+        <svg
+          class="service-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        >
+          <rect x="3" y="4" width="18" height="13" rx="2"/>
+          <path d="M8 21h8"/>
+          <path d="M12 17v4"/>
+        </svg>
+
+        <h3>
+          Digital Solutions
+        </h3>
+
+        <p>
+          Websites, digital products, business systems,
+          automation and technology solutions.
+        </p>
+
+        <button class="service-open">
+          →
+        </button>
+
+      </article>
+
+
+      <article
+        class="service-card reveal"
+        data-service="finance"
+      >
+
+        <div class="service-number">
+          03 / 06
+        </div>
+
+        <svg
+          class="service-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        >
+          <ellipse cx="12" cy="6" rx="7" ry="3"/>
+          <path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/>
+          <path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>
+        </svg>
+
+        <h3>
+          Finance Solutions
+        </h3>
+
+        <p>
+          Financial service support and solution
+          pathways for individuals, entrepreneurs and
+          growing businesses.
+        </p>
+
+        <button class="service-open">
+          →
+        </button>
+
+      </article>
+
+
+      <article
+        class="service-card reveal"
+        data-service="support"
+      >
+
+        <div class="service-number">
+          04 / 06
+        </div>
+
+        <svg
+          class="service-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        >
+          <circle cx="9" cy="8" r="3"/>
+          <circle cx="17" cy="9" r="2.5"/>
+          <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+          <path d="M14 15c3.2-.5 6 1.8 6 5"/>
+        </svg>
+
+        <h3>
+          Business Support
+        </h3>
+
+        <p>
+          Practical business support for entrepreneurs
+          and businesses that need direction,
+          coordination and professional assistance.
+        </p>
+
+        <button class="service-open">
+          →
+        </button>
+
+      </article>
+
+
+      <article
+        class="service-card reveal"
+        data-service="construction"
+      >
+
+        <div class="service-number">
+          05 / 06
+        </div>
+
+        <svg
+          class="service-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        >
+          <path d="M3 21h18"/>
+          <path d="M5 21V9l7-6 7 6v12"/>
+          <path d="M9 21v-6h6v6"/>
+        </svg>
+
+        <h3>
+          Construction & Interiors
+        </h3>
+
+        <p>
+          Construction, development, architecture,
+          interiors and project solutions through
+          specialist capabilities.
+        </p>
+
+        <button class="service-open">
+          →
+        </button>
+
+      </article>
+
+
+      <article
+        class="service-card reveal"
+        data-service="growth"
+      >
+
+        <div class="service-number">
+          06 / 06
+        </div>
+
+        <svg
+          class="service-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.4"
+        >
+          <path d="M4 19V5"/>
+          <path d="M4 19h16"/>
+          <path d="m7 15 4-5 3 3 5-7"/>
+        </svg>
+
+        <h3>
+          Business Growth
+        </h3>
+
+        <p>
+          Digital presence, marketing, technology,
+          strategy and support designed to help
+          businesses grow.
+        </p>
+
+        <button class="service-open">
+          →
+        </button>
+
+      </article>
+
+    </div>
+
   </div>
- </div>
+
 </section>
-<section class="section" id="founder">
- <div class="container founder-grid">
-  <div class="founder-photo"><img src="coreva-founder.jpg" alt="COREVA founder" loading="lazy"><div class="founder-label"><strong>Founder & Chairman</strong><span>COREVA Business Solutions</span></div></div>
-  <div class="founder-copy"><div class="eyebrow">Founder’s direction</div><h2>Building a connected ecosystem, step by step.</h2><p>COREVA’s direction is centred on bringing practical services together under one ecosystem, while allowing each specialist brand to focus on its own area of expertise.</p><p>From digital business systems to property, construction and interiors, the aim is to create clear pathways for customers and partners to start a conversation and identify the right next step.</p><a class="btn ghost" href="#contact" style="margin-top:12px">Connect with COREVA ↗</a></div>
- </div>
+
+
+<!-- =======================================================
+     ECOSYSTEM
+     ======================================================= -->
+
+<section
+  class="ecosystem"
+  id="ecosystem"
+>
+
+  <div class="container">
+
+    <div class="heading reveal">
+
+      <div class="label">
+        COREVA Ecosystem
+      </div>
+
+      <h2>
+        Specialist brands.
+        <br>
+        One ecosystem.
+      </h2>
+
+      <p>
+        COREVA brings together specialist capabilities
+        to create a broader business solutions ecosystem.
+      </p>
+
+    </div>
+
+
+    <div class="ecosystem-grid">
+
+
+      <!-- VELORA -->
+
+      <article class="eco-card reveal">
+
+        <div class="eco-visual">
+          <div class="eco-lines"></div>
+        </div>
+
+        <div class="eco-content">
+
+          <div class="eco-category">
+            Digital Solutions
+          </div>
+
+          <h3>
+            Velora Digital
+          </h3>
+
+          <p>
+            Websites, digital products, business systems,
+            automation, branding and modern technology
+            solutions.
+          </p>
+
+          <a
+            class="eco-link"
+            href="https://veloradigital.co.in"
+            target="_blank"
+            rel="noopener"
+          >
+            Explore Velora Digital →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- TBD BUILDERS -->
+
+      <article class="eco-card reveal">
+
+        <div class="eco-visual">
+          <div class="eco-lines"></div>
+        </div>
+
+        <div class="eco-content">
+
+          <div class="eco-category">
+            Construction & Development
+          </div>
+
+          <h3>
+            TBD Builders & Developers
+          </h3>
+
+          <p>
+            Construction, development and project
+            solutions with a focus on quality,
+            planning and long-term value.
+          </p>
+
+          <a
+            href="#contact"
+            class="eco-link"
+          >
+            Discuss a Project →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- AURELIV -->
+
+      <article class="eco-card reveal">
+
+        <div class="eco-visual">
+          <div class="eco-lines"></div>
+        </div>
+
+        <div class="eco-content">
+
+          <div class="eco-category">
+            Interior Design
+          </div>
+
+          <h3>
+            Aureliv Interiors
+          </h3>
+
+          <p>
+            Premium interior design and space solutions
+            for residential, commercial and business
+            environments.
+          </p>
+
+          <a
+            href="#contact"
+            class="eco-link"
+          >
+            Discuss Interiors →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- SR PRIME -->
+
+      <article class="eco-card reveal">
+
+        <div class="eco-visual">
+          <div class="eco-lines"></div>
+        </div>
+
+        <div class="eco-content">
+
+          <div class="eco-category">
+            Property & Real Estate
+          </div>
+
+          <h3>
+            SR PRIME Properties
+          </h3>
+
+          <p>
+            Property and real estate development
+            solutions focused on opportunities,
+            investments and growth.
+          </p>
+
+          <a
+            href="#contact"
+            class="eco-link"
+          >
+            Property Enquiry →
+          </a>
+
+        </div>
+
+      </article>
+
+
+      <!-- TBD GROUP -->
+
+      <article class="eco-card wide reveal">
+
+        <div class="eco-visual">
+          <div class="eco-lines"></div>
+        </div>
+
+        <div class="eco-content">
+
+          <div class="eco-category">
+            Group Vision
+          </div>
+
+          <h3>
+            TBD GROUP.in
+          </h3>
+
+          <p>
+            A broader business ecosystem connecting
+            construction, development, interiors,
+            property and future business opportunities.
+          </p>
+
+          <a
+            href="#contact"
+            class="eco-link"
+          >
+            Connect With COREVA →
+          </a>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
 </section>
-<section class="section" id="contact">
- <div class="container">
-  <div class="contact-box"><div><div class="eyebrow">Start a conversation</div><h2>What can we build<br>with you?</h2><p>Share your requirement and choose the service area that best matches your need. The COREVA team can guide you to the relevant specialist brand.</p></div><div class="contact-actions"><a class="btn primary" href="mailto:">Contact COREVA ↗</a><a class="btn ghost" href="ai-receptionist/voice.html">Try AI Receptionist ↗</a><a class="btn ghost" href="ai-receptionist/index.html">Receptionist Dashboard ↗</a></div></div>
- </div>
+
+
+<!-- =======================================================
+     INNOVATION
+     ======================================================= -->
+
+<section class="innovation">
+
+  <div class="innovation-orb"></div>
+
+  <div class="container">
+
+    <div class="innovation-content reveal">
+
+      <div class="label">
+        Our Vision
+      </div>
+
+      <h2>
+        Innovation.
+        <br>
+        <span>Multiple Solutions.</span>
+        <br>
+        One Direction.
+      </h2>
+
+      <p>
+        COREVA is building more than individual
+        services. The vision is to create a connected
+        business ecosystem where customers can discover,
+        apply, communicate, manage and grow through
+        one trusted direction.
+      </p>
+
+      <br>
+
+      <a
+        href="#contact"
+        class="btn btn-primary"
+      >
+        Build With COREVA →
+      </a>
+
+    </div>
+
+  </div>
+
 </section>
+
+
+<!-- =======================================================
+     PROJECTS
+     ======================================================= -->
+
+<section id="projects">
+
+  <div class="container">
+
+    <div class="heading reveal">
+
+      <div class="label">
+        Projects & Capabilities
+      </div>
+
+      <h2>
+        From ideas
+        <br>
+        to execution.
+      </h2>
+
+    </div>
+
+
+    <div class="projects-grid">
+
+
+      <article class="project reveal">
+
+        <div class="project-shape"></div>
+
+        <div class="project-content">
+
+          <small>
+            Digital
+          </small>
+
+          <h3>
+            Digital Business Systems
+          </h3>
+
+          <p>
+            Websites, platforms, automation and
+            business technology.
+          </p>
+
+        </div>
+
+      </article>
+
+
+      <div>
+
+        <article class="project small reveal">
+
+          <div
+            class="project-shape"
+            style="width:180px;height:180px"
+          ></div>
+
+          <div class="project-content">
+
+            <small>
+              Property
+            </small>
+
+            <h3>
+              Real Estate
+            </h3>
+
+            <p>
+              Property opportunities and solutions.
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <article class="project small reveal">
+
+          <div
+            class="project-shape"
+            style="width:180px;height:180px"
+          ></div>
+
+          <div class="project-content">
+
+            <small>
+              Construction
+            </small>
+
+            <h3>
+              Built Environments
+            </h3>
+
+            <p>
+              Construction and interior solutions.
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     STATS
+     ======================================================= -->
+
+<section class="stats">
+
+  <div class="container">
+
+    <div class="stats-grid">
+
+      <div class="stat reveal">
+
+        <div
+          class="stat-number"
+          data-count="6"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Solution Areas
+        </div>
+
+      </div>
+
+
+      <div class="stat reveal">
+
+        <div
+          class="stat-number"
+          data-count="5"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Ecosystem Brands
+        </div>
+
+      </div>
+
+
+      <div class="stat reveal">
+
+        <div
+          class="stat-number"
+          data-count="1"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Connected Direction
+        </div>
+
+      </div>
+
+
+      <div class="stat reveal">
+
+        <div
+          class="stat-number"
+          data-count="100"
+        >
+          0
+        </div>
+
+        <div class="stat-label">
+          Growth Focus %
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOUNDER
+     ======================================================= -->
+
+<section id="founder">
+
+  <div class="container">
+
+    <div class="founder-grid">
+
+
+      <div class="founder-photo reveal">
+
+        <img
+          src="coreva-founder.jpg"
+          alt="Aboobakker Fahiz - Founder and CEO of COREVA"
+        >
+
+        <div class="founder-overlay"></div>
+
+        <div class="founder-badge">
+
+          <small>
+            Founder & CEO
+          </small>
+
+          <strong>
+            Aboobakker Fahiz
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <div class="founder-info reveal">
+
+        <div class="label">
+          Founder & CEO
+        </div>
+
+        <h2>
+          Aboobakker
+          <br>
+          Fahiz
+        </h2>
+
+        <p>
+          COREVA was founded with the vision of
+          creating a modern business ecosystem that
+          helps people and businesses find the right
+          direction.
+        </p>
+
+        <p>
+          The journey begins with business solutions
+          across property, digital, finance, support,
+          construction, interiors and growth — with a
+          long-term vision of building connected
+          technology-driven platforms.
+        </p>
+
+        <br>
+
+        <a
+          href="#contact"
+          class="btn btn-primary"
+        >
+          Connect With COREVA →
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     CONTACT
+     ======================================================= -->
+
+<section
+  class="contact"
+  id="contact"
+>
+
+  <div class="container">
+
+    <div class="heading reveal">
+
+      <div class="label">
+        Start a Conversation
+      </div>
+
+      <h2>
+        Tell us what
+        <br>
+        you need.
+      </h2>
+
+      <p>
+        Submit your requirement and choose whether
+        you want to continue through WhatsApp or
+        COREVA Support Email.
+      </p>
+
+    </div>
+
+
+    <div class="contact-grid">
+
+
+      <!-- CONTACT DETAILS -->
+
+      <div class="contact-list reveal">
+
+        <a
+          class="contact-item"
+          href="mailto:corevabusinessolutions@gmail.com"
+        >
+          <small>
+            Support Email
+          </small>
+
+          <strong>
+            corevabusinessolutions@gmail.com
+          </strong>
+        </a>
+
+
+        <a
+          class="contact-item"
+          href="tel:+918088590273"
+        >
+          <small>
+            Phone
+          </small>
+
+          <strong>
+            +91 80885 90273
+          </strong>
+        </a>
+
+
+        <a
+          class="contact-item"
+          href="https://wa.me/918088590273"
+          target="_blank"
+          rel="noopener"
+        >
+          <small>
+            WhatsApp
+          </small>
+
+          <strong>
+            Chat with COREVA
+          </strong>
+        </a>
+
+
+        <a
+          class="contact-item"
+          href="https://www.instagram.com/corevasolutions"
+          target="_blank"
+          rel="noopener"
+        >
+          <small>
+            Instagram
+          </small>
+
+          <strong>
+            @corevasolutions
+          </strong>
+        </a>
+
+
+        <div class="contact-item">
+
+          <small>
+            Location
+          </small>
+
+          <strong>
+            Mangaluru, Karnataka, India
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- FORM -->
+
+      <form
+        class="form reveal"
+        id="inquiryForm"
+      >
+
+        <div class="form-grid">
+
+
+          <div class="field">
+
+            <label>
+              Name
+            </label>
+
+            <input
+              id="name"
+              type="text"
+              placeholder="Your full name"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Phone
+            </label>
+
+            <input
+              id="phone"
+              type="tel"
+              placeholder="+91"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Email
+            </label>
+
+            <input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label>
+              Requirement
+            </label>
+
+            <select
+              id="requirement"
+              required
+            >
+
+              <option value="">
+                Select requirement
+              </option>
+
+              <option>
+                Property & Real Estate
+              </option>
+
+              <option>
+                Digital Solutions
+              </option>
+
+              <option>
+                Finance Solutions
+              </option>
+
+              <option>
+                Business Support
+              </option>
+
+              <option>
+                Construction & Interiors
+              </option>
+
+              <option>
+                Business Growth
+              </option>
+
+              <option>
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="field full">
+
+            <label>
+              Requirement Details
+            </label>
+
+            <textarea
+              id="message"
+              placeholder="Tell COREVA what you need..."
+              required
+            ></textarea>
+
+          </div>
+
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="btn btn-primary submit"
+        >
+          Submit Enquiry →
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
 </main>
-<footer><div class="container footer-inner"><span>© <span id="year"></span> COREVA Business Solutions. All rights reserved.</span><div class="footer-links"><a href="#about">About</a><a href="#ecosystem">Our brands</a><a href="#contact">Contact</a></div><span>Property · Digital · Finance · Business Support</span></div></footer>
+
+
+<!-- =======================================================
+     FOOTER
+     ======================================================= -->
+
+<footer>
+
+  <div class="footer-grid">
+
+
+    <div class="footer-brand">
+
+      <img
+        class="footer-logo"
+        src="coreva-logo.png"
+        alt="COREVA"
+      >
+
+      <p>
+        Building People. Businesses.
+        A Better Tomorrow.
+      </p>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Navigate
+      </h4>
+
+      <a href="#home">
+        Home
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
+      <a href="#services">
+        Solutions
+      </a>
+
+      <a href="#ecosystem">
+        Ecosystem
+      </a>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Solutions
+      </h4>
+
+      <a href="#services">
+        Property
+      </a>
+
+      <a href="#services">
+        Digital
+      </a>
+
+      <a href="#services">
+        Finance
+      </a>
+
+      <a href="#services">
+        Business Support
+      </a>
+
+      <a href="#services">
+        Construction
+      </a>
+
+    </div>
+
+
+    <div class="footer-col">
+
+      <h4>
+        Connect
+      </h4>
+
+      <a href="#contact">
+        Contact COREVA
+      </a>
+
+      <a
+        href="mailto:corevabusinessolutions@gmail.com"
+      >
+        Support Email
+      </a>
+
+      <a
+        href="https://wa.me/918088590273"
+        target="_blank"
+        rel="noopener"
+      >
+        WhatsApp
+      </a>
+
+      <a
+        href="https://www.instagram.com/corevasolutions"
+        target="_blank"
+        rel="noopener"
+      >
+        Instagram
+      </a>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © <span id="year"></span>
+      COREVA Business Solutions.
+      All rights reserved.
+    </span>
+
+    <span>
+      Mangaluru, Karnataka, India
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =======================================================
+     SERVICE MODAL
+     ======================================================= -->
+
+<div
+  class="modal"
+  id="serviceModal"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="modal-close"
+      id="modalClose"
+    >
+      ×
+    </button>
+
+    <div class="label">
+      COREVA Solution
+    </div>
+
+    <h2 id="modalTitle">
+      Service
+    </h2>
+
+    <p id="modalText">
+      Service information.
+    </p>
+
+    <a
+      href="#contact"
+      class="btn btn-primary"
+      id="modalRequirement"
+    >
+      Discuss Your Requirement →
+    </a>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     INQUIRY CHOICE MODAL
+     ======================================================= -->
+
+<div
+  class="modal"
+  id="choiceModal"
+>
+
+  <div class="modal-box">
+
+    <button
+      class="modal-close"
+      id="choiceClose"
+    >
+      ×
+    </button>
+
+    <div class="label">
+      Enquiry Ready
+    </div>
+
+    <h2>
+      How would you like to continue?
+    </h2>
+
+    <p>
+      Your enquiry is ready. Choose WhatsApp for
+      a direct conversation or Email for COREVA
+      Support.
+    </p>
+
+
+    <div class="choice-buttons">
+
+      <button
+        class="choice"
+        id="whatsappInquiry"
+      >
+
+        <strong>
+          WhatsApp COREVA
+        </strong>
+
+        <span>
+          Open WhatsApp with your enquiry
+        </span>
+
+      </button>
+
+
+      <button
+        class="choice"
+        id="emailInquiry"
+      >
+
+        <strong>
+          Email COREVA Support
+        </strong>
+
+        <span>
+          Send your enquiry to our support email
+        </span>
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =======================================================
+     BACK TO TOP
+     ======================================================= -->
+
+<button
+  class="top"
+  id="top"
+  aria-label="Back to top"
+>
+  ↑
+</button>
+
+
 <script>
-const menu=document.getElementById('mobileMenu'),nav=document.getElementById('navlinks');
-menu.addEventListener('click',()=>nav.classList.toggle('open'));
-nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
-document.getElementById('year').textContent=new Date().getFullYear();
-const video=document.querySelector('.video-frame video'),placeholder=document.querySelector('.video-placeholder');
-if(video&&placeholder){video.addEventListener('play',()=>placeholder.style.display='none');video.addEventListener('loadeddata',()=>placeholder.style.display='none');video.addEventListener('error',()=>{placeholder.textContent='Video file not found — confirm coreva-intro.mp4 is in the repository root';placeholder.style.display='grid';});}
+
+/* =========================================================
+   COREVA WEBSITE JAVASCRIPT
+   ========================================================= */
+
+const $ = selector =>
+  document.querySelector(selector);
+
+const $$ = selector =>
+  document.querySelectorAll(selector);
+
+
+/* =========================================================
+   PRELOADER
+   ========================================================= */
+
+window.addEventListener("load",()=>{
+
+  setTimeout(()=>{
+
+    $("#preloader").classList.add("hide");
+
+  },700);
+
+});
+
+
+/* =========================================================
+   YEAR
+   ========================================================= */
+
+$("#year").textContent =
+  new Date().getFullYear();
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+window.addEventListener("scroll",()=>{
+
+  const navbar=$("#navbar");
+  const top=$("#top");
+
+  if(window.scrollY>60){
+
+    navbar.classList.add("scrolled");
+    top.classList.add("show");
+
+  }else{
+
+    navbar.classList.remove("scrolled");
+    top.classList.remove("show");
+
+  }
+
+});
+
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+
+$("#mobileMenu").addEventListener("click",()=>{
+
+  $("#navLinks").classList.toggle("mobile");
+
+  document.body.classList.toggle("lock");
+
+});
+
+
+$$(".nav-links a").forEach(link=>{
+
+  link.addEventListener("click",()=>{
+
+    $("#navLinks").classList.remove("mobile");
+
+    document.body.classList.remove("lock");
+
+  });
+
+});
+
+
+/* =========================================================
+   BACK TO TOP
+   ========================================================= */
+
+$("#top").addEventListener("click",()=>{
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+});
+
+
+/* =========================================================
+   CURSOR
+   ========================================================= */
+
+const cursor=$("#cursor");
+
+if(
+  window.matchMedia("(pointer:fine)").matches
+){
+
+  document.addEventListener("mousemove",e=>{
+
+    cursor.style.left=e.clientX+"px";
+    cursor.style.top=e.clientY+"px";
+
+  });
+
+}else{
+
+  cursor.style.display="none";
+
+}
+
+
+/* =========================================================
+   REVEAL ANIMATIONS
+   ========================================================= */
+
+const revealObserver =
+  new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+          entry.target.classList.add("show");
+
+          revealObserver.unobserve(
+            entry.target
+          );
+
+        }
+
+      });
+
+    },
+    {
+      threshold:.12
+    }
+  );
+
+
+$$(".reveal").forEach(el=>{
+
+  revealObserver.observe(el);
+
+});
+
+
+/* =========================================================
+   ACTIVE NAVIGATION
+   ========================================================= */
+
+const pageSections =
+  $$("main section[id]");
+
+const navigationLinks =
+  $$(".nav-links a");
+
+const navObserver =
+  new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(entry=>{
+
+        if(!entry.isIntersecting)
+          return;
+
+        navigationLinks.forEach(link=>{
+
+          link.classList.remove("active");
+
+          if(
+            link.getAttribute("href") ===
+            "#"+entry.target.id
+          ){
+
+            link.classList.add("active");
+
+          }
+
+        });
+
+      });
+
+    },
+    {
+      rootMargin:"-40% 0px -50% 0px"
+    }
+  );
+
+
+pageSections.forEach(section=>{
+
+  navObserver.observe(section);
+
+});
+
+
+/* =========================================================
+   SERVICE DATA
+   ========================================================= */
+
+const serviceData={
+
+  property:{
+    title:"Property & Real Estate",
+    text:
+      "COREVA Property focuses on property opportunities, real estate requirements, listings, investment-related requirements and practical direction for individuals and businesses."
+  },
+
+  digital:{
+    title:"Digital Solutions",
+    text:
+      "COREVA Digital focuses on websites, digital products, business systems, automation, technology and digital solutions designed for modern businesses."
+  },
+
+  finance:{
+    title:"Finance Solutions",
+    text:
+      "COREVA Finance focuses on financial service support and connecting customers and businesses with suitable solution pathways."
+  },
+
+  support:{
+    title:"Business Support",
+    text:
+      "COREVA Business Support helps entrepreneurs and businesses with practical requirements, coordination, professional assistance and business direction."
+  },
+
+  construction:{
+    title:"Construction & Interiors",
+    text:
+      "COREVA connects construction, development and interior requirements through specialist capabilities including TBD Builders & Developers and Aureliv Interiors."
+  },
+
+  growth:{
+    title:"Business Growth",
+    text:
+      "COREVA Business Growth focuses on digital presence, marketing, technology, strategy and practical support for businesses that want to grow."
+  }
+
+};
+
+
+/* =========================================================
+   SERVICE MODAL
+   ========================================================= */
+
+const serviceModal=$("#serviceModal");
+
+function openService(key){
+
+  const service=serviceData[key];
+
+  if(!service)
+    return;
+
+  $("#modalTitle").textContent=
+    service.title;
+
+  $("#modalText").textContent=
+    service.text;
+
+  serviceModal.classList.add("open");
+
+  document.body.classList.add("lock");
+
+}
+
+
+$$("[data-service]").forEach(card=>{
+
+  card.addEventListener("click",()=>{
+
+    openService(
+      card.dataset.service
+    );
+
+  });
+
+});
+
+
+function closeService(){
+
+  serviceModal.classList.remove("open");
+
+  document.body.classList.remove("lock");
+
+}
+
+
+$("#modalClose").addEventListener(
+  "click",
+  closeService
+);
+
+
+/* =========================================================
+   DISCUSS YOUR REQUIREMENT
+   IMPORTANT:
+   CLOSE MODAL + SCROLL TO CONTACT
+   ========================================================= */
+
+$("#modalRequirement")
+.addEventListener("click",event=>{
+
+  event.preventDefault();
+
+  closeService();
+
+  setTimeout(()=>{
+
+    $("#contact").scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+  },250);
+
+});
+
+
+/* =========================================================
+   MODAL OUTSIDE CLICK
+   ========================================================= */
+
+serviceModal.addEventListener(
+  "click",
+  event=>{
+
+    if(event.target===serviceModal){
+
+      closeService();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INQUIRY FORM
+   ========================================================= */
+
+const inquiryForm =
+  $("#inquiryForm");
+
+const choiceModal =
+  $("#choiceModal");
+
+let inquiryData=null;
+
+
+inquiryForm.addEventListener(
+  "submit",
+  event=>{
+
+    event.preventDefault();
+
+
+    const name =
+      $("#name").value.trim();
+
+    const phone =
+      $("#phone").value.trim();
+
+    const email =
+      $("#email").value.trim();
+
+    const requirement =
+      $("#requirement").value.trim();
+
+    const message =
+      $("#message").value.trim();
+
+
+    inquiryData={
+      name,
+      phone,
+      email,
+      requirement,
+      message
+    };
+
+
+    choiceModal.classList.add("open");
+
+    document.body.classList.add("lock");
+
+  }
+);
+
+
+/* =========================================================
+   BUILD MESSAGE
+   ========================================================= */
+
+function buildInquiryMessage(){
+
+  return `Hello COREVA,
+
+I would like to enquire about your services.
+
+Name: ${inquiryData.name}
+Phone: ${inquiryData.phone}
+Email: ${inquiryData.email}
+Requirement: ${inquiryData.requirement}
+
+Requirement Details:
+${inquiryData.message}
+
+Sent through the COREVA website.`;
+
+}
+
+
+/* =========================================================
+   WHATSAPP INQUIRY
+   ========================================================= */
+
+$("#whatsappInquiry")
+.addEventListener("click",()=>{
+
+  const message =
+    encodeURIComponent(
+      buildInquiryMessage()
+    );
+
+  const url =
+    "https://wa.me/918088590273?text="+
+    message;
+
+  window.open(
+    url,
+    "_blank",
+    "noopener"
+  );
+
+  closeChoice();
+
+});
+
+
+/* =========================================================
+   EMAIL INQUIRY
+   ========================================================= */
+
+$("#emailInquiry")
+.addEventListener("click",()=>{
+
+  const subject =
+    encodeURIComponent(
+      "COREVA Website Enquiry — "+
+      inquiryData.requirement
+    );
+
+  const body =
+    encodeURIComponent(
+      buildInquiryMessage()
+    );
+
+  const mailto =
+    "mailto:corevabusinessolutions@gmail.com"+
+    "?subject="+subject+
+    "&body="+body;
+
+  window.location.href=mailto;
+
+  closeChoice();
+
+});
+
+
+/* =========================================================
+   CLOSE CHOICE MODAL
+   ========================================================= */
+
+function closeChoice(){
+
+  choiceModal.classList.remove("open");
+
+  document.body.classList.remove("lock");
+
+}
+
+
+$("#choiceClose").addEventListener(
+  "click",
+  closeChoice
+);
+
+
+choiceModal.addEventListener(
+  "click",
+  event=>{
+
+    if(event.target===choiceModal){
+
+      closeChoice();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   ESCAPE KEY
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key==="Escape"){
+
+      closeService();
+      closeChoice();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   3D SERVICE CARD TILT
+   ========================================================= */
+
+if(
+  window.matchMedia("(pointer:fine)").matches
+){
+
+  $$(".service-card").forEach(card=>{
+
+    card.addEventListener(
+      "mousemove",
+      event=>{
+
+        const rect=
+          card.getBoundingClientRect();
+
+        const x=
+          event.clientX-rect.left;
+
+        const y=
+          event.clientY-rect.top;
+
+        const cx=
+          rect.width/2;
+
+        const cy=
+          rect.height/2;
+
+        const ry=
+          ((x-cx)/cx)*4;
+
+        const rx=
+          -((y-cy)/cy)*4;
+
+        card.style.transform=
+          `perspective(1000px)
+           rotateX(${rx}deg)
+           rotateY(${ry}deg)
+           translateY(-8px)`;
+
+      }
+    );
+
+
+    card.addEventListener(
+      "mouseleave",
+      ()=>{
+        card.style.transform="";
+      }
+    );
+
+  });
+
+
+  /* Ecosystem tilt */
+
+  $$(".eco-card").forEach(card=>{
+
+    card.addEventListener(
+      "mousemove",
+      event=>{
+
+        const rect=
+          card.getBoundingClientRect();
+
+        const x=
+          event.clientX-rect.left;
+
+        const y=
+          event.clientY-rect.top;
+
+        const cx=
+          rect.width/2;
+
+        const cy=
+          rect.height/2;
+
+        const ry=
+          ((x-cx)/cx)*3;
+
+        const rx=
+          -((y-cy)/cy)*3;
+
+        card.style.transform=
+          `perspective(1200px)
+           rotateX(${rx}deg)
+           rotateY(${ry}deg)
+           translateY(-8px)`;
+
+      }
+    );
+
+
+    card.addEventListener(
+      "mouseleave",
+      ()=>{
+        card.style.transform="";
+      }
+    );
+
+  });
+
+}
+
+
+/* =========================================================
+   HERO PARALLAX
+   ========================================================= */
+
+const heroBg=
+  document.querySelector(".hero-bg");
+
+if(
+  window.matchMedia("(pointer:fine)").matches
+){
+
+  window.addEventListener(
+    "scroll",
+    ()=>{
+
+      const y=window.scrollY;
+
+      if(y<window.innerHeight){
+
+        heroBg.style.transform=
+          `scale(1.08)
+           translateY(${y*.07}px)`;
+
+      }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MOUSE PARALLAX FOR ORBIT
+   ========================================================= */
+
+const orbit=
+  document.querySelector(".orbit");
+
+if(
+  orbit &&
+  window.matchMedia("(pointer:fine)").matches
+){
+
+  document.addEventListener(
+    "mousemove",
+    event=>{
+
+      const x=
+        (event.clientX/
+        window.innerWidth-.5)*10;
+
+      const y=
+        (event.clientY/
+        window.innerHeight-.5)*10;
+
+      orbit.style.transform=
+        `translateY(-50%)
+         translate(${x}px,${y}px)`;
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   SMOOTH INTERNAL LINKS
+   ========================================================= */
+
+$$('a[href^="#"]').forEach(link=>{
+
+  link.addEventListener(
+    "click",
+    event=>{
+
+      const targetId=
+        link.getAttribute("href");
+
+      if(
+        !targetId ||
+        targetId==="#"
+      )
+        return;
+
+      const target=
+        document.querySelector(targetId);
+
+      if(!target)
+        return;
+
+      event.preventDefault();
+
+      target.scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+
+    }
+  );
+
+});
+
+
+/* =========================================================
+   COUNTERS
+   ========================================================= */
+
+const counterObserver=
+  new IntersectionObserver(
+    entries=>{
+
+      entries.forEach(entry=>{
+
+        if(!entry.isIntersecting)
+          return;
+
+        const counter=
+          entry.target;
+
+        const target=
+          Number(counter.dataset.count);
+
+        const duration=1000;
+
+        const start=
+          performance.now();
+
+        function animate(time){
+
+          const progress=
+            Math.min(
+              (time-start)/duration,
+              1
+            );
+
+          counter.textContent=
+            Math.floor(
+              progress*target
+            );
+
+          if(progress<1){
+
+            requestAnimationFrame(
+              animate
+            );
+
+          }else{
+
+            counter.textContent=target;
+
+          }
+
+        }
+
+        requestAnimationFrame(
+          animate
+        );
+
+        counterObserver.unobserve(
+          counter
+        );
+
+      });
+
+    },
+    {
+      threshold:.6
+    }
+  );
+
+
+$$(".stat-number").forEach(counter=>{
+
+  counterObserver.observe(counter);
+
+});
+
+
+/* =========================================================
+   COREVA INTRO VIDEO
+   ========================================================= */
+
+const corevaIntroVideo =
+  document.querySelector("#corevaIntroVideo");
+
+const corevaVideoPlay =
+  document.querySelector("#corevaVideoPlay");
+
+if(corevaIntroVideo){
+
+  const updateCorevaPlayButton = ()=>{
+    if(!corevaVideoPlay) return;
+
+    if(corevaIntroVideo.paused){
+      corevaVideoPlay.classList.remove("is-hidden");
+      corevaVideoPlay.setAttribute("aria-label", "Play COREVA introduction video");
+    }else{
+      corevaVideoPlay.classList.add("is-hidden");
+      corevaVideoPlay.setAttribute("aria-label", "Pause COREVA introduction video");
+    }
+  };
+
+  const playCorevaVideo = ()=>{
+    // Sound is enabled only after the user's tap/click.
+    corevaIntroVideo.muted = false;
+
+    const playPromise =
+      corevaIntroVideo.play();
+
+    if(playPromise &&
+       typeof playPromise.catch === "function"){
+      playPromise.catch(()=>{});
+    }
+  };
+
+  corevaIntroVideo.addEventListener("click", ()=>{
+    if(corevaIntroVideo.paused){
+      playCorevaVideo();
+    }else{
+      corevaIntroVideo.pause();
+    }
+  });
+
+  if(corevaVideoPlay){
+    corevaVideoPlay.addEventListener("click", (event)=>{
+      event.stopPropagation();
+      playCorevaVideo();
+    });
+  }
+
+  corevaIntroVideo.addEventListener("play", updateCorevaPlayButton);
+  corevaIntroVideo.addEventListener("pause", updateCorevaPlayButton);
+  corevaIntroVideo.addEventListener("ended", updateCorevaPlayButton);
+
+  updateCorevaPlayButton();
+
+}
+
+
+
+/* =========================================================
+   COREVA WELCOME VOICE
+   Uses built-in browser speech synthesis; no API key or
+   external audio file is needed. Browsers may require a
+   visitor interaction before allowing speech.
+   ========================================================= */
+(function(){
+  const voiceButton = document.getElementById("corevaWelcomeVoice");
+  const voiceLabel = document.getElementById("corevaWelcomeVoiceLabel");
+  const voiceStatus = document.getElementById("corevaVoiceStatus");
+
+  if (!voiceButton || !("speechSynthesis" in window) ||
+      !("SpeechSynthesisUtterance" in window)) {
+    if (voiceButton) {
+      voiceButton.addEventListener("click", function(){
+        if (voiceStatus) {
+          voiceStatus.textContent =
+            "Welcome voice is not supported in this browser. Please enable browser audio or try a recent version of Chrome or Edge.";
+        }
+      });
+    }
+    return;
+  }
+
+  let greetingStarted = false;
+  let isSpeaking = false;
+
+  const greeting =
+    "Hi, and welcome to Coreva Business Solutions. Your plans, your growth — we're here to help you move forward. Explore our digital solutions, property opportunities, construction and interior services. Have a requirement? Contact us, and let's build something great together.";
+
+  function chooseEnglishVoice(){
+    const voices = window.speechSynthesis.getVoices();
+    return voices.find(v => /en-IN/i.test(v.lang)) ||
+           voices.find(v => /en-GB/i.test(v.lang)) ||
+           voices.find(v => /en-US/i.test(v.lang)) ||
+           voices.find(v => /^en/i.test(v.lang)) ||
+           null;
+  }
+
+  function speakWelcome(){
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      isSpeaking = false;
+    }
+
+    const utterance = new SpeechSynthesisUtterance(greeting);
+    const selectedVoice = chooseEnglishVoice();
+
+    if (selectedVoice) utterance.voice = selectedVoice;
+    utterance.lang = selectedVoice ? selectedVoice.lang : "en-IN";
+    utterance.rate = 0.94;
+    utterance.pitch = 1.0;
+    utterance.volume = 1;
+
+    utterance.onstart = function(){
+      isSpeaking = true;
+      voiceButton.setAttribute("aria-pressed", "true");
+      voiceLabel.textContent = "Speaking welcome…";
+      if (voiceStatus) voiceStatus.textContent = "COREVA welcome greeting is playing.";
+    };
+
+    utterance.onend = function(){
+      isSpeaking = false;
+      greetingStarted = true;
+      voiceButton.setAttribute("aria-pressed", "false");
+      voiceLabel.textContent = "Replay welcome";
+      if (voiceStatus) voiceStatus.textContent = "COREVA welcome greeting finished.";
+    };
+
+    utterance.onerror = function(){
+      isSpeaking = false;
+      voiceButton.setAttribute("aria-pressed", "false");
+      voiceLabel.textContent = "Hear welcome";
+      if (voiceStatus) {
+        voiceStatus.textContent =
+          "The welcome voice could not start. Press Hear welcome to try again.";
+      }
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  voiceButton.addEventListener("click", function(){
+    greetingStarted = true;
+    speakWelcome();
+  });
+
+  // Browsers commonly block audio until the visitor interacts.
+  // Start the greeting on the first interaction anywhere on the page,
+  // except when the visitor specifically presses the voice button.
+  function firstVisitorInteraction(event){
+    if (event && event.target && event.target.closest &&
+        event.target.closest("#corevaWelcomeVoice")) return;
+    if (greetingStarted) return;
+    greetingStarted = true;
+    speakWelcome();
+  }
+
+  document.addEventListener("pointerdown", firstVisitorInteraction, {
+    once: true,
+    passive: true
+  });
+  document.addEventListener("keydown", firstVisitorInteraction, {
+    once: true
+  });
+
+  // Load available voices early when the browser exposes them asynchronously.
+  window.speechSynthesis.getVoices();
+})();
+
 </script>
+
+
+<!-- COREVA WELCOME VOICE: click to replay; first visitor interaction may trigger the greeting -->
+<button
+  type="button"
+  class="coreva-welcome-voice"
+  id="corevaWelcomeVoice"
+  aria-label="Play COREVA welcome greeting"
+  aria-pressed="false"
+>
+  <span class="voice-icon" aria-hidden="true">♪</span>
+  <span id="corevaWelcomeVoiceLabel">Hear welcome</span>
+</button>
+<span class="coreva-voice-status" id="corevaVoiceStatus" role="status" aria-live="polite"></span>
+
 </body>
 </html>
